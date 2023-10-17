@@ -3,7 +3,6 @@ package com.VTI.Phongtro.DAO;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Utils.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
@@ -16,9 +15,18 @@ public class RenterDAO {
         }
     }
     public Renter getById(String id) {
-        try( Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Renter.class, id);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Renter renter = new Renter();
+        try {
+            renter = session.load(Renter.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
+        return renter;
     }
     public boolean saveRenter(Renter renter) {
         boolean result = false;

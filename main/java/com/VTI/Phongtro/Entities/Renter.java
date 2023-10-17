@@ -15,11 +15,11 @@ public class Renter {
     private String id;
     @Column(name = "ho_lot")
     private String ho_tenlot;
-    @Column(name = "ten", nullable = false)
+    @Column(name = "ten")
     private String ten;
     @Column(name = "nam_sinh")
     private Date nam_sinh;
-    @Column(name = "ngay_chuyen_vao", updatable = false)
+    @Column(name = "ngay_chuyen_vao")
     private Date ngay_chuyen_vao;
     @Column(name = "ngay_chuyen_di")
     private Date ngay_chuyen_di;
@@ -31,21 +31,7 @@ public class Renter {
     public Renter() {
 
     }
-    public Renter(String ho_tenlot, String ten, Date nam_sinh, Date ngay_chuyen_vao,Date ngay_chuyen_di, String soCCCD) {
-        this.ngay_chuyen_vao = ngay_chuyen_vao;
-        this.ho_tenlot = ho_tenlot;
-        this.soCCCD = soCCCD;
-        this.nam_sinh = nam_sinh;
-        this.ten = ten;
-        this.ngay_chuyen_di = ngay_chuyen_di;
-        this.conO = true;
-    }
-    public Renter(String ho_tenlot, String ten, Date nam_sinh, String soCCCD) {
-        this.ho_tenlot = ho_tenlot;
-        this.ten = ten;
-        this.soCCCD = soCCCD;
-        this.nam_sinh = nam_sinh;
-    }
+
     public Renter(String ho_tenlot, String ten, Date nam_sinh, Date ngay_chuyen_vao, String soCCCD) {
         this.ngay_chuyen_vao = ngay_chuyen_vao;
         this.ho_tenlot = ho_tenlot;
@@ -57,10 +43,6 @@ public class Renter {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getHo_tenlot() {
