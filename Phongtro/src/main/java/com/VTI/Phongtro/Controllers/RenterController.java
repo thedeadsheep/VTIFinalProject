@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/renter")
 public class RenterController {
@@ -29,6 +31,26 @@ public class RenterController {
             return new ResponseEntity<>("Something went wrong!", HttpStatus.NOT_FOUND);
         }
         return  new ResponseEntity<>(result,HttpStatus.OK);
+    }
+    @PostMapping("/addNewRenter")
+    public ResponseEntity addNewRenter(@RequestBody Renter renter){
+        /*
+            {
+                "ho_tenlot":"",
+                "ten":"",
+                "ngay_sinh", yyyy/MM/dd
+                "soCCCD":""
+            }
+
+        */
+        Date currentDate = new Date();
+        renter.setNgay_chuyen_vao(currentDate);
+        renter.setConO(true);
+        boolean result = renterServices.addRenter(renter);
+        if (!result){
+            return new ResponseEntity("",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("", HttpStatus.OK);
     }
     @PutMapping("/updateRenterProfile")
     public ResponseEntity updateRenterProfile(@RequestParam("id") String id, @RequestBody Renter renter){
