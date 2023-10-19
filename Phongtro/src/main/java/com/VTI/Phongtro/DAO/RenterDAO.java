@@ -2,6 +2,10 @@ package com.VTI.Phongtro.DAO;
 
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Utils.HibernateUtil;
+import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,6 +18,14 @@ public class RenterDAO {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Renter", Renter.class).list();
         }
+    }
+    public List<Renter> getAllRenterRelative(String id){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query query = session.createQuery("from Renter where link_with = :id");
+            query.setParameter("id", id);
+            return query.getResultList();
+        }
+
     }
     public Renter getById(String id) {
         try( Session session = HibernateUtil.getSessionFactory().openSession()) {

@@ -20,6 +20,11 @@ public class RenterController {
         String result = new Gson().toJson(renterServices.getAllRenter());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/getAllRenterRelatives")
+    public ResponseEntity<String> GetAllRenterRelatives(@RequestParam("id") String id) {
+        String result = new Gson().toJson(renterServices.getAllRenterRelative(id));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
     @GetMapping("/getRenterById")
     public  ResponseEntity<String> getRenterById(@RequestParam("id") String id){
         System.out.println(id);
@@ -46,6 +51,24 @@ public class RenterController {
         Date currentDate = new Date();
         renter.setNgay_chuyen_vao(currentDate);
         renter.setConO(true);
+        boolean result = renterServices.addRenter(renter);
+        if (!result){
+            return new ResponseEntity("",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("", HttpStatus.OK);
+    }
+    @PostMapping("/addNewRenterRelative")
+    public ResponseEntity addNewRenterRelative(@RequestParam("id") String id, @RequestBody Renter renter){
+        /* id is id of relatived
+            {
+                "ho_tenlot":"", "ten":"", "ngay_sinh", yyyy/MM/dd
+                "soCCCD":"", "quanhe":""
+            }
+        */
+        Date currentDate = new Date();
+        renter.setNgay_chuyen_vao(currentDate);
+        renter.setConO(true);
+        renter.setLink_with(id);
         boolean result = renterServices.addRenter(renter);
         if (!result){
             return new ResponseEntity("",HttpStatus.BAD_REQUEST);

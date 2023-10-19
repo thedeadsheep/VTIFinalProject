@@ -14,6 +14,7 @@ public class RenterServices {
         return renterDAO.getAllRenter();
     }
 
+    public List<Renter> getAllRenterRelative(String id){return renterDAO.getAllRenterRelative(id);}
     public boolean addRenter(Renter renter) {
         boolean result = false;
         try {

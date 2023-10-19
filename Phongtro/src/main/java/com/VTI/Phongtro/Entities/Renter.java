@@ -27,17 +27,25 @@ public class Renter {
     private String soCCCD;
     @Column(name = "con_o")
     private boolean conO;
-
+    @Column(name = "ten_qh")
+    private String quanhe;
+    @Column(name = "link_with")
+    private String link_with;
     public Renter() {
 
     }
-    public Renter(String ho_tenlot, String ten, Date nam_sinh, Date ngay_chuyen_vao,Date ngay_chuyen_di, String soCCCD) {
+    public Renter(
+            String ho_tenlot, String ten,
+            Date nam_sinh, Date ngay_chuyen_vao,Date ngay_chuyen_di,
+            String soCCCD, String link_with, String quanhe) {
         this.ngay_chuyen_vao = ngay_chuyen_vao;
         this.ho_tenlot = ho_tenlot;
         this.soCCCD = soCCCD;
         this.nam_sinh = nam_sinh;
         this.ten = ten;
         this.ngay_chuyen_di = ngay_chuyen_di;
+        this.link_with= link_with;
+        this.quanhe = quanhe;
         this.conO = true;
     }
     public Renter(String ho_tenlot, String ten, Date nam_sinh, String soCCCD) {
@@ -117,6 +125,22 @@ public class Renter {
 
     public void setSoCCCD(String soCCCD) {
         this.soCCCD = soCCCD;
+    }
+
+    public String getLink_with() {
+        return link_with;
+    }
+
+    public void setLink_with(String link_with) {
+        this.link_with = link_with;
+    }
+
+    public String getQuanhe() {
+        return quanhe;
+    }
+
+    public void setQuanhe(String quanhe) {
+        this.quanhe = quanhe;
     }
 
     @Override

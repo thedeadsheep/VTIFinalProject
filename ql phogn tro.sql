@@ -2,9 +2,9 @@
  drop table hoa_don;
 	drop table phong;
     
-    drop table khach_rs;
+     drop table giay_to;
     drop table khach;
-    drop table giay_to;
+   
    
     drop table dich_vu;
 */
@@ -17,7 +17,10 @@ create table khach (
     ngay_chuyen_vao date,
     ngay_chuyen_di date,
     so_CCCD varchar(11),
-    con_o boolean
+    con_o boolean,
+    ten_ql varchar(32),
+    link_with varchar(255),
+    constraint FK_khach_khach foreign key (link_with) references khach(kh_id)
 );
 
 create table phong (
@@ -29,14 +32,7 @@ create table phong (
     constraint FK_phong_khach foreign key (ma_kh) references khach(kh_id)
 );
 
-create table khach_rs(
-	khach_id varchar(255),
-    ho_lot nvarchar(128),
-    ten nvarchar(64),
-    quanhe smallint,
-    da_xac_nhan boolean,
-    constraint FK_khach_khach_rs foreign key (khach_id) references khach(kh_id)
-);
+
 create table giay_to(
 	ma_gt varchar(255) primary key,
     ma_kh varchar(255),

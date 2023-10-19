@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "c1fc027f-4c8a-412d-9048-307c088b04b4",
+		"name": "Have Room for Rent",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29822575"
+	},
+	"item": [
+		{
+			"name": "getAllRenter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/renter/getAllRenter"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRenterRelatives",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/renter/getAllRenterRelatives?id=f8643f95-4892-45df-8266-288bbad1b2cd",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"renter",
+						"getAllRenterRelatives"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "f8643f95-4892-45df-8266-288bbad1b2cd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addDemoRenter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/demo/demoRenter"
+			},
+			"response": []
+		},
+		{
+			"name": "getRenterById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/renter/getRenterById?id=bc04caec-0b3e-4f10-b573-b354428222a9",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"renter",
+						"getRenterById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "bc04caec-0b3e-4f10-b573-b354428222a9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProfile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ho_tenlot\": \"Lâm Chấn\",\r\n    \"ten\": \"Khang\",\r\n    \"nam_sinh\": \"2000-03-17\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/renter/updateRenterProfile?id=41b959c8-788d-4703-baba-1fd2bec597ed",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"renter",
+						"updateRenterProfile"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "41b959c8-788d-4703-baba-1fd2bec597ed"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStatusRenter",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/renter/updateRenterStatus?id=41b959c8-788d-4703-baba-1fd2bec597ed",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"renter",
+						"updateRenterStatus"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "41b959c8-788d-4703-baba-1fd2bec597ed"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNewRenter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ho_tenlot\": \"Nguyễn Thị\",\r\n    \"ten\": \"Thục Uyên\",\r\n    \"ngay_sinh\": \"2003-07-27\",\r\n    \"soCCCD\": \"2711629873\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/renter/addNewRenter"
+			},
+			"response": []
+		},
+		{
+			"name": "addNewRenterRelative",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ho_tenlot\": \"Tran Minh\",\r\n    \"ten\": \"Long\",\r\n    \"ngay_sinh\": \"2000/03/15\",\r\n    \"soCCCD\": \"23717662947\",\r\n    \"quanhe\": \"Anh Trai\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/renter/addNewRenterRelative?id=f8643f95-4892-45df-8266-288bbad1b2cd",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"renter",
+						"addNewRenterRelative"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "f8643f95-4892-45df-8266-288bbad1b2cd"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
