@@ -17,49 +17,58 @@ public class Renter {
     private String ho_tenlot;
     @Column(name = "ten", nullable = false)
     private String ten;
-    @Column(name = "nam_sinh")
-    private Date nam_sinh;
+    @Column(name = "ngay_sinh")
+    private Date ngay_sinh;
+
+    @Column(name = "que_quan")
+    private String queQuan;
+    @Column(name = "dia_chi_TT")
+    private String diaChiThuongTru;
+    @Column(name = "so_CCCD")
+    private String soCCCD;
     @Column(name = "ngay_chuyen_vao", updatable = false)
     private Date ngay_chuyen_vao;
     @Column(name = "ngay_chuyen_di")
     private Date ngay_chuyen_di;
-    @Column(name = "so_CCCD")
-    private String soCCCD;
+
     @Column(name = "con_o")
     private boolean conO;
     @Column(name = "ten_qh")
     private String quanhe;
     @Column(name = "link_with")
     private String link_with;
+
     public Renter() {
 
     }
     public Renter(
             String ho_tenlot, String ten,
-            Date nam_sinh, Date ngay_chuyen_vao,Date ngay_chuyen_di,
-            String soCCCD, String link_with, String quanhe) {
+            Date ngay_sinh, Date ngay_chuyen_vao,Date ngay_chuyen_di,
+            String soCCCD, String link_with, String quanhe,
+            String diaChiThuongTru, String queQuan) {
         this.ngay_chuyen_vao = ngay_chuyen_vao;
         this.ho_tenlot = ho_tenlot;
         this.soCCCD = soCCCD;
-        this.nam_sinh = nam_sinh;
+        this.ngay_sinh = ngay_sinh;
         this.ten = ten;
         this.ngay_chuyen_di = ngay_chuyen_di;
         this.link_with= link_with;
+        this.queQuan = queQuan;
+        this.diaChiThuongTru = diaChiThuongTru;
         this.quanhe = quanhe;
         this.conO = true;
     }
-    public Renter(String ho_tenlot, String ten, Date nam_sinh, String soCCCD) {
-        this.ho_tenlot = ho_tenlot;
-        this.ten = ten;
-        this.soCCCD = soCCCD;
-        this.nam_sinh = nam_sinh;
-    }
-    public Renter(String ho_tenlot, String ten, Date nam_sinh, Date ngay_chuyen_vao, String soCCCD) {
+    public Renter(
+            String ho_tenlot, String ten,
+            Date ngay_sinh, Date ngay_chuyen_vao, String soCCCD,
+            String diaChiThuongTru, String queQuan) {
         this.ngay_chuyen_vao = ngay_chuyen_vao;
         this.ho_tenlot = ho_tenlot;
         this.soCCCD = soCCCD;
-        this.nam_sinh = nam_sinh;
+        this.ngay_sinh = ngay_sinh;
         this.ten = ten;
+        this.queQuan = queQuan;
+        this.diaChiThuongTru = diaChiThuongTru;
         this.conO = true;
     }
 
@@ -111,12 +120,12 @@ public class Renter {
         this.ngay_chuyen_vao = ngay_chuyen_vao;
     }
 
-    public Date getNam_sinh() {
-        return nam_sinh;
+    public Date getNgay_sinh() {
+        return ngay_sinh;
     }
 
-    public void setNam_sinh(Date nam_sinh) {
-        this.nam_sinh = nam_sinh;
+    public void setNgay_sinh(Date ngay_sinh) {
+        this.ngay_sinh = ngay_sinh;
     }
 
     public String getSoCCCD() {
@@ -143,8 +152,24 @@ public class Renter {
         this.quanhe = quanhe;
     }
 
+    public void setDiaChiThuongTru(String diaChiThuongTru) {
+        this.diaChiThuongTru = diaChiThuongTru;
+    }
+
+    public String getDiaChiThuongTru() {
+        return diaChiThuongTru;
+    }
+
+    public void setQueQuan(String queQuan) {
+        this.queQuan = queQuan;
+    }
+
+    public String getQueQuan() {
+        return queQuan;
+    }
+
     @Override
     public String toString() {
-        return "KhachHang-HoTen" + ho_tenlot + " " + ten + " - ngay thang nam sinh " + nam_sinh.toString() + " - soCCCD " + soCCCD;
+        return "KhachHang-HoTen" + ho_tenlot + " " + ten + " - ngay thang nam sinh " + ngay_sinh.toString() + " - soCCCD " + soCCCD;
     }
 }

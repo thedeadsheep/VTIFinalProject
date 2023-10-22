@@ -1,46 +1,88 @@
 import { useState } from "react"
+import DatePicker, { DateObject } from "react-multi-date-picker"
 
-function RenterListComponent() {
 
-    const [isSearchDate, setIsSearchDate] = useState(false)
+const format = "YYYY/MM/DD"
 
-    function getRenterList() {
-        //getAllList
+function RenterListComponent(props) {
+    console.log("props", props)
+    let renters = props.renters || []
+    const [textSearchValue, setTextSearchValue] = useState("")
+    const [searchMode, setSearchMode] = useState(2)
+    const [dateValue, setDateValue] = useState([
+        new DateObject().subtract(2, "days"),
+        new DateObject().add(2, "days")
+    ])
+
+
+
+    function searchRenter() { //filter trực tiếp từ RenterList
+        if (searchMode == 2) {
+            console.log(getDatevalue())
+            return
+        } else {
+            console.log(textSearchValue)
+        }
+
     }
-    function searchRenter() {
-
+    function onSearchModeHandler(e) {
+        console.log(searchMode)
+        setSearchMode(e.target.value)
     }
-
+    function getDatevalue() {
+        return {
+            form: dateValue[0].format(),
+            to: dateValue[1].format()
+        }
+    }
 
     return (
-        <>
-            RenterList
+        <div>
+
+            <h2>
+                {props.title}
+            </h2>
+            <button onClick={() => console.log("renter list:", renters)}>
+                chawks
+            </button>
             <div className="filter">
-                <form>
-                    <input type="text" />
-                    <input type="date" />
+                <div>
+                    {searchMode == 1 || searchMode == 0 ?
 
-                    <select>
-                        <option selected>
-                            name
+                        <input type="text"
+                            id="name-soCCCD"
+                            placeholder={searchMode == 0 ? "Nhap ten" : "Nhap so CCCD"}
+                            onChange={(e) => setTextSearchValue(e.target.value)}
+                        />
+                        :
+                        <DatePicker
+                            range
+                            value={dateValue}
+                            onChange={setDateValue}
+                            format={format}
+                        />
+                    }
+                    <select onChange={onSearchModeHandler} defaultValue={searchMode} >
+                        <option value={0}>
+                            Ten
                         </option>
-
-                        <option>
-                            id card
+                        <option value={1}>
+                            soCCCD
                         </option>
-                        <option>
-                            date in
-                        </option>
-                        <option>
-                            date out
+                        <option value={2}>
+                            Ngay dang ki
                         </option>
                     </select>
-                </form>
+
+                    <button onClick={searchRenter}>
+                        Submit
+                    </button>
+                </div>
             </div>
             <div className="list-wrap" >
                 {"<!-- field con o sẽ được đánh dấu bằng màu-->"}
                 <table width={"100%"}>
-                    <thead className="item">
+                    <thead className="table-head">
                         <tr>
                             <th className="id">
                                 id
@@ -57,18 +99,49 @@ function RenterListComponent() {
                             <th className="ngay-chuyen-di">
                                 ngay chuyen di
                             </th>
+                            <th className="que-quan">
+                                que quan
+                            </th>
                             <th className="soCCCD">
                                 soCCCD
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="table-content">
+                        {renters.map(renter => (
+                            <tr key={renter.id}>
+                                <td>
+                                    {renter.id}
+                                </td>
+                                <td>
+                                    {renter.ho_tenlot}
+                                </td>
+                                <td>
+                                    {renter.ten}
+                                </td>
+                                <td>
+                                    {renter.ngay_chuyen_vao}
+                                </td>
+                                <td>
+                                    {renter.ngay_chuyen_di}
+                                </td>
+                                <td>
+                                    {renter.queQuan}
+                                </td>
+                                <td>
+                                    {renter.soCCCD}
+                                </td>
+                                <td>
 
+                                </td>
+                            </tr>
+
+                        ))}
                     </tbody>
                 </table>
 
             </div>
-        </>
+        </div>
     )
 }
 

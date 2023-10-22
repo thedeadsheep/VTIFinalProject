@@ -33,7 +33,7 @@ public class Demo {
         Date inDate = df.parse("2000/03/15");
         Date now = new Date();
         Renter renter = new Renter(
-                "Tran Quoc", "Viet", inDate, now, "352538853"
+                "Tran Quoc", "Viet", inDate, now, "352538853","Long Xuyen-AnGiang", "AnGiang"
         );
         boolean addResult = renterServices.addRenter(renter);
         return new ResponseEntity<>(result, HttpStatus.OK);

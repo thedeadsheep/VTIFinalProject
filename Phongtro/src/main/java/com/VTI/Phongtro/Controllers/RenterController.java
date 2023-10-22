@@ -1,5 +1,6 @@
 package com.VTI.Phongtro.Controllers;
 
+import com.VTI.Phongtro.DTO.RenterDTO;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Services.RenterServices;
 import com.google.gson.Gson;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Date;
 
 @RestController
@@ -15,7 +17,7 @@ public class RenterController {
 
     private final RenterServices renterServices = new RenterServices();
 
-    @GetMapping("/getAllRenter")
+    @GetMapping("/getAllRenters")
     public ResponseEntity<String> GetAllRenter() {
         String result = new Gson().toJson(renterServices.getAllRenter());
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -38,16 +40,20 @@ public class RenterController {
         return  new ResponseEntity<>(result,HttpStatus.OK);
     }
     @PostMapping("/addNewRenter")
-    public ResponseEntity addNewRenter(@RequestBody Renter renter){
+    public ResponseEntity addNewRenter(@RequestBody RenterDTO renterDTO) throws ParseException {
         /*
-            {
-                "ho_tenlot":"",
-                "ten":"",
-                "ngay_sinh", yyyy/MM/dd
-                "soCCCD":""
+           {
+                "ho_tenlot": "Nguyễn",
+                "ten": "Thi",
+                "ngay_sinh": "2000-01-01",
+                "soCCCD": "0123456789",
+                "dia_chi_TT": "HaNoi",
+                "que_quan":"HaNoi"
             }
 
         */
+
+        Renter renter = renterDTO.toRenter();
         Date currentDate = new Date();
         renter.setNgay_chuyen_vao(currentDate);
         renter.setConO(true);
@@ -58,14 +64,20 @@ public class RenterController {
         return new ResponseEntity("", HttpStatus.OK);
     }
     @PostMapping("/addNewRenterRelative")
-    public ResponseEntity addNewRenterRelative(@RequestParam("id") String id, @RequestBody Renter renter){
+    public ResponseEntity addNewRenterRelative(@RequestParam("id") String id, @RequestBody RenterDTO renterDTO) throws ParseException {
         /* id is id of relatived
             {
-                "ho_tenlot":"", "ten":"", "ngay_sinh", yyyy/MM/dd
-                "soCCCD":"", "quanhe":""
+                "ho_tenlot": "Nguyễn",
+                "ten": "Thi",
+                "ngay_sinh": "2000-01-01",
+                "soCCCD": "0123456789",
+                "dia_chi_TT": "HaNoi",
+                "que_quan":"HaNoi",
+                "quanhe":"Nguoi nha"
             }
         */
         Date currentDate = new Date();
+        Renter renter = renterDTO.toRenter();
         renter.setNgay_chuyen_vao(currentDate);
         renter.setConO(true);
         renter.setLink_with(id);

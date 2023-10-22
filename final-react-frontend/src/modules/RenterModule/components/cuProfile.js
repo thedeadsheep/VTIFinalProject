@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ErrorMessage } from '@hookform/error-message';
-function CUProfileComponent(props) {
+function CreateAndUpdateProfileComponent(props) {
 
     const state = props.state
 
-    const [formValue, setFormValue] = useState();
+    const [formValue, setFormValue] = useState(props.value);
 
     const {
         register,
@@ -26,6 +26,7 @@ function CUProfileComponent(props) {
     }
     function formInputHandler(data) {
         setFormValue(data)
+        console.log(data)
         if (state === "update") {
             updateProfile(data);
         }
@@ -37,10 +38,9 @@ function CUProfileComponent(props) {
     return (
         <>
             <h1>
-                profile
+                {state.MODE + " profile"}
             </h1>
             <form onSubmit={handleSubmit((data) =>
-
                 formInputHandler(data)
             )}
                 style={formStyle}>
@@ -54,9 +54,19 @@ function CUProfileComponent(props) {
                     <ErrorMessage errors={errors} name="ten" />
                 </label>
                 <label>
-                    Nam Sinh
+                    ngay Sinh
                     <input {...register('ngay_sinh', { required: true, valueAsDate: true })} type='date' />
                     {errors.ngay_sinh && <p>Chả lẻ bạn từ trên trời rơi xuống</p>}
+                </label>
+                <label>
+                    Dia Chi
+                    <input {...register('dia_chi_TT', { required: true })} type='text' />
+                    {errors.dia_chi_TT && <p>Chả lẻ bạn từ trên trời rơi xuống</p>}
+                </label>
+                <label>
+                    Que quan
+                    <input {...register('que_quan', { required: true })} type='text' />
+                    {errors.que_quan && <p>Chả lẻ bạn từ trên trời rơi xuống</p>}
                 </label>
                 <label>
                     So Can cuoc cong dan/ chung minh nhan dan
@@ -70,6 +80,10 @@ function CUProfileComponent(props) {
                     })} />
                     {errors.soCCCD && <p>{errors.soCCCD.message}</p>}
                 </label>
+                {state.LINK_WITH ? <div hidden>
+                    <input {...register('link_with')} value={state.LINK_WITH} />
+                </div> : <></>}
+
                 <input type="submit" disabled={!isDirty || !isValid} />
             </form>
             <button onClick={() => console.log(errors)} >
@@ -79,4 +93,4 @@ function CUProfileComponent(props) {
 
     )
 }
-export default CUProfileComponent
+export default CreateAndUpdateProfileComponent
