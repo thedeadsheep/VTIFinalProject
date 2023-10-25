@@ -170,6 +170,6 @@ public class Renter {
 
     @Override
     public String toString() {
-        return "KhachHang-HoTen" + ho_tenlot + " " + ten + " - ngay thang nam sinh " + ngay_sinh.toString() + " - soCCCD " + soCCCD;
+        return "KhachHang-HoTen" + ho_tenlot + " " + ten + " - soCCCD " + soCCCD;
     }
 }

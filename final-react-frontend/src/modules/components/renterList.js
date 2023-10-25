@@ -1,6 +1,6 @@
 import { useState } from "react"
 import DatePicker, { DateObject } from "react-multi-date-picker"
-
+import { useNavigate } from "react-router-dom"
 
 const format = "YYYY/MM/DD"
 
@@ -13,7 +13,7 @@ function RenterListComponent(props) {
         new DateObject().subtract(2, "days"),
         new DateObject().add(2, "days")
     ])
-
+    const navigate = useNavigate();
 
 
     function searchRenter() { //filter trực tiếp từ RenterList
@@ -35,16 +35,13 @@ function RenterListComponent(props) {
             to: dateValue[1].format()
         }
     }
-
     return (
         <div>
 
             <h2>
                 {props.title}
             </h2>
-            <button onClick={() => console.log("renter list:", renters)}>
-                chawks
-            </button>
+
             <div className="filter">
                 <div>
                     {searchMode == 1 || searchMode == 0 ?
@@ -109,7 +106,7 @@ function RenterListComponent(props) {
                     </thead>
                     <tbody className="table-content">
                         {renters.map(renter => (
-                            <tr key={renter.id}>
+                            <tr key={renter.id} onClick={() => navigate(`/renter/${renter.id}`)}>
                                 <td>
                                     {renter.id}
                                 </td>

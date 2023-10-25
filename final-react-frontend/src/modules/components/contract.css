@@ -1,0 +1,34 @@
+.A4-size{
+    width:794px ;
+    height: 1123px;
+    padding: 35px;
+    font-size: 13px;
+}
+p{
+    margin: 2px 0 7px 0
+}
+.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.contract.contract-input{
+    border: none;
+    border-bottom: dotted 0.4px;
+    width: 150px;
+}
+.contract.contract-input:focus{
+    outline: none;
+}
+.contract.contract-input.address{
+    width: 100%;
+}
+li{
+    text-align: justify;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 150px;
+}

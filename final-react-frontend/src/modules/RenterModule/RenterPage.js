@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import CreateAndUpdateProfileComponent from "./components/cuProfile"
-import RenterListComponent from "./components/renterList"
+import CreateAndUpdateProfileComponent from "../components/cuProfile"
+import RenterListComponent from "../components/renterList"
 import { getAllRenters } from "../Services/Renter.Services"
 
 function RenterPage() {
@@ -18,13 +18,12 @@ function RenterPage() {
 
     }, [renters])
     async function getRenters() {
-        getAllRenters().then((data) => {
+        await getAllRenters().then((data) => {
             console.log(data)
             setRenters(data)
         })
-
-
     }
+
     return (
         <>
             <h1>
@@ -32,8 +31,15 @@ function RenterPage() {
 
             </h1>
 
-            {isLoadList ? <RenterListComponent title="Dach Sach Nguoi thue phong" renters={renters} />
-                : <><h1>Khong co khach hang nao ca</h1></>}
+            <div className="function">
+                <button className="btn add-renter-btn">
+                    them khach tro
+                </button>
+            </div>
+            <div className="renter-list">
+                <RenterListComponent title="Dach Sach Nguoi thue phong" renters={renters} />
+            </div>
+
 
         </>
     )

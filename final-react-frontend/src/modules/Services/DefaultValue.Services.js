@@ -1,0 +1,9 @@
+
+function getDefaultValueForContract() {
+    
+}
+
+
+export {
+    getDefaultValueForContract
+}

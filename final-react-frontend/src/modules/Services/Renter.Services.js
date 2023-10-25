@@ -13,8 +13,34 @@ async function getAllRenters() {
     })
     return response.json()
 }
+async function getRenterById(id) {
+    const url = WEB_API + `getRenterById?id=${id}`
 
+    let response = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+    return response.json()
+}
+async function getAllRenterRelatives(id) {
+    const url = WEB_API + `getAllRenterRelatives?id=${id}`
 
+    let response = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+    return response.json()
+}
 export {
-    getAllRenters
+    getAllRenters,
+    getRenterById,
+    getAllRenterRelatives
 }
