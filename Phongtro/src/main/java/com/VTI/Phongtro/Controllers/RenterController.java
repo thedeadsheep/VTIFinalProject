@@ -59,9 +59,9 @@ public class RenterController {
         renter.setConO(true);
         boolean result = renterServices.addRenter(renter);
         if (!result){
-            return new ResponseEntity("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("", HttpStatus.OK);
+        return new ResponseEntity("new Renter was added", HttpStatus.OK);
     }
     @PostMapping("/addNewRenterRelative")
     public ResponseEntity addNewRenterRelative(@RequestParam("id") String id, @RequestBody RenterDTO renterDTO) throws ParseException {
@@ -85,7 +85,7 @@ public class RenterController {
         if (!result){
             return new ResponseEntity("",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("", HttpStatus.OK);
+        return new ResponseEntity("new Renter was added", HttpStatus.OK);
     }
     @PutMapping("/updateRenterProfile")
     public ResponseEntity updateRenterProfile(@RequestParam("id") String id, @RequestBody Renter renter){

@@ -17,13 +17,12 @@ function RenterListComponent(props) {
 
 
     function searchRenter() { //filter trực tiếp từ RenterList
-        if (searchMode == 2) {
+        if (searchMode === "2") {
             console.log(getDatevalue())
             return
         } else {
             console.log(textSearchValue)
         }
-
     }
     function onSearchModeHandler(e) {
         console.log(searchMode)
@@ -35,20 +34,44 @@ function RenterListComponent(props) {
             to: dateValue[1].format()
         }
     }
+    function stringDateConvert(date) {
+        if (!date) {
+            return ""
+        }
+        const dt = new Date(date),
+            dateValue = {
+                day: dt.getDay() < "10" ? "0" + dt.getDay() : dt.getDay(),
+                month: dt.getMonth() < "10" ? "0" + dt.getMonth() : dt.getMonth(),
+                year: dt.getFullYear()
+            },
+            timeValue = {
+                hour: dt.getHours(),
+                minute: dt.getMinutes(),
+                second: dt.getSeconds()
+            }
+        return `${dateValue.month}-${dateValue.day}-${dateValue.year} ${timeValue.hour}:${timeValue.minute}:${timeValue.second}`
+    }
+    if (renters.length <= 0) {
+        return (
+            <div>
+                Hiện không có {props.title}
+            </div>
+        )
+    }
     return (
         <div>
 
-            <h2>
+            <h2 onClick={() => console.log(typeof searchMode)}>
                 {props.title}
+
             </h2>
 
             <div className="filter">
                 <div>
-                    {searchMode == 1 || searchMode == 0 ?
-
+                    {searchMode === "1" || searchMode === "0" ?
                         <input type="text"
                             id="name-soCCCD"
-                            placeholder={searchMode == 0 ? "Nhap ten" : "Nhap so CCCD"}
+                            placeholder={searchMode === "0" ? "Nhap ten" : "Nhap so CCCD"}
                             onChange={(e) => setTextSearchValue(e.target.value)}
                         />
                         :
@@ -79,34 +102,36 @@ function RenterListComponent(props) {
             <div className="list-wrap" >
                 {"<!-- field con o sẽ được đánh dấu bằng màu-->"}
                 <table width={"100%"}>
-                    <thead className="table-head">
+                    <tbody className="table-content">
                         <tr>
                             <th className="id">
-                                id
+                                ID
                             </th>
                             <th className="ho-tenlot">
-                                Ho_tenLot
+                                Họ và tên lót
                             </th>
                             <th className="ten">
-                                Ten
+                                Tên
                             </th>
                             <th className="ngay-chuyen vao">
-                                ngay chuyen vao
+                                Ngày chuyển vào
                             </th>
                             <th className="ngay-chuyen-di">
-                                ngay chuyen di
+                                Ngày chuyển đi
                             </th>
                             <th className="que-quan">
-                                que quan
+                                Quê Quán
                             </th>
                             <th className="soCCCD">
-                                soCCCD
+                                Số CCCD/CMND
                             </th>
                         </tr>
-                    </thead>
-                    <tbody className="table-content">
                         {renters.map(renter => (
-                            <tr key={renter.id} onClick={() => navigate(`/renter/${renter.id}`)}>
+                            <tr
+                                key={renter.id}
+                                onClick={() => navigate(`/renter/${renter.id}`)}
+                                className={renter.conO ? "con-o" : "chuyen-di"}
+                            >
                                 <td>
                                     {renter.id}
                                 </td>
@@ -117,10 +142,10 @@ function RenterListComponent(props) {
                                     {renter.ten}
                                 </td>
                                 <td>
-                                    {renter.ngay_chuyen_vao}
+                                    {stringDateConvert(renter.ngay_chuyen_vao)}
                                 </td>
                                 <td>
-                                    {renter.ngay_chuyen_di}
+                                    {stringDateConvert(renter.ngay_chuyen_di)}
                                 </td>
                                 <td>
                                     {renter.queQuan}
@@ -128,9 +153,7 @@ function RenterListComponent(props) {
                                 <td>
                                     {renter.soCCCD}
                                 </td>
-                                <td>
 
-                                </td>
                             </tr>
 
                         ))}

@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import { addNewRenter, addNewRelative } from '../Services/Renter.Services';
 import { ErrorMessage } from '@hookform/error-message';
 import CONTRACT from './contract';
+import { useNavigate } from 'react-router';
 function CreateAndUpdateProfileComponent(props) {
 
     const state = props.state
-
+    const navigate = useNavigate()
     const [formValue, setFormValue] = useState(props.value);
-    const { isPrintContract, setPrintContract } = useState(false)
+    const [isContract, setIsContract] = useState(false)
     const {
         register,
         handleSubmit,
@@ -22,8 +23,30 @@ function CreateAndUpdateProfileComponent(props) {
     function updateProfile(data) {
         console.log("update", data)
     }
-    function createProfile(data) {
-        console.log("create", data)
+    async function createProfile(data) {
+        let response
+        if (state.LINK_WITH) {
+            await addNewRelative(state.LINK_WITH, data).then((res) => {
+                console.log("add relative", res)
+                response = res
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else {
+            await addNewRenter(data).then((res) => {
+                console.log(res)
+                response = res
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
+        if (response.status === 200) {
+            console.log("done")
+            navigate("/renter")
+        } else {
+            console.log("notDone")
+        }
     }
     function formInputHandler(data) {
         setFormValue(data)
@@ -32,16 +55,25 @@ function CreateAndUpdateProfileComponent(props) {
             updateProfile(data);
         }
         if (state.MODE === "create") {
+
             createProfile(data)
         }
+
+    }
+    function onChangeContractHandler(e) {
+        setIsContract(e.target.checked)
 
     }
     return (
         <>
             <h1>
-                {state.MODE + " profile"}    <button onClick={() => console.log(errors)} >
+                {state.MODE + " profile"}
+                <button onClick={() => console.log(errors)} >
                     check
                 </button>
+                <div>
+                    Tạo hợp đồng <input type='checkbox' defaultValue={false} onChange={onChangeContractHandler} />
+                </div>
             </h1>
             <div className='form-input'>
                 <form onSubmit={handleSubmit((data) =>
@@ -64,12 +96,12 @@ function CreateAndUpdateProfileComponent(props) {
                     </label>
                     <label>
                         Dia Chi
-                        <input {...register('dia_chi_TT', { required: true })} type='text' />
+                        <input {...register('diaChiThuongTru', { required: true })} type='text' />
                         {errors.dia_chi_TT && <p>Chả lẻ bạn từ trên trời rơi xuống</p>}
                     </label>
                     <label>
                         Que quan
-                        <input {...register('que_quan', { required: true })} type='text' />
+                        <input {...register('queQuan', { required: true })} type='text' />
                         {errors.que_quan && <p>Chả lẻ bạn từ trên trời rơi xuống</p>}
                     </label>
                     <label>
@@ -92,8 +124,7 @@ function CreateAndUpdateProfileComponent(props) {
                 </form>
             </div>
             <div className='contract-render'>
-
-                {state.CONTRACT ?
+                {isContract ?
                     <div>
                         <CONTRACT renterValue={formValue} />
                     </div> : <></>}

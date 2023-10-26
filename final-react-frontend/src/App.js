@@ -12,6 +12,7 @@ function App() {
           <Route path='/renter' element={<RenterPage />} />
           <Route path='/renter/addRenter' element={<AddRenterPage />} />
           <Route path='renter/:id' element={<ProfileDetailPage />} />
+          <Route path='renter/:id/addrelative' element={<AddRenterPage />} />
 
 
         </Routes>

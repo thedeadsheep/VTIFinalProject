@@ -1,11 +1,11 @@
 .A4-size{
     width:794px ;
     height: 1123px;
-    padding: 35px;
+    padding: 30px;
     font-size: 13px;
 }
-p{
-    margin: 2px 0 7px 0
+p.contract{
+    margin: 1px 0 5px 0
 }
 .header{
     display: flex;
@@ -17,14 +17,16 @@ p{
     border: none;
     border-bottom: dotted 0.4px;
     width: 150px;
-}
+    border-radius: 0;
+    height: 25px !important;
+}   
 .contract.contract-input:focus{
     outline: none;
 }
 .contract.contract-input.address{
     width: 100%;
 }
-li{
+li.contract{
     text-align: justify;
 }
 .footer{

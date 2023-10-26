@@ -6,8 +6,51 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button{
+  min-height: 35px;
+  border-radius: 5px;
+  border: none;
+  padding: 0 10px;
+  text-transform: uppercase;
+  box-sizing:border-box;
+}
+button:hover{
+  border-radius: 0;
+  transition: 0.7s ease-in-out;
+}
+select{
+  min-height: 35px;
+  border-radius: 5px;
+  padding: 0px 10px;
+  font-size: 15px;
+ margin-right: 5px ;
+}
+input{
+  box-sizing: border-box;
+   min-height: 25px;
+   
+   height: 35px;
+  border-radius: 5px;
+ border: 0.3px solid;
+ margin-right: 5px ;
+}
+td:nth-child(7n+1){
+  overflow: hidden;
+  width: 100px;
+}
+td, th{
+  padding: 5px;
+  overflow: hidden;
+}
+table{
+  text-align: center;
+  border: 0.1px solid;
+  align-items: center;
+}
+tr:hover:not(:nth-child(1)){
+  background-color: rgb(226, 226, 226);
+  cursor: pointer;
+}
+.chuyen-di{
+  background-color: rgba(255, 145, 145, 0.219)
 }

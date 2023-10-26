@@ -1,9 +1,11 @@
 import { useState } from "react"
 import CreateAndUpdateProfileComponent from "../components/cuProfile"
+import { useParams } from "react-router"
 
 function AddRenterPage() {
 
     const [isContract, setIsContract] = useState(false)
+    const param = useParams()
 
     function onChangeHandler(e) {
         console.log(e.target.checked)
@@ -11,16 +13,10 @@ function AddRenterPage() {
     }
     return (
         <div>
-            add profile here
-            <p>
-                Tao hop dong
-                <input type="checkbox" onChange={onChangeHandler} checked={isContract} />
-            </p>
             <CreateAndUpdateProfileComponent
                 state={{
                     MODE: "create",
-                    LINK_WITH: false,
-                    CONTRACT: isContract
+                    LINK_WITH: param.id,
                 }}
             />
         </div>

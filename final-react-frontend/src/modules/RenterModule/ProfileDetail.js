@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react"
 import RenterListComponent from "../components/renterList"
 import { useParams, useNavigate } from "react-router-dom"
-import { getRenterById, getAllRenterRelatives } from "../Services/Renter.Services"
+import { getRenterById, getAllRenterRelatives, confirmMoveAway } from "../Services/Renter.Services"
 
 function ProfileDetailPage() {
 
     const [renter, setRenter] = useState({})
+    const [isHere, setIsHere] = useState()
     const [renterRelatives, setRenterRelatives] = useState([])
     const [isLoadFunction, setIsloadFunction] = useState(false)
     const navigate = useNavigate()
     const { id } = useParams()
-    async function getRenter(id) {
+    async function getRenter() {
         await getRenterById(id)
             .then((in4) => {
                 setTimeout(() => {
@@ -25,7 +26,7 @@ function ProfileDetailPage() {
                 console.log(renter)
             })
     }
-    async function getRenterRelatives(id) {
+    async function getRenterRelatives() {
         await getAllRenterRelatives(id)
             .then((relativeList) => {
                 setTimeout(() => {
@@ -40,14 +41,14 @@ function ProfileDetailPage() {
             })
     }
     useEffect(() => {
-        getRenter(id)
-        getRenterRelatives(id)
+        getRenter()
+        getRenterRelatives()
     }, [])
     useEffect(() => {
-        if (Object.keys(renter).length > 0)
+        if (Object.keys(renter).length > 0) {
             setIsloadFunction(true)
-
-        console.log(Object.keys(renter))
+            setIsHere(renter.conO)
+        }
     }, [renter])
     useEffect(() => {
         setRenter({})
@@ -56,7 +57,14 @@ function ProfileDetailPage() {
         getRenter(id)
         getRenterRelatives(id)
     }, [id])
-
+    async function moveAway() {
+        await confirmMoveAway(id).then((res) => {
+            console.log(res)
+            setIsHere(false)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     return (
         <>
             <div className="profile-wrap">
@@ -96,17 +104,29 @@ function ProfileDetailPage() {
             </div>
             <div className="function">
                 {isLoadFunction ?
-                    renter.link_with ?
-                        <>
-                            <button onClick={() => navigate(`/renter/${renter.link_with}`)}>Go to Nguoi duoc lien ket</button>
-                        </>
-                        : <>
-                            <button>
-                                add nguoi quen
+                    isHere ?
+                        <div>
+                            <p>Còn Ở</p>
+                            <button onClick={moveAway}>
+                                Bấm vào để xác nhận chuyển đi
                             </button>
-                        </>
-                    : <></>
-                }
+                            {renter.link_with ?
+                                <>
+                                    <button onClick={() => navigate(`/renter/${renter.link_with}`)}>Go to Nguoi duoc lien ket</button>
+                                </>
+                                : <>
+                                    <button onClick={() => navigate("addrelative")}>
+                                        add nguoi quen
+                                    </button>
+                                </>}
+
+                        </div> :
+                        <div>
+                            <p>
+                                Đã chuyển đi
+                            </p>
+                        </div> :
+                    <></>}
 
             </div>
             <div className="relationship">

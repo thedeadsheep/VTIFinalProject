@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import CreateAndUpdateProfileComponent from "../components/cuProfile"
 import RenterListComponent from "../components/renterList"
 import { getAllRenters } from "../Services/Renter.Services"
+import { useNavigate } from "react-router"
 
 function RenterPage() {
 
     const [renters, setRenters] = useState([])
     const [isLoadList, setIsLoadList] = useState(false)
-
+    const navigate = useNavigate()
     useEffect(() => {
         getRenters()
 
@@ -32,7 +32,7 @@ function RenterPage() {
             </h1>
 
             <div className="function">
-                <button className="btn add-renter-btn">
+                <button className="btn add-renter-btn" onClick={() => navigate("addrenter")}>
                     them khach tro
                 </button>
             </div>
