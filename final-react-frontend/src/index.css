@@ -8,11 +8,13 @@ body {
 }
 button{
   min-height: 35px;
+  min-width: 35px;
   border-radius: 5px;
   border: none;
   padding: 0 10px;
   text-transform: uppercase;
   box-sizing:border-box;
+  margin: 0 3px
 }
 button:hover{
   border-radius: 0;
@@ -25,7 +27,7 @@ select{
   font-size: 15px;
  margin-right: 5px ;
 }
-input{
+input, input.rmdp-input{
   box-sizing: border-box;
    min-height: 25px;
    
@@ -53,4 +55,9 @@ tr:hover:not(:nth-child(1)){
 }
 .chuyen-di{
   background-color: rgba(255, 145, 145, 0.219)
+}
+label{
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
 }

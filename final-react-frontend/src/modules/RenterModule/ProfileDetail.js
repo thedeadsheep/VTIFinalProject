@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import RenterListComponent from "../components/renterList"
 import { useParams, useNavigate } from "react-router-dom"
 import { getRenterById, getAllRenterRelatives, confirmMoveAway } from "../Services/Renter.Services"
-
+import styles from "./ProfileDetail.module.css"
 function ProfileDetailPage() {
 
     const [renter, setRenter] = useState({})
@@ -58,81 +58,152 @@ function ProfileDetailPage() {
         getRenterRelatives(id)
     }, [id])
     async function moveAway() {
-        await confirmMoveAway(id).then((res) => {
-            console.log(res)
-            setIsHere(false)
-        }).catch((err) => {
-            console.log(err)
-        })
+        if (window.confirm("Xác nhận chuyển di?")) {
+            await confirmMoveAway(id).then((res) => {
+                console.log(res)
+                setIsHere(false)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
+    }
+    function dateConvert(dS, isWithTime) {
+        let m = new Date(dS)
+
+        let dateString
+        if (isWithTime) {
+            dateString =
+
+                "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
+                ("0" + m.getDate()).slice(-2) + ", " +
+                m.getFullYear() + " - " +
+                ("0" + m.getHours()).slice(-2) + ":" +
+                ("0" + m.getMinutes()).slice(-2) + ":" +
+                ("0" + m.getSeconds()).slice(-2);
+        } else {
+            dateString =
+                "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
+                ("0" + m.getDate()).slice(-2) + ", " +
+                m.getFullYear()
+        }
+
+        return dateString
     }
     return (
-        <>
-            <div className="profile-wrap">
-                <h1>
-                    ProfileDetailPage {id}
-                </h1>
-                <div className="image">
-                    this is image
-                </div>
-                <div className="renter-information">
-                    <label>
-                        Ho-tenlot:
-                        {renter.ho_tenlot}
-                    </label>
-                    <label>
-                        Ten
-                        {renter.ten}
-                    </label>
-                    <label>
-                        ngay sinh
-                        {renter.ngay_sinh}
-                    </label>
-                    <label>
-                        so CCCD/CMND
-                        {renter.soCCCD}
-                    </label>
-                    <label>
-                        Que quan
-                        {renter.queQuan}
-                    </label>
-                    <label>
-                        Dia chi thuong tru
-                        {renter.diaChiThuongTru}
-                    </label>
+        <div>
+            <h1>
+                ProfileDetailPage
+            </h1>
+            <div className={styles.profileWrap}>
 
+                <div className={styles.imageWrap}>
+                    <img src="asd" className={styles.image} />
+                </div>
+                <div className={styles.renterInformation}>
+                    <label>
+                        Họ và tên lót
+                        <p>
+                            {renter.ho_tenlot}
+                        </p>
+                    </label>
+                    <label>
+                        Tên
+                        <p>
+                            {renter.ten}
+                        </p>
+
+                    </label>
+                    <label>
+                        Ngày sinh
+                        <p>
+                            {dateConvert(renter.ngay_sinh, false)}
+                        </p>
+
+                    </label>
+                    <label>
+                        Số CCCD/CMND
+                        <p>
+                            {renter.soCCCD}
+                        </p>
+                    </label>
+                    <label>
+                        Quê quán/ Nơi sinh
+                        <p>
+                            {renter.queQuan}
+                        </p>
+
+                    </label>
+                    <label>
+                        Địa chỉ thường trú
+                        <p>
+                            {renter.diaChiThuongTru}
+                        </p>
+                    </label>
+                </div>
+                <div className={styles.renterInformation}>
+                    <label>
+                        Ngày đăng ký chuyển vào:
+                        <p>
+                            {dateConvert(renter.ngay_chuyen_vao, 1)}
+                        </p>
+                    </label>
+                    <label>
+                        Ngày chuyển đi:
+                        <p>
+                            {renter.conO ? <>Hiện tại còn Ở</> : <>{dateConvert(renter.ngay_chuyen_di, 1)}</>}
+                        </p>
+                    </label>
+                    <label>
+                        Chức năng:
+                        <div>
+                            {renter.link_with ? <>
+                                <button onClick={() => navigate(`/renter/${renter.link_with}`)}>
+                                    Go to Nguoi duoc lien ket
+                                </button>
+                            </> : <>
+                                <button onClick={() => navigate("addrelative")}>
+                                    add nguoi quen
+                                </button></>}
+                        </div>
+                        <div>
+                            {renter.conO ? <><button onClick={moveAway}>
+                                Bấm vào để xác nhận chuyển đi
+                            </button></> : <></>}
+
+                        </div>
+                    </label>
                 </div>
             </div>
+
             <div className="function">
                 {isLoadFunction ?
-                    isHere ?
-                        <div>
-                            <p>Còn Ở</p>
-                            <button onClick={moveAway}>
-                                Bấm vào để xác nhận chuyển đi
-                            </button>
-                            {renter.link_with ?
-                                <>
-                                    <button onClick={() => navigate(`/renter/${renter.link_with}`)}>Go to Nguoi duoc lien ket</button>
-                                </>
-                                : <>
-                                    <button onClick={() => navigate("addrelative")}>
-                                        add nguoi quen
-                                    </button>
-                                </>}
+                    <div>
+                        {isHere ?
+                            <div>
 
-                        </div> :
-                        <div>
-                            <p>
-                                Đã chuyển đi
-                            </p>
-                        </div> :
+                            </div> :
+                            <div>
+                                <p>
+                                    Đã chuyển đi
+                                </p>
+                            </div>}
+                        {renter.link_with ?
+                            <>
+
+                            </>
+                            : <>
+
+                            </>}
+                    </div>
+                    :
                     <></>}
 
             </div>
             <div className="relationship">
                 <RenterListComponent title="Danh Sach nguoi o chung" renters={renterRelatives} />
             </div>
-        </>
+        </div>
     )
 }
 

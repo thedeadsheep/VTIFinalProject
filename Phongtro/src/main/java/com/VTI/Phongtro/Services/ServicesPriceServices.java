@@ -11,4 +11,15 @@ public class ServicesPriceServices {
     public List<ServicesPrice> getAllPrices(){
         return servicesPriceDAO.getAllPrice();
     }
+
+    public boolean addService(ServicesPrice sp){
+        boolean result = true;
+        try{
+            result = servicesPriceDAO.addNewService(sp);
+        }catch(Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
+    }
 }

@@ -16,11 +16,12 @@ public class RenterServices {
 
     public List<Renter> getAllRenterRelative(String id){return renterDAO.getAllRenterRelative(id);}
     public boolean addRenter(Renter renter) {
-        boolean result = false;
+        boolean result = true;
         try {
             result = renterDAO.saveRenter(renter);
         } catch (Exception e) {
             e.printStackTrace();
+            result = false;
         }
         return result;
     }

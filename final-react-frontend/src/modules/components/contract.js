@@ -3,21 +3,30 @@ import "./contract.css"
 function CONTRACT(props) {
 
     const renter = props.renterValue || {}
-
     function getDate() {
-        const date = new Date()
-        let ngay = date.getDay()
-        let thang = date.getMonth()
-        let nam = date.getFullYear()
-        return `ngày ${ngay} tháng ${thang} ${nam}`
+        const m = new Date()
+        let dateString =
+            "Ngày " + ("0" + m.getDate()).slice(-2) + " " +
+            "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
+            "Năm " + m.getFullYear()
+        return dateString
     }
+    console.log(renter)
     function formatDate(date) {
-        let d = new Date(date),
-            day = d.getDay(),
-            month = d.getMonth(),
-            year = d.getFullYear()
-        return [day, month, year].join("-")
+        let m = new Date(date)
+        let dateString =
+            ("0" + m.getDate()).slice(-2) + "-" +
+            ("0" + (m.getMonth() + 1)).slice(-2) + "-" +
+            m.getFullYear()
+        return dateString
 
+    }
+    if (Object.keys(renter).length <= 0) {
+        return (
+            <div>
+                Loading ...
+            </div>
+        )
     }
 
     return (
@@ -45,7 +54,7 @@ function CONTRACT(props) {
                 <p className="contract">Ông/bà:  <input className="contract contract-input" defaultValue={renter.ho_tenlot + " " + renter.ten} />
                     Sinh ngày:  <input className="contract contract-input" defaultValue={formatDate(renter.ngay_sinh)} />
                 </p>
-                <p className="contract">Nơi đăng ký thường trú:  <input className="contract contract-input address" defaultValue={renter.dia_chi_TT} /></p>
+                <p className="contract">Nơi đăng ký thường trú:  <input className="contract contract-input address" defaultValue={renter.diaChiThuongTru} /></p>
                 <p className="contract">
                     CCCD/CMND số:  <input className="contract contract-input" defaultValue={renter.soCCCD} /> cấp ngày  <input className="contract contract-input" /> tại: <input className="contract contract-input address" />
                 </p>
