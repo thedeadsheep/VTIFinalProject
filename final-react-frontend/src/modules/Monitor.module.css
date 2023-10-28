@@ -1,7 +1,18 @@
+.functionWrap{
+    display: flex;
+    flex-wrap: wrap;
+    padding:20px;
+}
+
 .item{
-    width: 100px;
-    height: 100px;
+    display: flex;
+    width: 150px;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
     background-color: red;
+    margin: 10px;
+    border-radius: 10px;
 }
 .function:hover{
     background-color: blue;

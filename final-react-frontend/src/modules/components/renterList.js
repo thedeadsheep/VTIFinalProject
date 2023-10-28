@@ -95,7 +95,7 @@ function RenterListComponent(props) {
                     </select>
 
                     <button onClick={searchRenter}>
-                        Submit
+                        Tìm kiếm
                     </button>
                 </div>
             </div>
