@@ -37,7 +37,9 @@ public class RenterServices {
         oldRenterProfile.setHo_tenlot(renter.getHo_tenlot());
         oldRenterProfile.setTen(renter.getTen());
         oldRenterProfile.setNgay_sinh(renter.getNgay_sinh());
-
+        oldRenterProfile.setDiaChiThuongTru(renter.getDiaChiThuongTru());
+        oldRenterProfile.setQueQuan(renter.getQueQuan());
+        oldRenterProfile.setSoCCCD(renter.getSoCCCD());
         try {
             result = renterDAO.updateRenter(oldRenterProfile);
         } catch (Exception e) {

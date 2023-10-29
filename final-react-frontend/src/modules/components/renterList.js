@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 const format = "YYYY/MM/DD"
 
 function RenterListComponent(props) {
-    console.log("props", props)
     let renters = props.renters || []
     const [textSearchValue, setTextSearchValue] = useState("")
     const [searchMode, setSearchMode] = useState(2)
@@ -130,7 +129,7 @@ function RenterListComponent(props) {
                             <tr
                                 key={renter.id}
                                 onClick={() => navigate(`/renter/${renter.id}`)}
-                                className={renter.conO ? "con-o" : "chuyen-di"}
+                                className={`${renter.conO ? "con-o" : "chuyen-di"} ${renter.link_with ? "" : "chu-phong"}`}
                             >
                                 <td>
                                     {renter.id}

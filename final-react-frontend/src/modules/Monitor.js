@@ -11,7 +11,7 @@ function Monitor() {
                 <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/renter")}>
                     Khách trọ
                 </div>
-                <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/rooms")}>
+                <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/room")}>
                     Phòng
                 </div>
                 <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/bill")}>

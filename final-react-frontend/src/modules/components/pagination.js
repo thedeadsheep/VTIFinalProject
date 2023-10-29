@@ -13,15 +13,21 @@ const Pagination = props => {
     const pagesList = (totalPage) => {
         let content = []
         for (let i = 0; i < totalPage; i++)
-            content.push(<button key={i} className="pagination" onClick={(e) => onClickHandler(e, i)}>{i + 1}</button>)
+            content.push(<button key={i} className="pagination" id="pagination-num" onClick={(e) => onClickHandler(e, i)}>{i + 1}</button>)
         return content
     }
     useEffect(() => {
 
     }, [currentPage])
+
     function onClickHandler(event, page) {
         pageChange(page)
-        console.log(event.target)
+        localStorage.setItem("currentPage", page)
+        let els = document.querySelectorAll("#pagination-num")
+        els.forEach(el => {
+            el.disabled = false
+        })
+        event.target.disabled = true
     }
     if (numberOfItems <= showNumbers) {
         return <></>

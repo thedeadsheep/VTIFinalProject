@@ -10,10 +10,22 @@
     height: 150px;
     align-items: center;
     justify-content: center;
-    background-color: red;
     margin: 10px;
     border-radius: 10px;
 }
+.item:nth-child(1){
+    background-color: red;
+}
+.item:nth-child(2){
+    background-color: red;
+}
+.item:nth-child(3){
+    background-color: red;
+}
+.item:nth-child(4){
+    background-color: gray;
+}
+
 .function:hover{
     background-color: blue;
 }

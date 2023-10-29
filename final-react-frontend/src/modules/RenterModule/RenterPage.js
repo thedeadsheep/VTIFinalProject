@@ -23,7 +23,7 @@ function RenterPage() {
     }, [])
     useEffect(() => {
         if (renters.length > 0) {
-            setCurrentPage(0)
+            setCurrentPage(localStorage.getItem("currentPage") || 0)
         }
     }, [renters])
     function onPageChange(page) {
@@ -32,7 +32,7 @@ function RenterPage() {
     }
     async function getRenters() {
         await getAllRenters().then((data) => {
-            console.log(data)
+
             setRenters(data)
         })
     }

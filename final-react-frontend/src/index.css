@@ -50,11 +50,14 @@ table{
   align-items: center;
 }
 tr:hover:not(:nth-child(1)){
-  background-color: rgb(226, 226, 226);
+  background-color: rgba(226, 226, 226, 0.397) !important;
   cursor: pointer;
 }
 .chuyen-di{
-  background-color: rgba(255, 145, 145, 0.219)
+  background-color: rgba(255, 101, 101, 0.404) !important
+}
+.chu-phong{
+  background-color: rgba(84, 255, 184, 0.5)
 }
 label{
   padding: 5px;

@@ -49,11 +49,16 @@ async function addNewRelative(id, data) {
     const url = WEB_API + `addNewRenterRelative?id=${id}`
     return await axios.post(url, data)
 }
+async function updateRenterProfile(id, data) {
+    const url = WEB_API + `updateRenterProfile?id=${id}`
+    return await axios.put(url, data)
+}
 async function confirmMoveAway(id) {
     const url = WEB_API + `updateRenterStatus?id=${id}`
     return await axios.put(url)
 }
 export {
+    updateRenterProfile,
     addNewRelative,
     addNewRenter,
     getAllRenters,

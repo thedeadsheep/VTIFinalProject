@@ -22,9 +22,7 @@ function ProfileDetailPage() {
             .catch((err) => {
                 console.log(err)
             })
-            .finally(() => {
-                console.log(renter)
-            })
+
     }
     async function getRenterRelatives() {
         await getAllRenterRelatives(id)
@@ -36,9 +34,7 @@ function ProfileDetailPage() {
             .catch((err) => {
                 console.log(err)
             })
-            .finally(() => {
-                console.log(renter)
-            })
+
     }
     useEffect(() => {
         getRenter()
@@ -93,7 +89,7 @@ function ProfileDetailPage() {
     return (
         <div>
             <h1>
-                ProfileDetailPage
+                Trang Thông tin của {renter.ho_tenlot + " " + renter.ten}
             </h1>
             <div className={styles.profileWrap}>
 
@@ -157,49 +153,36 @@ function ProfileDetailPage() {
                     <label>
                         Chức năng:
                         <div>
+
                             {renter.link_with ? <>
                                 <button onClick={() => navigate(`/renter/${renter.link_with}`)}>
                                     Go to Nguoi duoc lien ket
                                 </button>
                             </> : <>
-                                <button onClick={() => navigate("addrelative")}>
-                                    add nguoi quen
-                                </button></>}
+                            </>}
                         </div>
                         <div>
-                            {renter.conO ? <><button onClick={moveAway}>
-                                Bấm vào để xác nhận chuyển đi
-                            </button></> : <></>}
+                            {isHere ? <>
+
+                                <button onClick={() => navigate(`/renter/${id}/update`)}>
+                                    Cập nhật thông tin
+                                </button>
+                                {renter.link_with ? <>co lien ket</> : <>
+                                    <button onClick={() => navigate("addrelative")}>
+                                        Them nguoi o chung
+                                    </button>
+                                </>}
+                                <button onClick={moveAway}>
+                                    Bấm vào để xác nhận chuyển đi
+                                </button>
+                            </> : <></>}
 
                         </div>
                     </label>
                 </div>
             </div>
 
-            <div className="function">
-                {isLoadFunction ?
-                    <div>
-                        {isHere ?
-                            <div>
 
-                            </div> :
-                            <div>
-                                <p>
-                                    Đã chuyển đi
-                                </p>
-                            </div>}
-                        {renter.link_with ?
-                            <>
-
-                            </>
-                            : <>
-
-                            </>}
-                    </div>
-                    :
-                    <></>}
-
-            </div>
             <div className="relationship">
                 <RenterListComponent title="Danh Sach nguoi o chung" renters={renterRelatives} />
             </div>
