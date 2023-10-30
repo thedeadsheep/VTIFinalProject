@@ -1,0 +1,69 @@
+package com.VTI.Phongtro.Controllers;
+
+import com.VTI.Phongtro.Entities.Room;
+import com.VTI.Phongtro.Services.RoomServices;
+import com.google.gson.Gson;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/room")
+public class RoomController {
+    private final RoomServices roomServices= new RoomServices();
+
+    @GetMapping("/getAllRooms")
+    public ResponseEntity<String> GetAllRoom(){
+        String result = new Gson().toJson(roomServices.getAllRoom());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @GetMapping("/getRoomById")
+    public ResponseEntity<String> GetRoomById(@RequestParam("id") String id){
+        Room room = roomServices.getRoomById(id);
+        String result = new Gson().toJson(room);
+        if (result.contains("null")){
+            return new ResponseEntity<>("Cant find this room",HttpStatus.OK);
+        }
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+    @PostMapping("/addNewRoom")
+    public ResponseEntity addNewRoom(@RequestBody Room room){
+        boolean result = roomServices.addRoom(room);
+        if (!result){
+            return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Room added",HttpStatus.OK);
+    }
+    @PutMapping("/changeStatus")
+    public ResponseEntity changeStatus(@RequestParam("id")String id, @RequestBody Room room){
+        // 0,1 --> 2
+        boolean result = roomServices.changeStatusRoom(id, room);
+        if (!result){
+            return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Room status change",HttpStatus.OK);
+    }
+    @PutMapping("/updateDetailRoom")
+    public ResponseEntity UpdateDetailRoom(@RequestParam("id")String id, @RequestBody Room room){
+        // Price, Name
+        boolean result = roomServices.updateDetailRoom(id, room);
+        if (!result){
+            return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Room updated",HttpStatus.OK);
+    }
+    @PutMapping("/addRenterToRoom")
+    public ResponseEntity AddRenterToRoom(@RequestParam("renter_id")String renter_id, @RequestParam("room_id") String room_id){
+        // Price, Name
+        boolean result = roomServices.addRenterToRoom(room_id, renter_id);
+        if (!result){
+            return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("renter added to room",HttpStatus.OK);
+    }
+    @GetMapping("/getRenterInRoom")
+    public ResponseEntity<String> GetRentersInRoom(@RequestParam("room_id") String roomId){
+        String result = new Gson().toJson(roomServices.getAllRentersInRoom(roomId));
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
+}
