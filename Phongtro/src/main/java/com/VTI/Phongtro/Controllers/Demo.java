@@ -35,7 +35,7 @@ public class Demo {
         Renter renter = new Renter(
                 "Tran Quoc", "Viet", inDate, now, "352538853","Long Xuyen-AnGiang", "AnGiang"
         );
-        boolean addResult = renterServices.addRenter(renter);
+        String addResult = renterServices.addRenter(renter);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     

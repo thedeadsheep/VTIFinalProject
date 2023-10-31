@@ -1,9 +1,0 @@
-
-function getDefaultValueForContract() {
-    
-}
-
-
-export {
-    getDefaultValueForContract
-}

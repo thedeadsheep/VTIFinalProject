@@ -1,38 +1,14 @@
-import { useState } from "react"
-import DatePicker, { DateObject } from "react-multi-date-picker"
+
 import { useNavigate } from "react-router-dom"
 
-const format = "YYYY/MM/DD"
 
 function RenterListComponent(props) {
     let renters = props.renters || []
-    const [textSearchValue, setTextSearchValue] = useState("")
-    const [searchMode, setSearchMode] = useState(2)
-    const [dateValue, setDateValue] = useState([
-        new DateObject().subtract(2, "days"),
-        new DateObject().add(2, "days")
-    ])
     const navigate = useNavigate();
 
 
-    function searchRenter() { //filter trực tiếp từ RenterList
-        if (searchMode === "2") {
-            console.log(getDatevalue())
-            return
-        } else {
-            console.log(textSearchValue)
-        }
-    }
-    function onSearchModeHandler(e) {
-        console.log(searchMode)
-        setSearchMode(e.target.value)
-    }
-    function getDatevalue() {
-        return {
-            form: dateValue[0].format(),
-            to: dateValue[1].format()
-        }
-    }
+
+
     function stringDateConvert(date) {
         if (!date) {
             return ""
@@ -60,51 +36,19 @@ function RenterListComponent(props) {
     return (
         <div>
 
-            <h2 onClick={() => console.log(typeof searchMode)}>
+            <h2 >
                 {props.title}
 
             </h2>
 
-            <div className="filter">
-                <div>
-                    {searchMode === "1" || searchMode === "0" ?
-                        <input type="text"
-                            id="name-soCCCD"
-                            placeholder={searchMode === "0" ? "Nhap ten" : "Nhap so CCCD"}
-                            onChange={(e) => setTextSearchValue(e.target.value)}
-                        />
-                        :
-                        <DatePicker
-                            range
-                            value={dateValue}
-                            onChange={setDateValue}
-                            format={format}
-                        />
-                    }
-                    <select onChange={onSearchModeHandler} defaultValue={searchMode} >
-                        <option value={0}>
-                            Ten
-                        </option>
-                        <option value={1}>
-                            soCCCD
-                        </option>
-                        <option value={2}>
-                            Ngay dang ki
-                        </option>
-                    </select>
 
-                    <button onClick={searchRenter}>
-                        Tìm kiếm
-                    </button>
-                </div>
-            </div>
             <div className="list-wrap" >
                 {"<!-- field con o sẽ được đánh dấu bằng màu-->"}
                 <table width={"100%"}>
                     <tbody className="table-content">
                         <tr>
                             <th className="id">
-                                ID
+                                STT
                             </th>
                             <th className="ho-tenlot">
                                 Họ và tên lót

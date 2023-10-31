@@ -28,21 +28,20 @@ public class RenterDAO {
             return session.get(Renter.class, id);
         }
     }
-    public boolean saveRenter(Renter renter) {
-        boolean result = false;
+    public String saveRenter(Renter renter) {
+        String result = "init";
         Transaction transaction = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
             session.save(renter);
+            result =renter.getId();
             transaction.commit();
-            result = true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-            result = false;
         } finally {
             session.close();
         }

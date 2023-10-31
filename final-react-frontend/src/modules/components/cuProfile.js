@@ -22,14 +22,15 @@ function CreateAndUpdateProfileComponent(props) {
         mode: "onBlur"
     });
 
-    useEffect(() => {
-        getProfileToUpdate()
-    }, [])
+
     useEffect(() => {
     }, [formValue])
     useEffect(() => {
     }, [renter])
     async function getProfileToUpdate() {
+        if (state.MODE === "create") {
+            return
+        }
         await getRenterById(idParam.id).then((res) => {
             let ngaySinh = new Date(res.ngay_sinh).toLocaleDateString("sv-SE")
             res.ngay_sinh = ngaySinh
@@ -66,6 +67,7 @@ function CreateAndUpdateProfileComponent(props) {
             await addNewRenter(data).then((res) => {
                 console.log(res)
                 response = res
+
             }).catch((err) => {
                 console.log(err)
             })
@@ -73,14 +75,9 @@ function CreateAndUpdateProfileComponent(props) {
 
         if (response.status === 200) {
             console.log("done")
-            navigation()
+            navigate(`/renter/${response.data}`)
         } else {
             console.log("notDone")
-        }
-    }
-    function navigation() {
-        if (state.LINK_WITH) {
-            navigate(`/renter/${state.LINK_WITH}`)
         }
     }
     function formInputHandler(data) {
@@ -93,7 +90,7 @@ function CreateAndUpdateProfileComponent(props) {
             if (state.MODE === "create") {
                 createProfile(data)
             }
-        }, 10000);
+        }, 0);
         console.log(data)
     }
 

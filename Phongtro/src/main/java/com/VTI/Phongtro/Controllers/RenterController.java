@@ -57,11 +57,11 @@ public class RenterController {
         Date currentDate = new Date();
         renter.setNgay_chuyen_vao(currentDate);
         renter.setConO(true);
-        boolean result = renterServices.addRenter(renter);
-        if (!result){
+        String result = renterServices.addRenter(renter);
+        if (result.contains("init")) {
             return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("new Renter was added", HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
     @PostMapping("/addNewRenterRelative")
     public ResponseEntity addNewRenterRelative(@RequestParam("id") String id, @RequestBody RenterDTO renterDTO) throws ParseException {
@@ -81,11 +81,11 @@ public class RenterController {
         renter.setNgay_chuyen_vao(currentDate);
         renter.setConO(true);
         renter.setLink_with(id);
-        boolean result = renterServices.addRenter(renter);
-        if (!result){
-            return new ResponseEntity("",HttpStatus.BAD_REQUEST);
+        String result = renterServices.addRenter(renter);
+        if (result.contains("init")) {
+            return new ResponseEntity("Something Went Wrong!", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("new Renter was added", HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
     @PutMapping("/updateRenterProfile")
     public ResponseEntity updateRenterProfile(@RequestParam("id") String id, @RequestBody Renter renter){
