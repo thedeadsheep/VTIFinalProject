@@ -9,22 +9,30 @@ function RenterListComponent(props) {
 
 
 
-    function stringDateConvert(date) {
-        if (!date) {
+    function dateConvert(dS, isWithTime) {
+        if (dS == null) {
             return ""
         }
-        const dt = new Date(date),
-            dateValue = {
-                day: dt.getDay() < "10" ? "0" + dt.getDay() : dt.getDay(),
-                month: dt.getMonth() < "10" ? "0" + dt.getMonth() : dt.getMonth(),
-                year: dt.getFullYear()
-            },
-            timeValue = {
-                hour: dt.getHours(),
-                minute: dt.getMinutes(),
-                second: dt.getSeconds()
-            }
-        return `${dateValue.month}-${dateValue.day}-${dateValue.year} ${timeValue.hour}:${timeValue.minute}:${timeValue.second}`
+        let m = new Date(dS)
+
+        let dateString
+        if (isWithTime) {
+            dateString =
+
+                ("0" + (m.getMonth() + 1)).slice(-2) + " " +
+                ("0" + m.getDate()).slice(-2) + ", " +
+                m.getFullYear() + " - " +
+                ("0" + m.getHours()).slice(-2) + ":" +
+                ("0" + m.getMinutes()).slice(-2) + ":" +
+                ("0" + m.getSeconds()).slice(-2);
+        } else {
+            dateString =
+                ("0" + (m.getMonth() + 1)).slice(-2) + " " +
+                ("0" + m.getDate()).slice(-2) + ", " +
+                m.getFullYear()
+        }
+
+        return dateString
     }
     if (renters.length <= 0) {
         return (
@@ -43,13 +51,9 @@ function RenterListComponent(props) {
 
 
             <div className="list-wrap" >
-                {"<!-- field con o sẽ được đánh dấu bằng màu-->"}
                 <table width={"100%"}>
                     <tbody className="table-content">
                         <tr>
-                            <th className="id">
-                                STT
-                            </th>
                             <th className="ho-tenlot">
                                 Họ và tên lót
                             </th>
@@ -75,9 +79,7 @@ function RenterListComponent(props) {
                                 onClick={() => navigate(`/renter/${renter.id}`)}
                                 className={`${renter.conO ? "con-o" : "chuyen-di"} ${renter.link_with ? "" : "chu-phong"}`}
                             >
-                                <td>
-                                    {renter.id}
-                                </td>
+
                                 <td>
                                     {renter.ho_tenlot}
                                 </td>
@@ -85,10 +87,10 @@ function RenterListComponent(props) {
                                     {renter.ten}
                                 </td>
                                 <td>
-                                    {stringDateConvert(renter.ngay_chuyen_vao)}
+                                    {dateConvert(renter.ngay_chuyen_vao, 1)}
                                 </td>
                                 <td>
-                                    {stringDateConvert(renter.ngay_chuyen_di)}
+                                    {dateConvert(renter.ngay_chuyen_di, 1)}
                                 </td>
                                 <td>
                                     {renter.queQuan}

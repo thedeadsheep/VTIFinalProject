@@ -30,28 +30,29 @@ select{
 input, input.rmdp-input{
   box-sizing: border-box;
    min-height: 25px;
-   
    height: 35px;
   border-radius: 5px;
- border: 0.3px solid;
- margin-right: 5px ;
-}
-td:nth-child(7n+1){
-  overflow: hidden;
-  width: 100px;
+  border: 0.3px solid;
+  margin-right: 5px ;
 }
 td, th{
   padding: 5px;
-  overflow: hidden;
+  height: 45px;
 }
 table{
   text-align: center;
-  border: 0.1px solid;
   align-items: center;
+  border-radius: 10px;
+  border-collapse: collapse;
 }
 tr:hover:not(:nth-child(1)){
   background-color: rgba(226, 226, 226, 0.397) !important;
   cursor: pointer;
+}
+tr:nth-child(1){
+  background-color: black;
+  color: white;
+  border-radius: 10px;
 }
 .chuyen-di{
   background-color: rgba(255, 101, 101, 0.404) !important

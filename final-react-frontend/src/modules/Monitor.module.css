@@ -6,26 +6,36 @@
 
 .item{
     display: flex;
-    width: 150px;
-    height: 150px;
+    min-width: 170px;
+    min-height: 100px;
     align-items: center;
     justify-content: center;
     margin: 10px;
     border-radius: 10px;
+    color: black;
+    font-weight: 600;
+    font-size: large;
+    letter-spacing: 1px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    transition: 0.4s ease-out;
 }
 .item:nth-child(1){
-    background-color: red;
+    background-color: #FAC448;
 }
 .item:nth-child(2){
-    background-color: red;
+    background-color: #FAEF48;
 }
 .item:nth-child(3){
-    background-color: red;
+    background-color: #F9D949;
 }
 .item:nth-child(4){
-    background-color: gray;
+    background-color: #F0F0F0;
 }
 
 .function:hover{
-    background-color: blue;
+    background-color: #FAAE48;
+    transition: 0.2s ease-in;
 }

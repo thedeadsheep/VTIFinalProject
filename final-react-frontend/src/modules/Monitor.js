@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router"
 import monitorStyle from './Monitor.module.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faWrench, faReceipt, faDoorOpen, faPersonWalkingLuggage } from "@fortawesome/free-solid-svg-icons"
 function Monitor() {
 
     const navigate = useNavigate()
@@ -9,16 +11,27 @@ function Monitor() {
             Monitor
             <div className={monitorStyle.functionWrap}>
                 <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/renter")}>
-                    Khách trọ
+                    <span>
+                        <FontAwesomeIcon icon={faPersonWalkingLuggage} /> Khách trọ
+                    </span>
                 </div>
                 <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/room")}>
-                    Phòng
+                    <span>
+                        <FontAwesomeIcon icon={faDoorOpen} /> Phòng
+                    </span>
+
                 </div>
                 <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/bill")}>
-                    Hóa đơn
+                    <span>
+                        <FontAwesomeIcon icon={faReceipt} /> Hóa đơn
+                    </span>
+
                 </div>
                 <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/setting")}>
-                    Cài đặt
+                    <span>
+                        <FontAwesomeIcon icon={faWrench} /> cài đặt
+                    </span>
+
                 </div>
             </div>
         </div>

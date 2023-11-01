@@ -1,33 +1,56 @@
 .profileWrap{
-    background-color: rgb(199, 199, 199);
+    background-color: rgb(230, 230, 230);
     min-height: 400px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     
 }
+.card{
+    width: 750px;
+    height: 400px;
+    background-color: rgb(253, 250, 233);
+    margin: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+}
 .imageWrap{
-    margin: 50px;
-    border:solid 0.1px
+    margin: 20px;
 }
 .image{
-    min-width: 225px;
-    min-height: 300px;
+    width: 225px;
+    height: 300px;
 }
 .renterInformation{
-    padding:20px
+    padding:  70px 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
 .renterInformation label{
-    font-size: 16px;
+    font-size: 14px;
+    margin: 1px;
 }
 .renterInformation label p{
     font-size: 20px;
-    padding: 3 0px;
+    padding: 1px 0px;
     margin: 0;
-    font-weight: 600;
-    word-spacing: 2px;
-    letter-spacing: 1px;
+    font-weight: 500;
+    word-spacing: 1px;
+    letter-spacing: 0.7px;
+    border-bottom: 0.2px solid;
 }
 .renterInformation label button{
     margin-top: 5px;
+}
+.functionWrap label{
+    display: flex;
+    flex-direction: column;
+}
+.functionWrap button{
+    margin-top: 7px;
+    padding: 10px;
+    background: #FAAE48;
+    
+
 }

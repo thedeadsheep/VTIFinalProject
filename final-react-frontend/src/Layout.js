@@ -37,7 +37,7 @@ function Layout() {
                 top: "0",
                 left: "0",
                 height: "45px",
-                background: "blue",
+                background: "#FAEF48",
                 width: "100vw",
                 display: "grid",
                 gridTemplateColumns: "auto 2fr",

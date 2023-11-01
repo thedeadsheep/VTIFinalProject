@@ -92,67 +92,72 @@ function ProfileDetailPage() {
                 Trang Thông tin của {renter.ho_tenlot + " " + renter.ten}
             </h1>
             <div className={styles.profileWrap}>
+                <div className={styles.card}>
+                    <div className={styles.imageWrap}>
+                        <img src="asd" className={styles.image} />
+                    </div>
+                    <div className={styles.renterInformation}>
+                        <label>
+                            Họ và tên lót
+                            <p>
+                                {renter.ho_tenlot}
+                            </p>
+                        </label>
+                        <label>
+                            Tên
+                            <p>
+                                {renter.ten}
+                            </p>
 
-                <div className={styles.imageWrap}>
-                    <img src="asd" className={styles.image} />
+                        </label>
+                        <label>
+                            Ngày sinh
+                            <p>
+                                {dateConvert(renter.ngay_sinh, false)}
+                            </p>
+
+                        </label>
+                        <label>
+                            Số CCCD/CMND
+                            <p>
+                                {renter.soCCCD}
+                            </p>
+                        </label>
+                        <label>
+                            Quê quán/ Nơi sinh
+                            <p>
+                                {renter.queQuan}
+                            </p>
+
+                        </label>
+                        <label>
+                            Địa chỉ thường trú
+                            <p>
+                                {renter.diaChiThuongTru}
+                            </p>
+                        </label>
+                    </div>
+                    <div className={styles.renterInformation}>
+                        <label>
+                            Ngày đăng ký chuyển vào:
+                            <p>
+                                {dateConvert(renter.ngay_chuyen_vao, 1)}
+                            </p>
+                        </label>
+                        <label>
+                            Ngày chuyển đi:
+                            <p>
+                                {renter.conO ? <>Hiện tại còn Ở</> : <>{dateConvert(renter.ngay_chuyen_di, 1)}</>}
+                            </p>
+                        </label>
+
+                    </div>
+
                 </div>
-                <div className={styles.renterInformation}>
-                    <label>
-                        Họ và tên lót
-                        <p>
-                            {renter.ho_tenlot}
-                        </p>
-                    </label>
-                    <label>
-                        Tên
-                        <p>
-                            {renter.ten}
-                        </p>
-
-                    </label>
-                    <label>
-                        Ngày sinh
-                        <p>
-                            {dateConvert(renter.ngay_sinh, false)}
-                        </p>
-
-                    </label>
-                    <label>
-                        Số CCCD/CMND
-                        <p>
-                            {renter.soCCCD}
-                        </p>
-                    </label>
-                    <label>
-                        Quê quán/ Nơi sinh
-                        <p>
-                            {renter.queQuan}
-                        </p>
-
-                    </label>
-                    <label>
-                        Địa chỉ thường trú
-                        <p>
-                            {renter.diaChiThuongTru}
-                        </p>
-                    </label>
-                </div>
-                <div className={styles.renterInformation}>
-                    <label>
-                        Ngày đăng ký chuyển vào:
-                        <p>
-                            {dateConvert(renter.ngay_chuyen_vao, 1)}
-                        </p>
-                    </label>
-                    <label>
-                        Ngày chuyển đi:
-                        <p>
-                            {renter.conO ? <>Hiện tại còn Ở</> : <>{dateConvert(renter.ngay_chuyen_di, 1)}</>}
-                        </p>
-                    </label>
+                <div className={styles.functionWrap}>
                     <label>
                         Chức năng:
-                        <div>
+                        <>
 
                             {renter.link_with ? <>
                                 <button onClick={() => navigate(`/renter/${renter.link_with}`)}>
@@ -160,14 +165,14 @@ function ProfileDetailPage() {
                                 </button>
                             </> : <>
                             </>}
-                        </div>
-                        <div>
+                        </>
+                        <>
                             {isHere ? <>
 
                                 <button onClick={() => navigate(`/renter/${id}/update`)}>
                                     Cập nhật thông tin
                                 </button>
-                                {renter.link_with ? <>co lien ket</> : <>
+                                {renter.link_with ? <></> : <>
                                     <button onClick={() => navigate("addrelative")}>
                                         Them nguoi o chung
                                     </button>
@@ -177,9 +182,10 @@ function ProfileDetailPage() {
                                 </button>
                             </> : <></>}
 
-                        </div>
+                        </>
                     </label>
                 </div>
+
             </div>
 
 
