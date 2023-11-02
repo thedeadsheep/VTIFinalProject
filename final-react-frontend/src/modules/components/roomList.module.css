@@ -1,0 +1,14 @@
+.cardWrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+.roomCard{
+    justify-content: space-between;
+    width: 125px;
+    margin: 10px;
+    border: 1px solid;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+}

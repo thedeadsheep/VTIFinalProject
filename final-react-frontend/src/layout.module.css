@@ -1,0 +1,34 @@
+.sidebar{
+    background-color: #F9D949;
+    height: 100vh;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    box-sizing: border-box;
+    transition: 0.4s ease-out;
+
+}
+.sidebar.collapse{
+    width: 45px;
+    transition: 0.6s ease-in;
+}
+button.active{
+    background-color: #ffe880 !important;
+}
+.sidebar button{
+    width: 100%;
+    margin: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 0;
+    padding: 10px;
+}
+button span{
+    width: 100%;
+}

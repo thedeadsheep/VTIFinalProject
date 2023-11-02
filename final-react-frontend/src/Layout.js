@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router"
 import { useLocation, useNavigate } from "react-router"
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeftLong, faBars, faHouse, faPersonWalkingLuggage, faDoorOpen, faReceipt, faWrench } from "@fortawesome/free-solid-svg-icons"
+import styles from "./layout.module.css"
 function Layout() {
     const lc = useLocation()
     const navigate = useNavigate()
     const [cantReturn, setCantReturn] = useState(false)
     const [current, setCurrent] = useState([])
-    const [url, setUrl] = useState([""])
+    const [isCollapse, setIsCollapse] = useState(true)
     function backFunction() {
         if (lc.pathname !== "/") {
             let arr = lc.pathname.split("/")
@@ -29,38 +31,76 @@ function Layout() {
         setCurrent(lc.pathname.split("/")[1] || "Home")
 
     }, [lc])
+
     return (
-        <>
+        < div style={{
+            display: "flex",
+            flexDirection: "row",
+        }} >
 
-            <nav style={{
-                //position: "fixed",
-                top: "0",
-                left: "0",
-                height: "45px",
-                background: "#FAEF48",
-                width: "100vw",
-                display: "grid",
-                gridTemplateColumns: "auto 2fr",
-                padding: "0 10px",
-                boxSizing: "border-box"
-            }}>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    padding: "5px"
-                }}>
+            <nav
+                className={`${styles.sidebar} ${isCollapse ? styles.collapse : ""}`}
+            >
+                <div>
+                    <div>
+                        <button onClick={() => setIsCollapse(!isCollapse)}>
+                            <FontAwesomeIcon icon={faBars} />
+                            <span hidden={isCollapse}> collapse</span>
+                        </button>
+                        <button
+                            onClick={() => navigate("/")}
+                            className={`${current === "Home" ? styles.active : ""}`}
+                        >
+                            <FontAwesomeIcon icon={faHouse} />
+                            <span hidden={isCollapse}>Trang Chu</span>
+                        </button>
+                        <button
+                            onClick={() => navigate("/renter")}
+                            className={`${current === "renter" ? styles.active : ""}`}
+                        >
+                            <FontAwesomeIcon icon={faPersonWalkingLuggage} />
+                            <span hidden={isCollapse}>Khach tro</span>
+                        </button>
+                        <button
+                            onClick={() => navigate("/room")}
+                            className={`${current === "room" ? styles.active : ""}`}
+                        >
+                            <FontAwesomeIcon icon={faDoorOpen} />
+                            <span hidden={isCollapse}>Phong</span>
+                        </button>
+                        <button
+                            onClick={() => navigate("/bill")}
+                            className={`${current === "bill" ? styles.active : ""}`}
+                        >
+                            <FontAwesomeIcon icon={faReceipt} />
+                            <span hidden={isCollapse}>Hoa don</span>
+                        </button>
+                    </div>
+
+                </div >
+                <div>
+                    <button
+                        onClick={() => navigate("/setting")}
+                        className={`${current === "setting" ? styles.active : ""}`}
+                    >
+                        <FontAwesomeIcon icon={faWrench} />
+                        <span hidden={isCollapse}>Cai Dat</span>
+                    </button>
                     <button onClick={backFunction} disabled={cantReturn}>
-                        Back
+                        <FontAwesomeIcon icon={faArrowLeftLong} />
+                        <span hidden={isCollapse}>Tro Lai</span>
                     </button>
-                    <button onClick={() => navigate(`/${current !== "Home" ? current : ""}`)} >
-                        {current}
-                    </button>
+
                 </div>
-
-
-            </nav>
-            <Outlet />
-        </>
+            </nav >
+            <div style={{
+                display: "block",
+                width: "100%",
+                padding: "20px"
+            }}>
+                <Outlet />
+            </div>
+        </div>
     )
 }
 

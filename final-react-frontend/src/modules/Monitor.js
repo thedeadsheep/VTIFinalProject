@@ -8,7 +8,6 @@ function Monitor() {
     return (
 
         <div>
-            Monitor
             <div className={monitorStyle.functionWrap}>
                 <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/renter")}>
                     <span>

@@ -10,7 +10,7 @@ import RoomPage from './modules/RoomModule/RoomPage';
 import NotFound from './modules/components/notfound';
 function App() {
   return (
-    <>
+    <div >
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -29,7 +29,7 @@ function App() {
 
 
 
-    </>
+    </div>
   );
 }
 

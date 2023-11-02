@@ -159,7 +159,7 @@ function CreateAndUpdateProfileComponent(props) {
                             validate: value => value.length === 9 || value.length === 12 || "nhap cai gi a",
                             pattern: {
                                 value: /^(0|[1-9]\d*)(\.\d+)?$/,
-                                message: "Nhap so vao"
+                                message: "Hãy nhập số"
                             }
                         })} defaultValue={renter.soCCCD} />
                         {errors.soCCCD && <p>{errors.soCCCD.message}</p>}
