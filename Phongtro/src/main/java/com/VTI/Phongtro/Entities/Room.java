@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "phong_id", unique = true)
     private String rId;
     @Column(name = "ten_phong")

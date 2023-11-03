@@ -1,4 +1,5 @@
-.A4-size{
+.A4Size{
+    font-family: 'Times New Roman', Times, serif;
     width:794px ;
     height: 1123px;
     padding: 30px;
@@ -13,17 +14,18 @@ p.contract{
     justify-content: center;
     align-items: center;
 }
-.contract.contract-input{
+.contract.contractInput{
+    font-family: 'Times New Roman', Times, serif;
     border: none;
     border-bottom: dotted 0.4px;
     width: 150px;
     border-radius: 0;
     height: 25px !important;
 }   
-.contract.contract-input:focus{
+.contract.contractInput:focus{
     outline: none;
 }
-.contract.contract-input.address{
+.contract.contractInput.address{
     width: 100%;
 }
 li.contract{

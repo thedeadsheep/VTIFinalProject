@@ -3,18 +3,14 @@ import RenterListComponent from "../components/renterList"
 import { getAllRenters } from "../Services/Renter.Services"
 import { useNavigate } from "react-router"
 import Pagination from "../components/pagination"
-import DatePicker, { DateObject } from "react-multi-date-picker"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 const PageSize = 10
-
-const format = "MMM DD, YYYY"
 function RenterPage() {
 
     const [renters, setRenters] = useState([])
     const [searchMode, setSearchMode] = useState(2)
-    const [dateValue, setDateValue] = useState([
-        new DateObject().subtract(2, "days"),
-        new DateObject().add(2, "days")
-    ])
+
     const [textSearchValue, setTextSearchValue] = useState("")
     const [currentPage, setCurrentPage] = useState()
     let data = useMemo(() => {
@@ -36,10 +32,15 @@ function RenterPage() {
         console.log(page)
         setCurrentPage(page)
     }
+
+
+
     async function getRenters() {
         await getAllRenters().then((data) => {
+            if (data.length > 0) {
 
-            setRenters(data)
+                setRenters(data)
+            }
         })
     }
     function stringFiltering(stringValue) {
@@ -48,10 +49,7 @@ function RenterPage() {
             arr = arr.filter((renter) => renter.soCCCD.includes(stringValue))
             console.log(arr)
         } else {
-            arr.forEach(renter => {
-                renter.hoten = renter.ho_tenlot + " " + renter.ten
-            })
-            arr = arr.filter((renter) => renter.hoten.includes(stringValue))
+            arr = arr.filter((renter) => renter.SDT.includes(stringValue))
             console.log(arr)
         }
 
@@ -59,35 +57,10 @@ function RenterPage() {
         localStorage.setItem("currentPage", 0)
 
     }
-    function doubleDateFiltering(DD) {
-        DD.from = new Date(DD.from)
-        DD.to = new Date(DD.to)
-        DD.to.setDate(DD.to.getDate() + 1)
-        let arr = renters
-        arr = arr.filter((renter) => {
-            const stringDate = renter.ngay_chuyen_vao
-            const dateS = new Date(stringDate)
-            return dateS >= DD.from && dateS <= DD.to
-        })
 
-        setRenters(arr)
-        localStorage.setItem("currentPage", 0)
-    }
     async function searchRenter() { //filter trực tiếp từ RenterList
 
-        if (searchMode === 2) {
-            doubleDateFiltering(getDatevalue())
-            return
-        } else {
-            console.log(textSearchValue)
-            stringFiltering(textSearchValue)
-        }
-    }
-    function getDatevalue() {
-        return {
-            from: dateValue[0].format(),
-            to: dateValue[1].format()
-        }
+        stringFiltering(textSearchValue)
     }
     function onSearchModeHandler(e) {
         console.log(searchMode)
@@ -95,56 +68,66 @@ function RenterPage() {
     }
     return (
         <>
-            <h1>
-                RenterPage
+            <h1 style={{
+                fontWeight: "500",
+                margin: "15px"
+            }}>
+                Danh sách phòng trọ
 
             </h1>
 
             <div className="function" style={{
                 display: "flex",
                 justifyContent: "space-between",
-                padding: "0 50px"
             }}>
-                <button className="btn add-renter-btn" onClick={() => navigate("addrenter")}>
-                    them khach tro
+                <button className="btn add-renter-btn" onClick={() => navigate("addrenter")} style={{
+                    color: "black",
+                    background: "#FFC745",
+                    fontSize: "18px",
+                    padding: "8px",
+                    borderRadius: "10px"
+                }}>
+                    <span style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+
+                    }}>
+                        <FontAwesomeIcon icon={faPlus} style={{
+                            border: "2px solid",
+                            borderRadius: "5px",
+                            padding: "3px",
+                            marginRight: "5px"
+
+                        }} /> Thêm khách trọ
+                    </span>
                 </button>
                 <div className="filter">
                     <div>
-                        {searchMode === "1" || searchMode === "0" ?
-                            <input type="text"
-                                id="name-soCCCD"
-                                placeholder={searchMode === "0" ? "Nhap ten" : "Nhap so CCCD"}
-                                onChange={(e) => setTextSearchValue(e.target.value)}
-                            />
-                            :
-                            <DatePicker
-                                range
-                                value={dateValue}
-                                onChange={setDateValue}
-                                format={format}
-                            />
-                        }
+
+                        <input type="text"
+                            id="SDT-soCCCD"
+                            placeholder={searchMode === "0" ? "Nhập số điện thoại" : "Nhập số CCCD/CMND"}
+                            onChange={(e) => setTextSearchValue(e.target.value)}
+                        />
                         <select onChange={onSearchModeHandler} defaultValue={searchMode} >
                             <option value={0}>
-                                Tên
+                                Số điện thoại
                             </option>
                             <option value={1}>
                                 Số CCCD/CMND
                             </option>
-                            <option value={2}>
-                                Ngày đăng ký lưu trú
-                            </option>
                         </select>
 
                         <button onClick={searchRenter}>
-                            Tìm kiếm
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
                 </div>
             </div>
 
             <div className="renter-list" style={{
-                padding: "10px",
+                padding: "10px 0",
             }}>
                 <RenterListComponent title="Dach Sach Nguoi thue phong" renters={data} />
             </div>

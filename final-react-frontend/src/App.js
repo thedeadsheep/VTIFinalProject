@@ -18,7 +18,7 @@ function App() {
             <Route path='/renter' element={<RenterPage />} />
             <Route path='/renter/addRenter' element={<AddRenterPage />} />
             <Route path='/renter/:id' element={<ProfileDetailPage />} />
-            <Route path='/renter/:id/update' element={<CreateAndUpdateProfileComponent state={{ MODE: 'update' }} />} />
+            <Route path='/renter/:id/update' element={<CreateAndUpdateProfileComponent state={{ MODE: "update" }} />} />
             <Route path='/renter/:id/addrelative' element={<AddRenterPage />} />
             <Route path='/room/' element={<RoomPage />} />
             <Route path='/room/:id' />

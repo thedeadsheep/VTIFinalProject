@@ -12,7 +12,7 @@ public class RenterDAO {
 
     public List<Renter> getAllRenter() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Renter", Renter.class).list();
+            return session.createQuery("from Renter r order by r.ngay_chuyen_di, r.ten", Renter.class).list();
         }
     }
     public List<Renter> getAllRenterRelative(String id){

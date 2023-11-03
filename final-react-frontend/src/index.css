@@ -1,12 +1,18 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+
+ @import url('https://fonts.googleapis.com/css2?family=Phudu:wght@300;500;600&display=swap');
+:root{
+font-family: 'Phudu', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 1px;
+}
+body {
+  margin: 0;
+  
 }
 button{
+  
+  font-family: 'Phudu', sans-serif;
   min-height: 35px;
   min-width: 35px;
   border-radius: 5px;
@@ -15,10 +21,12 @@ button{
   text-transform: uppercase;
   box-sizing:border-box;
   margin: 0 3px
+
 }
 button:hover{
   border-radius: 0;
   transition: 0.7s ease-in-out;
+  cursor: pointer;
 }
 select{
   min-height: 35px;
@@ -28,6 +36,8 @@ select{
  margin-right: 5px ;
 }
 input, input.rmdp-input{
+  
+  font-family: 'Phudu', sans-serif;
   box-sizing: border-box;
    min-height: 25px;
    height: 35px;
@@ -37,31 +47,35 @@ input, input.rmdp-input{
 }
 td, th{
   padding: 5px;
-  height: 45px;
+  height: 35px;
 }
 table{
   text-align: center;
   align-items: center;
   border-radius: 10px;
   border-collapse: collapse;
+  border-left: 4px solid #FFF34A ;
 }
 tr:hover:not(:nth-child(1)){
-  background-color: rgba(226, 226, 226, 0.397) !important;
+  background-color: #FFC94A !important;
   cursor: pointer;
 }
 tr:nth-child(1){
-  background-color: black;
-  color: white;
-  border-radius: 10px;
+  background-color: #FFF34A;
+  color: black;
+}
+select{
+  font-family: 'Phudu', sans-serif;
 }
 .chuyen-di{
-  background-color: rgba(255, 101, 101, 0.404) !important
 }
 .chu-phong{
-  background-color: rgba(84, 255, 184, 0.5)
 }
 label{
   padding: 5px;
   display: flex;
   flex-direction: column;
+}
+span{
+  font-family: 'Phudu', sans-serif;
 }

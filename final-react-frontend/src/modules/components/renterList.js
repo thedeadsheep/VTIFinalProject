@@ -43,13 +43,6 @@ function RenterListComponent(props) {
     }
     return (
         <div>
-
-            <h2 >
-                {props.title}
-
-            </h2>
-
-
             <div className="list-wrap" >
                 <table width={"100%"}>
                     <tbody className="table-content">

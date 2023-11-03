@@ -11,7 +11,7 @@ function CreateAndUpdateProfileComponent(props) {
     const idParam = useParams()
     const [renter, setRenter] = useState({})
     const [formValue, setFormValue] = useState(props.value);
-    const [isContract, setIsContract] = useState(false)
+    const [isFormValue, setIsFormValue] = useState(false);
     const [isInputCCCD, setIsInputCCCD] = useState(true)
     const {
         register,
@@ -42,7 +42,10 @@ function CreateAndUpdateProfileComponent(props) {
     const formStyle = {
         display: "flex",
         flexDirection: "column",
-        maxWidth: "800px",
+        width: "600px",
+    }
+    const inputTag = {
+        fontFamily: "'Times New Roman', Times, serif"
     }
     async function updateProfile(data) {
         console.log("update", idParam)
@@ -81,22 +84,19 @@ function CreateAndUpdateProfileComponent(props) {
         }
     }
     function formInputHandler(data) {
+        //Kiết xuất hợp đồng
         setFormValue(data)
-
-        setTimeout(() => {
-            if (state.MODE === "update") {
-                updateProfile(data);
-            }
-            if (state.MODE === "create") {
-                createProfile(data)
-            }
-        }, 0);
-        console.log(data)
+        isFormValue(true)
+    }
+    function request() {
+        let data = formValue
+        if (state.MODE === "create") {
+            createProfile(data)
+        } else {
+            updateProfile(data);
+        }
     }
 
-    function onChangeContractHandler(e) {
-        setIsContract(e.target.checked)
-    }
     function dateInput(e) {
         if (state.LINK_WITH) {
             let date = new Date(e.target.value),
@@ -114,75 +114,101 @@ function CreateAndUpdateProfileComponent(props) {
     return (
         <>
             <h1>
-                {state.MODE + " profile"}
-                {state.LINK_WITH || state.MODE === "update" ?
-                    <></> : <div>
-                        Tạo hợp đồng <input type='checkbox' defaultValue={false} onChange={onChangeContractHandler} />
-                    </div>}
+
+                {state.LINK_WITH || state.MODE === "create" ?
+                    <>
+                        <p>
+                            Cập nhật thông tin
+                        </p>
+                    </> :
+                    state.MODE === "update" ? <>
+                        <p>
+                            Cập nhật thông tin
+                        </p>
+                    </> :
+                        <div>
+                            <p>
+                                thêm khách trọ
+                            </p>
+                            <p>
+                                Tạo hợp đồng
+                            </p>
+                        </div>}
 
             </h1>
-            <div className='form-input'>
-                <form
-                    onSubmit={handleSubmit((data) =>
-                        formInputHandler(data)
-                    )}
-                    style={formStyle}>
-                    <label>
-                        Ho va Ten lot
-                        <input {...register('ho_tenlot', { required: "Nhập nội dung" })} defaultValue={renter.ho_tenlot} />
-                        <ErrorMessage errors={errors} name="ho_tenlot" />
-                    </label>
-                    <label>
-                        Ten
-                        <input {...register('ten', { required: "Nhập nội dung" })} defaultValue={renter.ten} />
-                        <ErrorMessage errors={errors} name="ten" />
-                    </label>
-                    <label>
-                        ngay Sinh
-                        <input {...register('ngay_sinh', { required: true, valueAsDate: true })} type='date' onChange={dateInput} defaultValue={renter.ngay_sinh} />
-                        {errors.ngay_sinh && <p>Hãy chọn ngày sinh</p>}
-                    </label>
-                    <label>
-                        Dia Chi
-                        <input {...register('diaChiThuongTru', { required: true })} type='text' defaultValue={renter.diaChiThuongTru} />
-                        {errors.dia_chi_TT && <p>Nhập địa chỉ thường trú.</p>}
-                    </label>
-                    <label>
-                        Que quan
-                        <input {...register('queQuan', { required: true })} type='text' defaultValue={renter.queQuan} />
-                        {errors.que_quan && <p>Hãy nhập nơi bạn sinh</p>}
-                    </label>
-                    {isInputCCCD ? <label>
-                        So Can cuoc cong dan/ chung minh nhan dan
-                        <input {...register('soCCCD', {
-                            required: 'Nhap thong tin vao',
-                            validate: value => value.length === 9 || value.length === 12 || "nhap cai gi a",
-                            pattern: {
-                                value: /^(0|[1-9]\d*)(\.\d+)?$/,
-                                message: "Hãy nhập số"
-                            }
-                        })} defaultValue={renter.soCCCD} />
-                        {errors.soCCCD && <p>{errors.soCCCD.message}</p>}
-                    </label> : <></>}
+            <div style={{
+                display: "flex",
+                flexDirection: "row"
+            }}>
+                <div className='form-input'>
+                    <form
+                        onSubmit={handleSubmit((data) =>
+                            formInputHandler(data)
+                        )}
+                        style={formStyle}>
+                        <label>
+                            Họ và tên lót
+                            <input {...register('ho_tenlot', { required: "Nhập nội dung" })} defaultValue={renter.ho_tenlot} style={inputTag} />
+                            <ErrorMessage errors={errors} name="ho_tenlot" />
+                        </label>
+                        <label>
+                            Tên
+                            <input {...register('ten', { required: "Nhập nội dung" })} defaultValue={renter.ten} style={inputTag} />
+                            <ErrorMessage errors={errors} name="ten" />
+                        </label>
+                        <label>
+                            Ngày Sinh
+                            <input {...register('ngay_sinh', { required: true, valueAsDate: true })} type='date' onChange={dateInput} defaultValue={renter.ngay_sinh} style={inputTag} />
+                            {errors.ngay_sinh && <p>Hãy chọn ngày sinh</p>}
+                        </label>
+                        <label>
+                            Địa Chỉ
+                            <input {...register('diaChiThuongTru', { required: true })} type='text' defaultValue={renter.diaChiThuongTru} style={inputTag} />
+                            {errors.dia_chi_TT && <p>Nhập địa chỉ thường trú.</p>}
+                        </label>
+                        <label>
+                            Quê Quán
+                            <input {...register('queQuan', { required: true })} type='text' defaultValue={renter.queQuan} style={inputTag} />
+                            {errors.que_quan && <p>Hãy nhập nơi bạn sinh</p>}
+                        </label>
+                        {isInputCCCD ? <label>
+                            Số Căn Cước Công Dân/ Chứng Minh Nhân Dân
+                            <input {...register('soCCCD', {
+                                required: 'Nhap thong tin vao',
+                                validate: value => value.length === 9 || value.length === 12 || "nhap cai gi a",
+                                pattern: {
+                                    value: /^(0|[1-9]\d*)(\.\d+)?$/,
+                                    message: "Hãy nhập số"
+                                }
+                            })} defaultValue={renter.soCCCD} style={inputTag} />
+                            {errors.soCCCD && <p>{errors.soCCCD.message}</p>}
+                        </label> : <></>}
 
-                    {state.LINK_WITH ? <div hidden>
-                        <input {...register('link_with')} value={state.LINK_WITH} />
-                    </div> : <></>}
+                        {state.LINK_WITH ? <div hidden>
+                            <input {...register('link_with')} value={state.LINK_WITH} />
+                        </div> : <></>}
 
-                    <input
-                        type="submit"
+                        <input
+                            type="submit"
 
-                        disabled={!isValid && !isDirty}
-                        value={state.MODE === "create" ? "Dang Ky" : "Cap Nhat"}
-                        style={{ maxWidth: "200px", alignItems: "end" }} />
-                </form>
+                            disabled={!isValid && !isDirty}
+                            value={state.MODE === "create" ? "Kết xuất Hợp đồng" : "Cập Nhật"}
+                            style={{ maxWidth: "200px", alignItems: "end" }} />
+                        <button hidden={state.MODE === "update"} disabled={!isFormValue} onClick={request}>
+                            Đăng ký
+                        </button>
+                    </form>
+                </div>
+                {
+                    state.MODE === "update" ? <></>
+                        :
+                        <div className='contract-render' >
+                            <CONTRACT renterValue={formValue} />
+                        </div>
+                }
+
             </div>
-            <div className='contract-render'>
-                {isContract ?
-                    <div>
-                        <CONTRACT renterValue={formValue} />
-                    </div> : <></>}
-            </div>
+
         </>
 
     )

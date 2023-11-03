@@ -19,7 +19,8 @@ public class Renter {
     private String ten;
     @Column(name = "ngay_sinh")
     private Date ngay_sinh;
-
+    @Column(name = "SDT")
+    private String SDT;
     @Column(name = "que_quan")
     private String queQuan;
     @Column(name = "dia_chi_TT")
@@ -45,7 +46,7 @@ public class Renter {
             String ho_tenlot, String ten,
             Date ngay_sinh, Date ngay_chuyen_vao,Date ngay_chuyen_di,
             String soCCCD, String link_with, String quanhe,
-            String diaChiThuongTru, String queQuan) {
+            String diaChiThuongTru, String queQuan, String SDT) {
         this.ngay_chuyen_vao = ngay_chuyen_vao;
         this.ho_tenlot = ho_tenlot;
         this.soCCCD = soCCCD;
@@ -57,6 +58,7 @@ public class Renter {
         this.diaChiThuongTru = diaChiThuongTru;
         this.quanhe = quanhe;
         this.conO = true;
+        this.SDT = SDT;
     }
     public Renter(
             String ho_tenlot, String ten,
@@ -166,6 +168,14 @@ public class Renter {
 
     public String getQueQuan() {
         return queQuan;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     }
 
     @Override

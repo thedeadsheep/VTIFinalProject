@@ -52,28 +52,28 @@ function Layout() {
                             className={`${current === "Home" ? styles.active : ""}`}
                         >
                             <FontAwesomeIcon icon={faHouse} />
-                            <span hidden={isCollapse}>Trang Chu</span>
+                            <span hidden={isCollapse}>Trang chủ</span>
                         </button>
                         <button
                             onClick={() => navigate("/renter")}
                             className={`${current === "renter" ? styles.active : ""}`}
                         >
                             <FontAwesomeIcon icon={faPersonWalkingLuggage} />
-                            <span hidden={isCollapse}>Khach tro</span>
+                            <span hidden={isCollapse}>Khách trọ</span>
                         </button>
                         <button
                             onClick={() => navigate("/room")}
                             className={`${current === "room" ? styles.active : ""}`}
                         >
                             <FontAwesomeIcon icon={faDoorOpen} />
-                            <span hidden={isCollapse}>Phong</span>
+                            <span hidden={isCollapse}>Phòng</span>
                         </button>
                         <button
                             onClick={() => navigate("/bill")}
                             className={`${current === "bill" ? styles.active : ""}`}
                         >
                             <FontAwesomeIcon icon={faReceipt} />
-                            <span hidden={isCollapse}>Hoa don</span>
+                            <span hidden={isCollapse}>Hóa đơn</span>
                         </button>
                     </div>
 
@@ -84,11 +84,11 @@ function Layout() {
                         className={`${current === "setting" ? styles.active : ""}`}
                     >
                         <FontAwesomeIcon icon={faWrench} />
-                        <span hidden={isCollapse}>Cai Dat</span>
+                        <span hidden={isCollapse}>Cài đặt</span>
                     </button>
                     <button onClick={backFunction} disabled={cantReturn}>
                         <FontAwesomeIcon icon={faArrowLeftLong} />
-                        <span hidden={isCollapse}>Tro Lai</span>
+                        <span hidden={isCollapse}>Quay lại</span>
                     </button>
 
                 </div>
