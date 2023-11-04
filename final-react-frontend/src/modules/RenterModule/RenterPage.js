@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react"
-import RenterListComponent from "../components/renterList"
+import RenterListComponent from "./renterList"
 import { getAllRenters } from "../Services/Renter.Services"
 import { useNavigate } from "react-router"
 import Pagination from "../components/pagination"

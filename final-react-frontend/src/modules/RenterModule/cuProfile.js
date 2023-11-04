@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { addNewRenter, addNewRelative, getRenterById, updateRenterProfile } from '../Services/Renter.Services';
 import { ErrorMessage } from '@hookform/error-message';
-import CONTRACT from './contract';
+import CONTRACT from '../components/contract';
 import { useNavigate, useParams } from 'react-router';
 function CreateAndUpdateProfileComponent(props) {
 

@@ -1,12 +1,25 @@
-import RoomList from "../components/roomList"
+import RoomList from "./roomList"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
+
 import styles from "./roompage.module.css"
-import AddRoom from "../components/addRoom"
+import AddRoom from "./addRoom"
+import ModalPopup from "../components/ModalPopup"
+import { useState } from "react"
 function RoomPage() {
+    const [isOpen, setIsOpen] = useState(false)
+    const [component, setComponent] = useState()
 
-
+    function openComponent(state) {
+        if (state === 1) {
+            setComponent(<AddRoom />)
+            setIsOpen(true)
+        }
+    }
+    function closeModalPopUp() {
+        setIsOpen(!isOpen)
+    }
     return (
         <div>
             <h1>
@@ -16,21 +29,15 @@ function RoomPage() {
                 display: "flex",
                 flexWrap: "wrap"
             }}>
-                <div className={styles.addRoom}>
-                    <details>
-                        <summary>
-                            <span>
-                                <FontAwesomeIcon icon={faPlus} style={{
-                                    borderRadius: "10px",
-                                    background: "#F9D949",
-                                    padding: "7px"
-                                }} />   Thêm Phòng
-
-                            </span>
-
-                        </summary>
-                        <AddRoom />
-                    </details>
+                <div
+                    className={styles.addRoom}>
+                    <button onClick={() => openComponent(1)}
+                    >
+                        <span>
+                            <FontAwesomeIcon icon={faPlus} />
+                            Thêm Phòng
+                        </span>
+                    </button>
                 </div>
                 <div style={{
                     paddingLeft: "30px",
@@ -41,7 +48,7 @@ function RoomPage() {
                     <RoomList />
                 </div>
             </div>
-
+            <ModalPopup isOpen={isOpen} closeModal={closeModalPopUp} component={component} />
         </div>
     )
 

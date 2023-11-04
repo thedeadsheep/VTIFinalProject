@@ -5,7 +5,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import AddRenterPage from './modules/RenterModule/addRenterPage';
 import Monitor from './modules/Monitor';
 import Layout from './Layout';
-import CreateAndUpdateProfileComponent from './modules/components/cuProfile';
+import CreateAndUpdateProfileComponent from './modules/RenterModule/cuProfile';
 import RoomPage from './modules/RoomModule/RoomPage';
 import NotFound from './modules/components/notfound';
 function App() {

@@ -1,5 +1,5 @@
 
-import CreateAndUpdateProfileComponent from "../components/cuProfile"
+import CreateAndUpdateProfileComponent from "./cuProfile"
 import { useParams } from "react-router"
 
 function AddRenterPage() {

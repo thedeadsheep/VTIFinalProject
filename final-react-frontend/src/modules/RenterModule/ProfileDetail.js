@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import RenterListComponent from "../components/renterList"
+import RenterListComponent from "./renterList"
 import { useParams, useNavigate } from "react-router-dom"
 import { getRenterById, getAllRenterRelatives, confirmMoveAway } from "../Services/Renter.Services"
 import styles from "./ProfileDetail.module.css"

@@ -7,29 +7,29 @@
     border-bottom: 0.3px solid;
     width: 400px;
 }
-.addRoom details[open]{
-    border-left: 3px solid rgb(255, 199, 44);
-    border-right: 3px solid rgb(255, 199, 44);
-}
-.addRoom details form{
-    padding: 0px 20px;
-    padding-bottom: 20px;
-}
-.addRoom summary{
+
+.addRoom button{
     letter-spacing: 1px;
-    font-size: 22px;
+    font-size: 18px;
     list-style: none;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 10px;
+    background-color: rgba(221, 221, 221, 0.123);
+    border-radius: 10px;
+    border-left: #F9D949 solid 3px;
 }
-.addRoom summary:hover{
+.addRoom button:hover{
     background-color: rgb(255, 233, 173);
+    border-radius: 0;
    
 }
-.addRoom summary svg{
+.addRoom button svg{
     margin-right: 10px ;
+    border-radius: 10px;
+    background: #F9D949;
+    padding: 7px
 }
-.addRoom summary span{
+.addRoom button span{
  justify-items: center;
     align-items: center;
     display: flex;

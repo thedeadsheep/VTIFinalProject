@@ -30,7 +30,7 @@ function RoomList() {
             id: "5",
             name: "Phong 5",
             roomPrice: "1000000",
-            roomStatus: "có người ở",
+            roomStatus: "Có người ở",
         }
     ]
 
@@ -48,13 +48,16 @@ function RoomList() {
                                 <p>
                                     {room.name}
                                 </p>
+
                                 <p>
-                                    Trạng thái: {room.roomStatus}
+                                    Trạng thái:
                                 </p>
-                            </div>
-                            <div className={`${styles.cardFooter}`}>
-                                <p>
-                                    Giá: {room.roomPrice}
+                                <p
+                                    className={room.roomStatus === "Trống" ?
+                                        `${styles.phongTrong}` :
+                                        room.roomStatus === "Có người ở" ?
+                                            `${styles.coNguoi}` : `${styles.dangSuaChua}`}>
+                                    {room.roomStatus}
                                 </p>
                             </div>
                         </div>
