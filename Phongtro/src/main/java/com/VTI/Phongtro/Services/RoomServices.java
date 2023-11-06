@@ -26,22 +26,38 @@ public class RoomServices {
         }
         return result;
     }
-    public Boolean changeStatusRoom(String id, Room room){
-        /* 0,1 --> 2
+    public String changeStatusRoom(String id){
+        /* 0 <--> 2
          * 0: Trống
          * 1: Có người ở
          * 2: Đang sửa chữa
          */
-        boolean result = false ;
+        String result = "Cập nhật thành công" ;
+        boolean updateResult = false;
         Room oldRoom = roomDAO.getById(id);
         if(oldRoom == null) {
-            return false;
+            return "Lỗi Phòng không tồn tại";
         }
-        oldRoom.setRoomStatus(room.getRoomStatus());
+        String status = oldRoom.getRoomStatus();
+        if (status.contains("1")){
+            return "Lỗi Phòng đang có người ở";
+        }
+        String newStatus;
+        if (status.contains("0")){
+            newStatus = "2";
+            result = "Đã thay đổi thành đang sửa chữa";
+        }else {
+            newStatus = "0";
+            result = "Đã thay đổi thành đang phòng trống";
+        }
+        oldRoom.setRoomStatus(newStatus);
         try{
-            result = roomDAO.updateRoom(oldRoom);
+            updateResult = roomDAO.updateRoom(oldRoom);
         }catch (Exception e){
             e.printStackTrace();
+        }
+        if (updateResult == false){
+            result= "Lỗi cập nhật thông tin";
         }
         return result;
     }

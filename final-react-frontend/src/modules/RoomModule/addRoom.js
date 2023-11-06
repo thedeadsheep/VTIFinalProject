@@ -3,8 +3,9 @@ import { useState } from "react"
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
-function AddRoom() {
-
+function CreateAndUpdateRoom(props) {
+    const state = props.state
+    const dV = state.MODE === "update" ? state.defaultValues : {}
     const [inputFormValue, setInputFormValue] = useState({})
     useEffect(() => {
 
@@ -14,14 +15,25 @@ function AddRoom() {
         handleSubmit,
         formState: { errors, isValid, isDirty },
     } = useForm({
-        mode: "onBlur"
+        mode: "onBlur",
     });
-    function formInputHandler(data) {
+    async function formInputHandler(data) {
+
         setInputFormValue(data)
-        addRoom()
+        submitHandler(data)
     }
-    async function addRoom() {
-        console.log(inputFormValue)
+    function submitHandler(data) {
+        if (state.MODE === "create") {
+            addRoom(data)
+        } else {
+            updateRoom(data)
+        }
+    }
+    async function updateRoom(data) {
+        console.log(state.MODE, data)
+    }
+    async function addRoom(data) {
+        console.log(state.MODE, data)
     }
     return (
         <div>
@@ -33,7 +45,7 @@ function AddRoom() {
             >
                 <label>
                     Tên Phòng
-                    <input {...register('name', { required: "Nhập nội dung" })} />
+                    <input {...register('name', { required: "Nhập nội dung" })} defaultValue={dV.name} />
                     <ErrorMessage errors={errors} name="ten_phong" />
                 </label>
                 <label>
@@ -44,11 +56,10 @@ function AddRoom() {
                             value: /^(0|[1-9]\d*)(\.\d+)?$/,
                             message: "Nhap so vao"
                         }
-                    })} />
+                    })} defaultValue={dV.roomPrice} />
                     <ErrorMessage errors={errors} name="gia_phong" />
                 </label>
                 <label>
-
                     <input
                         type='submit'
                         value={"Thêm phòng"}
@@ -59,4 +70,4 @@ function AddRoom() {
         </div>
     )
 }
-export default AddRoom
+export default CreateAndUpdateRoom

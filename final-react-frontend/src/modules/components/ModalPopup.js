@@ -1,7 +1,7 @@
 function ModalPopup(props) {
     const isOpen = props.isOpen
     const component = props.component
-
+    const modalTitle = props.modalTitle
     if (!isOpen) {
         return (<></>)
     }
@@ -34,8 +34,13 @@ function ModalPopup(props) {
                     padding: "20px",
                     borderBottom: "0.3px solid gray"
                 }}>
-                    <div className="title">
-                        This is title
+                    <div className="title" style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontSize: "28px"
+                    }}>
+                        {modalTitle}
                     </div>
                     <button onClick={props.closeModal} style={{
                         width: "35px",
@@ -53,8 +58,8 @@ function ModalPopup(props) {
                 </div>
                 <div className="body" style={{
                     height: "auto",
-                    width: "700px",
-                    padding: "20px"
+                    width: "auto",
+                    padding: "15px"
                 }}>
                     {component}
                 </div>

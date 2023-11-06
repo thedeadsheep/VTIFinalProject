@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { addNewRenter, addNewRelative, getRenterById, updateRenterProfile } from '../Services/Renter.Services';
 import { ErrorMessage } from '@hookform/error-message';
-import CONTRACT from '../components/contract';
 import { useNavigate, useParams } from 'react-router';
 function CreateAndUpdateProfileComponent(props) {
 
@@ -11,7 +10,6 @@ function CreateAndUpdateProfileComponent(props) {
     const idParam = useParams()
     const [renter, setRenter] = useState({})
     const [formValue, setFormValue] = useState(props.value);
-    const [isFormValue, setIsFormValue] = useState(false);
     const [isInputCCCD, setIsInputCCCD] = useState(true)
     const {
         register,
@@ -84,12 +82,10 @@ function CreateAndUpdateProfileComponent(props) {
         }
     }
     function formInputHandler(data) {
-        //Kiết xuất hợp đồng
         setFormValue(data)
-        isFormValue(true)
+        request(data)
     }
-    function request() {
-        let data = formValue
+    function request(data) {
         if (state.MODE === "create") {
             createProfile(data)
         } else {
@@ -113,29 +109,6 @@ function CreateAndUpdateProfileComponent(props) {
     }
     return (
         <>
-            <h1>
-
-                {state.LINK_WITH || state.MODE === "create" ?
-                    <>
-                        <p>
-                            Cập nhật thông tin
-                        </p>
-                    </> :
-                    state.MODE === "update" ? <>
-                        <p>
-                            Cập nhật thông tin
-                        </p>
-                    </> :
-                        <div>
-                            <p>
-                                thêm khách trọ
-                            </p>
-                            <p>
-                                Tạo hợp đồng
-                            </p>
-                        </div>}
-
-            </h1>
             <div style={{
                 display: "flex",
                 flexDirection: "row"
@@ -192,20 +165,12 @@ function CreateAndUpdateProfileComponent(props) {
                             type="submit"
 
                             disabled={!isValid && !isDirty}
-                            value={state.MODE === "create" ? "Kết xuất Hợp đồng" : "Cập Nhật"}
-                            style={{ maxWidth: "200px", alignItems: "end" }} />
-                        <button hidden={state.MODE === "update"} disabled={!isFormValue} onClick={request}>
-                            Đăng ký
-                        </button>
+                            value={state.MODE === "create" ? "Đăng ký" : "Cập Nhật"}
+                            style={{ maxWidth: "100%", alignItems: "end" }} />
+
                     </form>
                 </div>
-                {
-                    state.MODE === "update" ? <></>
-                        :
-                        <div className='contract-render' >
-                            <CONTRACT renterValue={formValue} />
-                        </div>
-                }
+
 
             </div>
 

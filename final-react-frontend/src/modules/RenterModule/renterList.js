@@ -79,7 +79,10 @@ function RenterListComponent(props) {
                                 <td>
                                     {renter.ten}
                                 </td>
-                                <td>
+                                <td style={{
+                                    padding: "0",
+                                    textAlign: "center"
+                                }}>
                                     {dateConvert(renter.ngay_chuyen_vao, 1)}
                                 </td>
                                 <td>

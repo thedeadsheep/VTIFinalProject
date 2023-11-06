@@ -46,11 +46,11 @@ input, input.rmdp-input{
   margin-right: 5px ;
 }
 td, th{
-  padding: 5px;
+  padding: 5px 10px;
   height: 35px;
 }
 table{
-  text-align: center;
+  text-align: start;
   align-items: center;
   border-radius: 10px;
   border-collapse: collapse;
@@ -67,10 +67,7 @@ tr:nth-child(1){
 select{
   font-family: 'Phudu', sans-serif;
 }
-.chuyen-di{
-}
-.chu-phong{
-}
+
 label{
   padding: 5px;
   display: flex;

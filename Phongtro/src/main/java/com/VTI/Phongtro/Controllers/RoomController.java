@@ -35,13 +35,14 @@ public class RoomController {
         return new ResponseEntity<>("Room added",HttpStatus.OK);
     }
     @PutMapping("/changeStatus")
-    public ResponseEntity changeStatus(@RequestParam("id")String id, @RequestBody Room room){
-        // 0,1 --> 2
-        boolean result = roomServices.changeStatusRoom(id, room);
-        if (!result){
-            return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);
+    public ResponseEntity changeStatus(@RequestParam("id")String id){
+        // 0 <--> 2
+        // Trống <--> sửa chữa
+        String result = roomServices.changeStatusRoom(id);
+        if (result.contains("Lỗi")){
+            return new ResponseEntity(result,HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Room status change",HttpStatus.OK);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
     @PutMapping("/updateDetailRoom")
     public ResponseEntity UpdateDetailRoom(@RequestParam("id")String id, @RequestBody Room room){

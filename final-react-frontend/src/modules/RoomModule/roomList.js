@@ -1,7 +1,12 @@
 import styles from "./roomList.module.css"
-
+import ModalPopup from "../components/ModalPopup"
+import CreateAndUpdateRoom from "./addRoom"
+import { useState } from "react"
 function RoomList() {
-    const exData = [
+    const [isOpen, setIsOpen] = useState(false)
+    const [component, setComponent] = useState()
+    const [modalTitle, setModalTitle] = useState()
+    const data = [
         {
             id: "1",
             name: "Phong 1",
@@ -33,41 +38,84 @@ function RoomList() {
             roomStatus: "Có người ở",
         }
     ]
-
+    async function changeRoomStatus(room) {
+        let status = room.roomStatus === "Đang sửa chữa" ? "Trống" : "Đang sửa chữa"
+        if (window.confirm(`Bạn muốn thay đổi xang trạng thái ${status}`)) {
+            console.log("đang tiến hành", status)
+        }
+    }
+    function openModal(state, room) {
+        console.log(room)
+        if (state === "update") {
+            setModalTitle("Cập nhật thông tin")
+            setComponent(
+                <CreateAndUpdateRoom
+                    state={{
+                        MODE: 'update',
+                        defaultValues: room
+                    }} />
+            )
+            setIsOpen(true)
+        }
+    }
+    function closeModalPopUp() {
+        setIsOpen(!isOpen)
+        setComponent(<></>)
+        setModalTitle("")
+    }
     return (
-        <div >
-            <h3>
-                Danh sách phòng
-            </h3>
-            <div className={`${styles.cardWrap}`}>
-                {
-                    exData.map(room => (
-                        <div className={`${styles.roomCard}`} key={room.id}>
-
-                            <div className={`${styles.cardBody}`}>
-                                <p>
+        <div style={{
+            width: "100%"
+        }}>
+            <table className={`${styles.table}`}>
+                <tbody >
+                    <tr className={`${styles.data}`}>
+                        <th>
+                            Tên phòng
+                        </th>
+                        <th>
+                            trạng thái
+                        </th>
+                        <th className={`${styles.function}`}>
+                            Chức năng
+                        </th>
+                    </tr>
+                    {
+                        data.map(room => (
+                            <tr className={`${styles.dataRow}`} key={room.id}>
+                                <td>
                                     {room.name}
-                                </p>
-
-                                <p>
-                                    Trạng thái:
-                                </p>
-                                <p
+                                </td>
+                                <td
                                     className={room.roomStatus === "Trống" ?
                                         `${styles.phongTrong}` :
                                         room.roomStatus === "Có người ở" ?
                                             `${styles.coNguoi}` : `${styles.dangSuaChua}`}>
                                     {room.roomStatus}
-                                </p>
-                            </div>
-                        </div>
-                    ))
-                }
+                                </td>
+                                <td className={`${styles.function}`}>
+                                    <button onClick={() => openModal("update", room)}>
+                                        cập nhật chi tiết
+                                    </button>
+                                    <button onClick={() => changeRoomStatus(room)}>
+                                        sửa chữa
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
 
-            </div>
 
+            </table>
 
-        </div>
+            <ModalPopup
+                isOpen={isOpen}
+                closeModal={closeModalPopUp}
+                component={component}
+                modalTitle={modalTitle} />
+        </div >
+
     )
 }
 export default RoomList

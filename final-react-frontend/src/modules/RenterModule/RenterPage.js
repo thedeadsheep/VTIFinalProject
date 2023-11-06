@@ -3,14 +3,19 @@ import RenterListComponent from "./renterList"
 import { getAllRenters } from "../Services/Renter.Services"
 import { useNavigate } from "react-router"
 import Pagination from "../components/pagination"
+import ModalPopup from "../components/ModalPopup"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import CreateAndUpdateProfileComponent from "./cuProfile"
+
 const PageSize = 10
 function RenterPage() {
 
     const [renters, setRenters] = useState([])
     const [searchMode, setSearchMode] = useState(2)
-
+    const [openModal, setOpenModal] = useState(false)
+    const [modalTitle, setModalTitle] = useState("")
+    const [component, setComponent] = useState()
     const [textSearchValue, setTextSearchValue] = useState("")
     const [currentPage, setCurrentPage] = useState()
     let data = useMemo(() => {
@@ -21,7 +26,6 @@ function RenterPage() {
     const navigate = useNavigate()
     useEffect(() => {
         getRenters()
-
     }, [])
     useEffect(() => {
         if (renters.length > 0) {
@@ -32,9 +36,6 @@ function RenterPage() {
         console.log(page)
         setCurrentPage(page)
     }
-
-
-
     async function getRenters() {
         await getAllRenters().then((data) => {
             if (data.length > 0) {
@@ -57,7 +58,6 @@ function RenterPage() {
         localStorage.setItem("currentPage", 0)
 
     }
-
     async function searchRenter() { //filter trực tiếp từ RenterList
 
         stringFiltering(textSearchValue)
@@ -65,6 +65,16 @@ function RenterPage() {
     function onSearchModeHandler(e) {
         console.log(searchMode)
         setSearchMode(e.target.value)
+    }
+    function openModalHandler(mode) {
+        if (mode === "create") {
+            setModalTitle("THêm khách trọ")
+            setComponent(<CreateAndUpdateProfileComponent state={{ MODE: "create" }} />)
+            setOpenModal(true)
+        }
+    }
+    function closeModalHandler() {
+        setOpenModal(false)
     }
     return (
         <>
@@ -80,7 +90,7 @@ function RenterPage() {
                 display: "flex",
                 justifyContent: "space-between",
             }}>
-                <button className="btn add-renter-btn" onClick={() => navigate("addrenter")} style={{
+                <button className="btn add-renter-btn" onClick={() => openModalHandler("create")} style={{
                     color: "black",
                     background: "#FFC745",
                     fontSize: "18px",
@@ -144,7 +154,8 @@ function RenterPage() {
                 </Pagination>
             </div>
 
-
+            {openModal ? <>
+                <ModalPopup component={component} isOpen={openModal} closeModal={closeModalHandler} modalTitle={modalTitle} /> </> : <></>}
         </>
     )
 

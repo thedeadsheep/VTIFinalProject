@@ -1,52 +1,30 @@
-.addRoom{
-    padding-left: 30px;
-}
-.addRoom details{
-    display: block;
-    border-top: 0.3px solid;
-    border-bottom: 0.3px solid;
-    width: 400px;
+.function{
 }
 
-.addRoom button{
+
+.function button{
     letter-spacing: 1px;
     font-size: 18px;
     list-style: none;
     cursor: pointer;
     padding: 10px;
     background-color: rgba(221, 221, 221, 0.123);
-    border-radius: 10px;
+    border-radius: 0;
     border-left: #F9D949 solid 3px;
 }
-.addRoom button:hover{
+.function button:hover{
     background-color: rgb(255, 233, 173);
     border-radius: 0;
    
 }
-.addRoom button svg{
+.function button svg{
     margin-right: 10px ;
     border-radius: 10px;
     background: #F9D949;
     padding: 7px
 }
-.addRoom button span{
+.function button span{
  justify-items: center;
     align-items: center;
     display: flex;
-}
-.addRoom summary::webkit-details-marker{
-   display: none;
-}
-.addRoom form input[type=submit]{
-    display: flex;
-    background-color: rgb(255, 199, 44);
-    border: none;
-    padding: 10px;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 2px;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
 }

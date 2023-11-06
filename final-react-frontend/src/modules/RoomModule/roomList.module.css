@@ -1,25 +1,23 @@
-.cardWrap{
-    display: flex;
-    flex-wrap: wrap;
+.table{
+    width: 100%;
 }
-.roomCard{
-    justify-content: space-between;
-    width: 125px;
-    margin: 10px;
-    border: 1px solid;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    background-color: black;
-    color: #F9D949;
+.dataRow{
+   
+   
+}
+.data{
+  
+}
+td.function{
+    width: auto;
+    text-align:right;
 }
 .coNguoi{
-    color: hsl(30, 100%, 72%);
+    
 }
 .dangSuaChua{
-    color: hsl(61, 100%, 72%);
+    
 }
 .phongTrong{
-    color: hsl(125, 100%, 72%);
+   
 }
