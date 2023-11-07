@@ -17,6 +17,7 @@ public class RoomServices {
     public Room getRoomById(String id){return roomDAO.getById(id);}
 
     public boolean addRoom(Room room){
+        room.setRoomStatus("0");
         boolean result = true;
         try{
             result = roomDAO.saveRoom(room);

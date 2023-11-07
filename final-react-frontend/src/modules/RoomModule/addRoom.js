@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { createNewRoom } from "../Services/Room.Services";
 
 function CreateAndUpdateRoom(props) {
     const state = props.state
@@ -31,9 +32,15 @@ function CreateAndUpdateRoom(props) {
     }
     async function updateRoom(data) {
         console.log(state.MODE, data)
+
     }
     async function addRoom(data) {
         console.log(state.MODE, data)
+        await createNewRoom(data).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
     return (
         <div>

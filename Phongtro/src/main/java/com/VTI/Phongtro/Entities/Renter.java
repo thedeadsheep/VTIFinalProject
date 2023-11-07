@@ -39,6 +39,7 @@ public class Renter {
     @Column(name = "link_with")
     private String link_with;
 
+
     public Renter() {
 
     }

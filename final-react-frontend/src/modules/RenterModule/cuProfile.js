@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { addNewRenter, addNewRelative, getRenterById, updateRenterProfile } from '../Services/Renter.Services';
+import { addNewRenter, addNewRelative, updateRenterProfile } from '../Services/Renter.Services';
 import { ErrorMessage } from '@hookform/error-message';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 function CreateAndUpdateProfileComponent(props) {
 
     const state = props.state
+    const renter = props.renter || {}
+    renter.ngay_sinh = new Date(renter.ngay_sinh).toLocaleDateString("sv-SE")
     const navigate = useNavigate()
-    const idParam = useParams()
-    const [renter, setRenter] = useState({})
     const [formValue, setFormValue] = useState(props.value);
     const [isInputCCCD, setIsInputCCCD] = useState(true)
     const {
@@ -21,21 +21,8 @@ function CreateAndUpdateProfileComponent(props) {
     });
 
 
-    useEffect(() => {
-    }, [formValue])
-    useEffect(() => {
-    }, [renter])
     async function getProfileToUpdate() {
-        if (state.MODE === "create") {
-            return
-        }
-        await getRenterById(idParam.id).then((res) => {
-            let ngaySinh = new Date(res.ngay_sinh).toLocaleDateString("sv-SE")
-            res.ngay_sinh = ngaySinh
-            setRenter(res)
-        }).catch((err) => {
-            console.log(err)
-        })
+
     }
     const formStyle = {
         display: "flex",
@@ -46,10 +33,9 @@ function CreateAndUpdateProfileComponent(props) {
         fontFamily: "'Times New Roman', Times, serif"
     }
     async function updateProfile(data) {
-        console.log("update", idParam)
+        const idParam = "a"
         await updateRenterProfile(idParam.id, data).then((res) => {
             //noti done
-            navigate(`/renter/${idParam.id}`)
         }).catch((err) => {
             console.log(err)
         })
@@ -61,6 +47,7 @@ function CreateAndUpdateProfileComponent(props) {
             await addNewRelative(state.LINK_WITH, data).then((res) => {
                 console.log("add relative", res)
                 response = res
+
             }).catch((err) => {
                 console.log(err)
             })
@@ -75,7 +62,6 @@ function CreateAndUpdateProfileComponent(props) {
         }
 
         if (response.status === 200) {
-            console.log("done")
             navigate(`/renter/${response.data}`)
         } else {
             console.log("notDone")

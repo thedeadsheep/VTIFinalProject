@@ -2,42 +2,12 @@ import styles from "./roomList.module.css"
 import ModalPopup from "../components/ModalPopup"
 import CreateAndUpdateRoom from "./addRoom"
 import { useState } from "react"
-function RoomList() {
+function RoomList(props) {
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState()
     const [modalTitle, setModalTitle] = useState()
-    const data = [
-        {
-            id: "1",
-            name: "Phong 1",
-            roomPrice: "1000000",
-            roomStatus: "Trống",
-        },
-        {
-            id: "2",
-            name: "Phong 2",
-            roomPrice: "1000000",
-            roomStatus: "Có người ở",
-        },
-        {
-            id: "3",
-            name: "Phong 3",
-            roomPrice: "1000000",
-            roomStatus: "Trống",
-        },
-        {
-            id: "4",
-            name: "Phong 4",
-            roomPrice: "1000000",
-            roomStatus: "Đang sửa chữa",
-        },
-        {
-            id: "5",
-            name: "Phong 5",
-            roomPrice: "1000000",
-            roomStatus: "Có người ở",
-        }
-    ]
+    let data = props.rooms || []
+
     async function changeRoomStatus(room) {
         let status = room.roomStatus === "Đang sửa chữa" ? "Trống" : "Đang sửa chữa"
         if (window.confirm(`Bạn muốn thay đổi xang trạng thái ${status}`)) {
@@ -58,10 +28,26 @@ function RoomList() {
             setIsOpen(true)
         }
     }
-    function closeModalPopUp() {
-        setIsOpen(!isOpen)
-        setComponent(<></>)
-        setModalTitle("")
+    function closeModalPopUp(event) {
+        try {
+            if (event.target.id === "close-modal-position") {
+                console.log(
+                    'CloseModal'
+                )
+                setIsOpen(false)
+                setComponent(<></>)
+                setModalTitle("")
+            }
+        } catch {
+            return
+        }
+    }
+    if (data.length <= 0) {
+        return (
+            <div>
+                Không có dữ liệu
+            </div>
+        )
     }
     return (
         <div style={{
@@ -82,16 +68,16 @@ function RoomList() {
                     </tr>
                     {
                         data.map(room => (
-                            <tr className={`${styles.dataRow}`} key={room.id}>
+                            <tr className={`${styles.dataRow}`} key={room.rId}>
                                 <td>
                                     {room.name}
                                 </td>
                                 <td
-                                    className={room.roomStatus === "Trống" ?
+                                    className={room.roomStatus === "0" ?
                                         `${styles.phongTrong}` :
-                                        room.roomStatus === "Có người ở" ?
+                                        room.roomStatus === "1" ?
                                             `${styles.coNguoi}` : `${styles.dangSuaChua}`}>
-                                    {room.roomStatus}
+                                    {room.roomStatus === "0" ? "Phòng Trống" : room.roomStatus === "1" ? "Phòng có người" : "Phòng đang sửa chữa"}
                                 </td>
                                 <td className={`${styles.function}`}>
                                     <button onClick={() => openModal("update", room)}>

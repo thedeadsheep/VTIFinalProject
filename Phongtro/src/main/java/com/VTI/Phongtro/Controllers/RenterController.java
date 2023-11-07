@@ -29,11 +29,8 @@ public class RenterController {
     }
     @GetMapping("/getRenterById")
     public  ResponseEntity<String> getRenterById(@RequestParam("id") String id){
-        System.out.println(id);
         Renter renter = renterServices.getRenterById(id);
-
         String result = new Gson().toJson(renter);
-        System.out.println(result);
         if (result.contains("null")){
             return new ResponseEntity<>("Something went wrong!", HttpStatus.NOT_FOUND);
         }

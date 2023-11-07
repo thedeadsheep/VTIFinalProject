@@ -9,7 +9,7 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "phong_id", unique = true)
-    private String rId;
+    private int rId;
     @Column(name = "ten_phong")
     private String name;
     @Column(name = "_status")
@@ -22,7 +22,7 @@ public class Room {
     public Room(){
 
     }
-    public Room(String RId, String Name,
+    public Room(int RId, String Name,
                 String RoomStatus, String RoomPrice,
                 String Renter_Id){
         this.roomStatus = RoomStatus;
@@ -48,11 +48,11 @@ public class Room {
         return renter_id;
     }
 
-    public void setrId(String rId) {
+    public void setrId(int rId) {
         this.rId = rId;
     }
 
-    public String getrId() {
+    public int getrId() {
         return rId;
     }
 

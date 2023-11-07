@@ -36,9 +36,7 @@ function RenterListComponent(props) {
     }
     if (renters.length <= 0) {
         return (
-            <div>
-                Hiện không có {props.title}
-            </div>
+            <></>
         )
     }
     return (

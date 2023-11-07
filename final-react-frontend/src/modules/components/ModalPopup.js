@@ -1,7 +1,8 @@
 function ModalPopup(props) {
-    const isOpen = props.isOpen
+    let isOpen = props.isOpen
     const component = props.component
     const modalTitle = props.modalTitle
+
     if (!isOpen) {
         return (<></>)
     }
@@ -12,26 +13,26 @@ function ModalPopup(props) {
             position: "fixed",
             top: "0",
             left: "0",
-            background: "black",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
-        }}>
+            justifyContent: "center",
+            "background": "rgba(226, 218, 214, 0.16)", "backdropFilter": "blur(2.4px)", "WebkitBackdropFilter": "blur(4.4px)"
+        }} onClick={props.closeModal} id="close-modal-position">
             <div style={{
                 minWidth: "345px",
-
                 height: "auto",
-                background: "white",
+                background: "#F7F7FA",
                 justifyContent: "space-between",
                 display: "flex",
                 flexDirection: "column",
-                borderRadius: "20px"
+                borderRadius: "20px",
+                "boxShadow": "11px 10px 19px -5px rgba(0,0,0,0.4)"
             }}>
                 <div className="header" style={{
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    padding: "20px",
+                    padding: "15px",
                     borderBottom: "0.3px solid gray"
                 }}>
                     <div className="title" style={{
@@ -51,9 +52,10 @@ function ModalPopup(props) {
                         justifyContent: "center",
                         alignItems: "center",
                         padding: "0",
-                        margin: "0"
-                    }}>
-                        x
+                        margin: "0",
+                        background: "white"
+                    }} id="close-modal-position">
+                        X
                     </button>
                 </div>
                 <div className="body" style={{

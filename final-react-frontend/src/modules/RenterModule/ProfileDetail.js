@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react"
 import RenterListComponent from "./renterList"
 import { useParams, useNavigate } from "react-router-dom"
+
+import CreateAndUpdateProfileComponent from './cuProfile';
+import ModalPopup from "../components/ModalPopup"
 import { getRenterById, getAllRenterRelatives, confirmMoveAway } from "../Services/Renter.Services"
 import styles from "./ProfileDetail.module.css"
 function ProfileDetailPage() {
 
+    //useState
     const [renter, setRenter] = useState({})
     const [isHere, setIsHere] = useState()
     const [renterRelatives, setRenterRelatives] = useState([])
     const [isLoadFunction, setIsloadFunction] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
+    const [component, setComponent] = useState()
+    const [modalTitle, setModalTitle] = useState()
+
+
     const navigate = useNavigate()
     const { id } = useParams()
+
     async function getRenter() {
         await getRenterById(id)
             .then((in4) => {
@@ -36,10 +46,7 @@ function ProfileDetailPage() {
             })
 
     }
-    useEffect(() => {
-        getRenter()
-        getRenterRelatives()
-    }, [])
+
     useEffect(() => {
         if (Object.keys(renter).length > 0) {
             setIsloadFunction(true)
@@ -50,8 +57,9 @@ function ProfileDetailPage() {
         setRenter({})
         setIsloadFunction(false)
         setRenterRelatives([])
-        getRenter(id)
-        getRenterRelatives(id)
+        closeModalPopUp()
+        getRenter()
+        getRenterRelatives()
     }, [id])
     async function moveAway() {
         if (window.confirm("Xác nhận chuyển di?")) {
@@ -85,6 +93,33 @@ function ProfileDetailPage() {
         }
 
         return dateString
+    }
+    function openModal(state) {
+        if (state === "createRelative") {
+            setModalTitle("Thêm Khách trọ")
+            setComponent(<CreateAndUpdateProfileComponent state={{ MODE: 'create', LINK_WITH: renter.id }} />)
+            setIsOpen(true)
+        } else if (state === "updateProfile") {
+            setModalTitle("Cập nhật thông tin")
+            setComponent(<CreateAndUpdateProfileComponent state={{ MODE: 'update' }} renter={renter} />)
+            setIsOpen(true)
+        }
+    }
+    function closeModalPopUp(event) {
+        console.log(event)
+        try {
+            if (event.target.id === "close-modal-position") {
+                console.log(
+                    'CloseModal'
+                )
+                setIsOpen(false)
+                setComponent(<></>)
+                setModalTitle("")
+            }
+        } catch {
+            return
+        }
+
     }
     return (
         <div>
@@ -158,7 +193,6 @@ function ProfileDetailPage() {
                     <label>
                         Chức năng:
                         <>
-
                             {renter.link_with ? <>
                                 <button onClick={() => navigate(`/renter/${renter.link_with}`)}>
                                     Go to Nguoi duoc lien ket
@@ -169,11 +203,11 @@ function ProfileDetailPage() {
                         <>
                             {isHere ? <>
 
-                                <button onClick={() => navigate(`/renter/${id}/update`)}>
+                                <button onClick={() => openModal("updateProfile")}>
                                     Cập nhật thông tin
                                 </button>
                                 {renter.link_with ? <></> : <>
-                                    <button onClick={() => navigate("addrelative")}>
+                                    <button onClick={() => openModal("createRelative")}>
                                         Them nguoi o chung
                                     </button>
                                 </>}
@@ -192,6 +226,11 @@ function ProfileDetailPage() {
             <div className="relationship">
                 <RenterListComponent title="Danh Sach nguoi o chung" renters={renterRelatives} />
             </div>
+            <ModalPopup
+                isOpen={isOpen}
+                closeModal={closeModalPopUp}
+                component={component}
+                modalTitle={modalTitle} />
         </div>
     )
 }

@@ -28,6 +28,7 @@ public class RoomController {
     }
     @PostMapping("/addNewRoom")
     public ResponseEntity addNewRoom(@RequestBody Room room){
+        
         boolean result = roomServices.addRoom(room);
         if (!result){
             return new ResponseEntity("Something wentWrong!",HttpStatus.BAD_REQUEST);

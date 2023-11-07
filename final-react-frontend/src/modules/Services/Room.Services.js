@@ -1,11 +1,17 @@
-function getAllRoom() {
-
+import axios from "axios"
+const WEB_API = "http://localhost:8080/room/"
+async function getAllRoom() {
+    let url = WEB_API + "getAllRooms"
+    return await axios.get(url)
 }
-function getRoomById(id) {
-
+async function getRoomById(id) {
+    let url = WEB_API + `getRoomById?id=${id}`
+    return await axios.get(url)
 }
-function createNewRoom() {
-
+async function createNewRoom(data) {
+    console.log(data)
+    const url = WEB_API + `addNewRoom`
+    return await axios.post(url, data)
 }
 function addRenterToRoom(renter_id, room_id) {
 

@@ -68,13 +68,24 @@ function RenterPage() {
     }
     function openModalHandler(mode) {
         if (mode === "create") {
-            setModalTitle("THêm khách trọ")
+            setModalTitle("Thêm khách trọ")
             setComponent(<CreateAndUpdateProfileComponent state={{ MODE: "create" }} />)
             setOpenModal(true)
         }
     }
-    function closeModalHandler() {
-        setOpenModal(false)
+    function closeModalHandler(event) {
+        try {
+            if (event.target.id === "close-modal-position") {
+                console.log(
+                    'CloseModal'
+                )
+                setOpenModal(false)
+                setComponent(<></>)
+                setModalTitle("")
+            }
+        } catch {
+            return
+        }
     }
     return (
         <>
@@ -139,7 +150,7 @@ function RenterPage() {
             <div className="renter-list" style={{
                 padding: "10px 0",
             }}>
-                <RenterListComponent title="Dach Sach Nguoi thue phong" renters={data} />
+                <RenterListComponent renters={data} />
             </div>
             <div style={{
                 display: "flex",
