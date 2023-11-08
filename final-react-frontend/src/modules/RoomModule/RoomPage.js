@@ -16,6 +16,8 @@ function RoomPage() {
     useEffect(() => {
         getRoomList()
     }, [])
+
+
     async function getRoomList() {
         await getAllRoom().then((res) => {
             console.log(res)
@@ -32,6 +34,7 @@ function RoomPage() {
             setComponent(<CreateAndUpdateRoom state={{ MODE: 'create' }} />)
             setIsOpen(true)
         }
+
     }
     function closeModalPopUp(event) {
         try {

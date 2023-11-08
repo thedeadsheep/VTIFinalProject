@@ -16,8 +16,12 @@ public class RoomServices {
     public List<Room> getAllRoom(){ return roomDAO.getAllRoom();}
     public Room getRoomById(String id){return roomDAO.getById(id);}
 
+    public List<Room> getEmptyRoom(){
+        return roomDAO.getEmptyRoom();
+    }
+
     public boolean addRoom(Room room){
-        room.setRoomStatus("0");
+        room.setRoomStatus(0);
         boolean result = true;
         try{
             result = roomDAO.saveRoom(room);
@@ -39,16 +43,16 @@ public class RoomServices {
         if(oldRoom == null) {
             return "Lỗi Phòng không tồn tại";
         }
-        String status = oldRoom.getRoomStatus();
-        if (status.contains("1")){
+        int status = oldRoom.getRoomStatus();
+        if (status == 1){
             return "Lỗi Phòng đang có người ở";
         }
-        String newStatus;
-        if (status.contains("0")){
-            newStatus = "2";
+        int newStatus;
+        if (status == 0){
+            newStatus = 2;
             result = "Đã thay đổi thành đang sửa chữa";
         }else {
-            newStatus = "0";
+            newStatus = 0;
             result = "Đã thay đổi thành đang phòng trống";
         }
         oldRoom.setRoomStatus(newStatus);
@@ -89,14 +93,14 @@ public class RoomServices {
         if(oldRoom == null) {
             return false;
         }
-        if (Objects.equals(oldRoom.getRoomStatus(), "1")){
+        if (oldRoom.getRoomStatus() == 1){
             return false;
         }
-        if (Objects.equals(oldRoom.getRoomStatus(), "2")){
+        if (oldRoom.getRoomStatus() == 2){
             return false;
         }
         oldRoom.setRenter_id(renter_id);
-        oldRoom.setRoomStatus("1");
+        oldRoom.setRoomStatus(1);
         try{
             result = roomDAO.updateRoom(oldRoom);
         }catch (Exception e){

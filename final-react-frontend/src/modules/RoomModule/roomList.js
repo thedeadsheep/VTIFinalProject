@@ -2,17 +2,34 @@ import styles from "./roomList.module.css"
 import ModalPopup from "../components/ModalPopup"
 import CreateAndUpdateRoom from "./addRoom"
 import { useState } from "react"
+import { updateRoomStatus, getAllRentersInRoom } from "../Services/Room.Services"
+
+import RenterListComponent from "../RenterModule/renterList"
 function RoomList(props) {
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState()
     const [modalTitle, setModalTitle] = useState()
-    let data = props.rooms || []
 
+    let data = props.rooms || []
+    let rentersInRoom = []
     async function changeRoomStatus(room) {
         let status = room.roomStatus === "Đang sửa chữa" ? "Trống" : "Đang sửa chữa"
         if (window.confirm(`Bạn muốn thay đổi xang trạng thái ${status}`)) {
             console.log("đang tiến hành", status)
+            await updateRoomStatus(room.rId)
+            window.location.reload()
         }
+    }
+    async function getRenterInRoom(rId) {
+        await getAllRentersInRoom(rId).then((res) => {
+            console.log(res.data)
+            if (res.data.length > 0) {
+
+                rentersInRoom = res.data
+            } else {
+                rentersInRoom = []
+            }
+        })
     }
     function openModal(state, room) {
         console.log(room)
@@ -27,6 +44,16 @@ function RoomList(props) {
             )
             setIsOpen(true)
         }
+        if (state === "renterInRoom") {
+            setModalTitle("Danh sách khách trong phòng")
+            setComponent(<RenterListComponent renters={rentersInRoom} />)
+            setIsOpen(true)
+        }
+    }
+    async function getRenterHandler(room) {
+        await getRenterInRoom(room.rId)
+        console.log(rentersInRoom)
+        openModal("renterInRoom")
     }
     function closeModalPopUp(event) {
         try {
@@ -68,23 +95,23 @@ function RoomList(props) {
                     </tr>
                     {
                         data.map(room => (
-                            <tr className={`${styles.dataRow}`} key={room.rId}>
+                            <tr className={`${styles.dataRow}`} key={room.rId} onClick={() => getRenterHandler(room)}>
                                 <td>
                                     {room.name}
                                 </td>
                                 <td
-                                    className={room.roomStatus === "0" ?
+                                    className={room.roomStatus === 0 ?
                                         `${styles.phongTrong}` :
-                                        room.roomStatus === "1" ?
+                                        room.roomStatus === 1 ?
                                             `${styles.coNguoi}` : `${styles.dangSuaChua}`}>
-                                    {room.roomStatus === "0" ? "Phòng Trống" : room.roomStatus === "1" ? "Phòng có người" : "Phòng đang sửa chữa"}
+                                    {room.roomStatus === 0 ? "Phòng Trống" : room.roomStatus === 1 ? "Phòng có người" : "Phòng đang sửa chữa"}
                                 </td>
                                 <td className={`${styles.function}`}>
                                     <button onClick={() => openModal("update", room)}>
                                         cập nhật chi tiết
                                     </button>
                                     <button onClick={() => changeRoomStatus(room)}>
-                                        sửa chữa
+                                        {room.roomStatus === 0 ? "Sửa chữa phòng" : "Hoàn thiện sửa chữa"}
                                     </button>
                                 </td>
                             </tr>

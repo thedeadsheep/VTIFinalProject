@@ -16,12 +16,13 @@ public class RenterDTO {
     private String soCCCD;
     private String quanhe;
     private String link_with;
+    private String SDT;
 
     public RenterDTO(
             String ho_tenlot, String ten,
             String ngay_sinh,
             String soCCCD, String link_with, String quanhe,
-            String diaChiThuongTru, String queQuan) {
+            String diaChiThuongTru, String queQuan, String SDT) {
         this.ho_tenlot = ho_tenlot;
         this.soCCCD = soCCCD;
         this.ngay_sinh = ngay_sinh;
@@ -30,6 +31,7 @@ public class RenterDTO {
         this.queQuan = queQuan;
         this.diaChiThuongTru = diaChiThuongTru;
         this.quanhe = quanhe;
+        this.SDT = SDT;
     }
     public Renter toRenter() throws ParseException {
         Renter renter = new Renter();
@@ -42,6 +44,7 @@ public class RenterDTO {
         renter.setDiaChiThuongTru(this.diaChiThuongTru);
         renter.setQuanhe(this.quanhe);
         renter.setSoCCCD(this.soCCCD);
+        renter.setSDT(this.SDT);
         return renter;
     }
 }

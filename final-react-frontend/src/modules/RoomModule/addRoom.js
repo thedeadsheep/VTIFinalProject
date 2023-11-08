@@ -2,12 +2,14 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { createNewRoom } from "../Services/Room.Services";
+import { createNewRoom, updateRoomDetail } from "../Services/Room.Services";
+import { useNavigate } from "react-router";
 
 function CreateAndUpdateRoom(props) {
     const state = props.state
     const dV = state.MODE === "update" ? state.defaultValues : {}
     const [inputFormValue, setInputFormValue] = useState({})
+    const navigate = useNavigate()
     useEffect(() => {
 
     }, [])
@@ -23,16 +25,21 @@ function CreateAndUpdateRoom(props) {
         setInputFormValue(data)
         submitHandler(data)
     }
-    function submitHandler(data) {
+    async function submitHandler(data) {
         if (state.MODE === "create") {
-            addRoom(data)
+            await addRoom(data)
         } else {
-            updateRoom(data)
+            await updateRoom(data)
         }
+        window.location.reload()
     }
     async function updateRoom(data) {
         console.log(state.MODE, data)
-
+        await updateRoomDetail(dV.rId, data).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
     async function addRoom(data) {
         console.log(state.MODE, data)
@@ -69,7 +76,7 @@ function CreateAndUpdateRoom(props) {
                 <label>
                     <input
                         type='submit'
-                        value={"Thêm phòng"}
+                        value={state.MODE === "create" ? "Thêm phòng" : "Cập nhật phòng"}
                         disabled={!isValid && !isDirty}
                     />
                 </label>

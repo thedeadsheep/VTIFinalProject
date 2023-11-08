@@ -13,7 +13,7 @@ public class Room {
     @Column(name = "ten_phong")
     private String name;
     @Column(name = "_status")
-    private String roomStatus;
+    private int roomStatus;
     @Column(name = "price")
     private String roomPrice;
     @Column(name = "ma_kh")
@@ -23,7 +23,7 @@ public class Room {
 
     }
     public Room(int RId, String Name,
-                String RoomStatus, String RoomPrice,
+                int RoomStatus, String RoomPrice,
                 String Renter_Id){
         this.roomStatus = RoomStatus;
         this.rId = RId;
@@ -64,11 +64,11 @@ public class Room {
         return roomPrice;
     }
 
-    public void setRoomStatus(String roomStatus) {
+    public void setRoomStatus(int roomStatus) {
         this.roomStatus = roomStatus;
     }
 
-    public String getRoomStatus() {
+    public int getRoomStatus() {
         return roomStatus;
     }
     @Override

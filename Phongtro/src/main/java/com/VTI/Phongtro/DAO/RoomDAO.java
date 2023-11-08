@@ -19,6 +19,11 @@ public class RoomDAO {
             return session.get(Room.class, id);
         }
     }
+    public List<Room> getEmptyRoom(){
+        try( Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Room where roomStatus = 0 ", Room.class).list();
+        }
+    }
     public boolean saveRoom(Room room) {
         boolean result = false;
         Transaction transaction = null;
