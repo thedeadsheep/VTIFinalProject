@@ -24,7 +24,7 @@ public class ServicesPriceServices {
         }
         return result;
     }
-    public boolean updateServicePrice(String sp_id, ServicesPrice servicesPrice){
+    public boolean updateServicePrice(int sp_id, ServicesPrice servicesPrice){
         boolean result = false;
         ServicesPrice oldSP = servicesPriceDAO.getById(sp_id);
         if(oldSP == null){

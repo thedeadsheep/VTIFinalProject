@@ -1,15 +1,14 @@
-import { useEffect } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
 import { createNewRoom, updateRoomDetail } from "../Services/Room.Services";
-import { useNavigate } from "react-router";
+
+import LoadingComponent from "../components/loading"
 
 function CreateAndUpdateRoom(props) {
     const state = props.state
     const dV = state.MODE === "update" ? state.defaultValues : {}
-    const [inputFormValue, setInputFormValue] = useState({})
-    const navigate = useNavigate()
+
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
 
     }, [])
@@ -21,8 +20,7 @@ function CreateAndUpdateRoom(props) {
         mode: "onBlur",
     });
     async function formInputHandler(data) {
-
-        setInputFormValue(data)
+        setIsLoading(true)
         submitHandler(data)
     }
     async function submitHandler(data) {
@@ -49,6 +47,13 @@ function CreateAndUpdateRoom(props) {
             console.log(err)
         })
     }
+    if (isLoading) {
+        return (
+            <>
+                <LoadingComponent />
+            </>
+        )
+    }
     return (
         <div>
 
@@ -60,7 +65,7 @@ function CreateAndUpdateRoom(props) {
                 <label>
                     Tên Phòng
                     <input {...register('name', { required: "Nhập nội dung" })} defaultValue={dV.name} />
-                    <ErrorMessage errors={errors} name="ten_phong" />
+                    {errors.name && <p className='err-message'>{errors.name.message}</p>}
                 </label>
                 <label>
                     Giá phòng
@@ -71,7 +76,7 @@ function CreateAndUpdateRoom(props) {
                             message: "Nhap so vao"
                         }
                     })} defaultValue={dV.roomPrice} />
-                    <ErrorMessage errors={errors} name="gia_phong" />
+                    {errors.roomPrice && <p className='err-message'>{errors.roomPrice.message}</p>}
                 </label>
                 <label>
                     <input

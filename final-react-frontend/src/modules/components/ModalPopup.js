@@ -22,10 +22,10 @@ function ModalPopup(props) {
                 minWidth: "345px",
                 height: "auto",
                 background: "#F7F7FA",
-                justifyContent: "space-between",
                 display: "flex",
                 flexDirection: "column",
                 borderRadius: "20px",
+                minHeight: "300px",
                 "boxShadow": "11px 10px 19px -5px rgba(0,0,0,0.4)"
             }}>
                 <div className="header" style={{
@@ -61,7 +61,10 @@ function ModalPopup(props) {
                 <div className="body" style={{
                     height: "auto",
                     width: "auto",
-                    padding: "15px"
+                    padding: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
                 }}>
                     {component}
                 </div>

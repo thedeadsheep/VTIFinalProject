@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { addNewRenter, addNewRelative, updateRenterProfile } from '../Services/Renter.Services';
-import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from 'react-router';
+import LoadingComponent from "../components/loading"
 import { addRenterToRoom, getEmptyRoom } from '../Services/Room.Services';
 function CreateAndUpdateProfileComponent(props) {
 
@@ -13,6 +13,7 @@ function CreateAndUpdateProfileComponent(props) {
     const navigate = useNavigate()
     const [isInputCCCD, setIsInputCCCD] = useState(true)
     const [emptyRooms, setEmptyRooms] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
     const {
         register,
         handleSubmit,
@@ -89,7 +90,9 @@ function CreateAndUpdateProfileComponent(props) {
         request(data)
     }
     async function request(data) {
+        setIsLoading(true)
         if (state.MODE === "create") {
+
             await createProfile(data)
         } else {
             await updateProfile(data);
@@ -110,6 +113,13 @@ function CreateAndUpdateProfileComponent(props) {
 
 
     }
+    if (isLoading) {
+        return (
+            <>
+                <LoadingComponent />
+            </>
+        )
+    }
     return (
         <>
             <div style={{
@@ -125,27 +135,27 @@ function CreateAndUpdateProfileComponent(props) {
                         <label>
                             Họ và tên lót *
                             <input {...register('ho_tenlot', { required: "Nhập nội dung" })} defaultValue={renter.ho_tenlot} style={inputTag} />
-                            <ErrorMessage errors={errors} name="ho_tenlot" />
+                            {errors.ho_tenlot && <p className='err-message'>{errors.ho_tenlot.message}</p>}
                         </label>
                         <label>
                             Tên *
                             <input {...register('ten', { required: "Nhập nội dung" })} defaultValue={renter.ten} style={inputTag} />
-                            <ErrorMessage errors={errors} name="ten" />
+                            {errors.ten && <p className='err-message'>{errors.ten.message}</p>}
                         </label>
                         <label>
                             Ngày Sinh *
-                            <input max="2008-01-01" {...register('ngay_sinh', { required: true, valueAsDate: true })} type='date' onChange={dateInput} defaultValue={renter.ngay_sinh} style={inputTag} />
-                            {errors.ngay_sinh && <p>Hãy chọn ngày sinh</p>}
+                            <input max="2008-01-01" {...register('ngay_sinh', { required: "Hãy chọn ngày sinh", valueAsDate: true })} type='date' onChange={dateInput} defaultValue={renter.ngay_sinh} style={inputTag} />
+                            {errors.ngay_sinh && <p className='err-message'>{errors.ngay_sinh.message}</p>}
                         </label>
                         <label>
                             Địa Chỉ *
-                            <input {...register('diaChiThuongTru', { required: true })} type='text' defaultValue={renter.diaChiThuongTru} style={inputTag} />
-                            {errors.dia_chi_TT && <p>Nhập địa chỉ thường trú.</p>}
+                            <input {...register('diaChiThuongTru', { required: "Nhập địa chỉ thường trú." })} type='text' defaultValue={renter.diaChiThuongTru} style={inputTag} />
+                            {errors.dia_chi_TT && <p className='err-message'>{errors.diaChiThuongTru.message}</p>}
                         </label>
                         <label>
                             Quê Quán *
-                            <input {...register('queQuan', { required: true })} type='text' defaultValue={renter.queQuan} style={inputTag} />
-                            {errors.que_quan && <p>Hãy nhập nơi bạn sinh</p>}
+                            <input {...register('queQuan', { required: "Hãy nhập nơi bạn sinh" })} type='text' defaultValue={renter.queQuan} style={inputTag} />
+                            {errors.que_quan && <p className='err-message'>{errors.queQuan.message}</p>}
                         </label>
                         <label>
                             Số điện thoại
@@ -168,7 +178,7 @@ function CreateAndUpdateProfileComponent(props) {
                                     message: "Hãy nhập số"
                                 }
                             })} defaultValue={renter.soCCCD} style={inputTag} />
-                            {errors.soCCCD && <p>{errors.soCCCD.message}</p>}
+                            {errors.soCCCD && <p className='err-message'>{errors.soCCCD.message}</p>}
                         </label> : <></>}
                         {state.MODE === "create" && !state.LINK_WITH ?
                             <>

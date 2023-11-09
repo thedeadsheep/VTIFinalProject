@@ -1,5 +1,6 @@
 
 import { useNavigate } from "react-router-dom"
+import LoadingComponent from "../components/loading";
 
 
 function RenterListComponent(props) {
@@ -36,7 +37,9 @@ function RenterListComponent(props) {
     }
     if (renters.length <= 0) {
         return (
-            <></>
+            <>
+                <LoadingComponent />
+            </>
         )
     }
     return (

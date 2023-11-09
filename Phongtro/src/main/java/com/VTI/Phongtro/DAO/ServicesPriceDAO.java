@@ -13,7 +13,7 @@ public class ServicesPriceDAO {
             return session.createQuery("from ServicesPrice", ServicesPrice.class).list();
         }
     }
-    public ServicesPrice getById(String id) {
+    public ServicesPrice getById(int id) {
         try( Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(ServicesPrice.class, id);
         }

@@ -28,7 +28,8 @@ public class ServicesPriceController {
     }
 
     @PutMapping("/updateServicePrice")
-    public ResponseEntity updateRenterProfile(@RequestParam("id") String id, @RequestBody ServicesPrice servicesPrice) {
+    public ResponseEntity updateRenterProfile(@RequestBody ServicesPrice servicesPrice) {
+        int id = servicesPrice.getId();
         boolean result = servicesPriceServices.updateServicePrice(id, servicesPrice);
         if (!result) {
             return new ResponseEntity("not found", HttpStatus.NOT_FOUND);
