@@ -93,13 +93,18 @@ public class RenterController {
         return  new ResponseEntity("update completed", HttpStatus.OK);
     }
     @PutMapping("/updateRenterStatus")
-    public ResponseEntity updateRenterStatus(@RequestParam("id") String id){
-        boolean result = renterServices.updateRenterStatus(id);
+    public ResponseEntity updateRenterStatus(@RequestParam("old_id") String old_id, @RequestParam("new_id") String new_id){
+        boolean result = renterServices.updateRenterStatus(old_id);
         if(!result){
             new ResponseEntity("Phát sinh lỗi", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("Đã chuyển đi", HttpStatus.OK);
+        String stringRS = renterServices.changeRelative(old_id,new_id);
+        return new ResponseEntity(stringRS, HttpStatus.OK);
     }
+    @PutMapping("/changeRelative")
+    public ResponseEntity changeRelative(){
 
+        return  new ResponseEntity("ok", HttpStatus.OK);
+    }
 
 }
