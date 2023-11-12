@@ -68,8 +68,9 @@ select{
   font-family: 'Phudu', sans-serif;
 }
 
-label{
-  padding: 5px;
+form label{
+  min-height: 75px;
+  padding-bottom: 5px;
   display: flex;
   flex-direction: column;
 }
@@ -78,4 +79,9 @@ span{
 }
 .chuyen-di{
   color: red;
+}
+.err-message{
+  color: red;
+  margin: 0px;
+  font-size: 13px;
 }

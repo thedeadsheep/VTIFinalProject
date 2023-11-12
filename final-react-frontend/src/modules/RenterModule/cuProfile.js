@@ -53,10 +53,8 @@ function CreateAndUpdateProfileComponent(props) {
         if (state.LINK_WITH) {
             await addNewRelative(state.LINK_WITH, data).then((res) => {
                 console.log("add relative", res)
-
                 response = res
                 return
-
             }).catch((err) => {
                 console.log(err)
             })
@@ -64,13 +62,10 @@ function CreateAndUpdateProfileComponent(props) {
             await addNewRenter(data).then((res) => {
                 console.log(res)
                 response = res
-
-
             }).catch((err) => {
                 console.log(err)
             })
         }
-
         if (response.status === 200) {
             if (!state.LINK_WITH) {
                 await takeRenterToRoom(response.data, data.roomID)
@@ -150,12 +145,12 @@ function CreateAndUpdateProfileComponent(props) {
                         <label>
                             Địa Chỉ *
                             <input {...register('diaChiThuongTru', { required: "Nhập địa chỉ thường trú." })} type='text' defaultValue={renter.diaChiThuongTru} style={inputTag} />
-                            {errors.dia_chi_TT && <p className='err-message'>{errors.diaChiThuongTru.message}</p>}
+                            {errors.diaChiThuongTru && <p className='err-message'>{errors.diaChiThuongTru.message}</p>}
                         </label>
                         <label>
                             Quê Quán *
                             <input {...register('queQuan', { required: "Hãy nhập nơi bạn sinh" })} type='text' defaultValue={renter.queQuan} style={inputTag} />
-                            {errors.que_quan && <p className='err-message'>{errors.queQuan.message}</p>}
+                            {errors.queQuan && <p className='err-message'>{errors.queQuan.message}</p>}
                         </label>
                         <label>
                             Số điện thoại
@@ -165,7 +160,7 @@ function CreateAndUpdateProfileComponent(props) {
                                     value: /^(0|[1-9]\d*)(\.\d+)?$/,
                                     message: "Hãy nhập số"
                                 }
-                            })} defaultValue={renter.soCCCD} style={inputTag} />
+                            })} defaultValue={renter.SDT} style={inputTag} />
 
                         </label>
                         {isInputCCCD ? <label>
@@ -200,8 +195,15 @@ function CreateAndUpdateProfileComponent(props) {
                             :
                             <></>}
 
-                        {state.LINK_WITH ? <div hidden>
-                            <input {...register('link_with')} value={state.LINK_WITH} />
+                        {state.LINK_WITH ? <div>
+                            <input {...register('link_with')} value={state.LINK_WITH} hidden />
+                            <label>
+                                Tên Quan hệ
+                                <input {...register('quanhe', {
+                                    required: "Nhập tên quan hệ"
+                                })} style={inputTag} />
+                                {errors.quanhe && <p className='err-message'>{errors.quanhe.message}</p>}
+                            </label>
                         </div> : <></>}
 
                         <input

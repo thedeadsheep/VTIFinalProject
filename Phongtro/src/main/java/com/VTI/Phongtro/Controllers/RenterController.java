@@ -3,6 +3,7 @@ package com.VTI.Phongtro.Controllers;
 import com.VTI.Phongtro.DTO.RenterDTO;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Services.RenterServices;
+import com.VTI.Phongtro.Services.RoomServices;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.Date;
 public class RenterController {
 
     private final RenterServices renterServices = new RenterServices();
-
+    private final RoomServices roomServices = new RoomServices();
     @GetMapping("/getAllRenters")
     public ResponseEntity<String> GetAllRenter() {
         String result = new Gson().toJson(renterServices.getAllRenter());
@@ -98,13 +99,9 @@ public class RenterController {
         if(!result){
             new ResponseEntity("Phát sinh lỗi", HttpStatus.BAD_REQUEST);
         }
+        boolean rs = roomServices.setRoomIsEmpty(old_id, new_id);
         String stringRS = renterServices.changeRelative(old_id,new_id);
         return new ResponseEntity(stringRS, HttpStatus.OK);
-    }
-    @PutMapping("/changeRelative")
-    public ResponseEntity changeRelative(){
-
-        return  new ResponseEntity("ok", HttpStatus.OK);
     }
 
 }

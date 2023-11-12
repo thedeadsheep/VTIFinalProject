@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "gia_DV")
 public class ServicesPrice {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DV_id", unique = true)
     private int id;
 

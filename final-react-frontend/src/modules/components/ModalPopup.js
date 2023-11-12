@@ -26,6 +26,7 @@ function ModalPopup(props) {
                 flexDirection: "column",
                 borderRadius: "20px",
                 minHeight: "300px",
+                padding: "10px",
                 "boxShadow": "11px 10px 19px -5px rgba(0,0,0,0.4)"
             }}>
                 <div className="header" style={{

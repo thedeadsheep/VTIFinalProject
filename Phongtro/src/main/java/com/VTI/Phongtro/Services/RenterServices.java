@@ -2,7 +2,11 @@ package com.VTI.Phongtro.Services;
 
 
 import com.VTI.Phongtro.DAO.RenterDAO;
+import com.VTI.Phongtro.DAO.RenterRoomDAO;
+import com.VTI.Phongtro.DAO.RoomDAO;
 import com.VTI.Phongtro.Entities.Renter;
+import com.VTI.Phongtro.Entities.RenterRoom;
+import com.VTI.Phongtro.Entities.Room;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -11,6 +15,8 @@ import java.util.Objects;
 
 public class RenterServices {
     private final RenterDAO renterDAO = new RenterDAO();
+    private final RenterRoomDAO rrDAO = new RenterRoomDAO();
+    private final RoomDAO roomDAO = new RoomDAO();
 
     public List<Renter> getAllRenter() {
         return renterDAO.getAllRenter();
@@ -71,7 +77,7 @@ public class RenterServices {
     }
     public String changeRelative(String old_id, String new_id){
         List<Renter> renterRL = renterDAO.getAllRenterRelative(old_id);
-        if(renterRL.isEmpty()){
+        if(renterRL.isEmpty()){ //Không có người liên kết, đổi thành phòng trống
             return "Không có nội dung cập nhật";
         }
         Renter newRenter = renterDAO.getById(new_id);

@@ -53,8 +53,8 @@ async function updateRenterProfile(id, data) {
     const url = WEB_API + `updateRenterProfile?id=${id}`
     return await axios.put(url, data)
 }
-async function confirmMoveAway(id) {
-    const url = WEB_API + `updateRenterStatus?id=${id}`
+async function confirmMoveAway(data) {
+    const url = WEB_API + `updateRenterStatus?old_id=${data.old_id}&new_id=${data.new_id}`
     return await axios.put(url)
 }
 export {

@@ -6,6 +6,7 @@ import CreateAndUpdateProfileComponent from './cuProfile';
 import ModalPopup from "../components/ModalPopup"
 import { getRenterById, getAllRenterRelatives, confirmMoveAway } from "../Services/Renter.Services"
 import styles from "./ProfileDetail.module.css"
+import MoveOut from "./moveout";
 function ProfileDetailPage() {
 
     //useState
@@ -208,7 +209,7 @@ function ProfileDetailPage() {
                                 </button>
                                 {renter.link_with ? <></> : <>
                                     <button onClick={() => openModal("createRelative")}>
-                                        Them nguoi o chung
+                                        Them nguoi o chung (nho them vao phong_khach)
                                     </button>
                                 </>}
                                 <button onClick={moveAway}>
@@ -231,6 +232,7 @@ function ProfileDetailPage() {
                 closeModal={closeModalPopUp}
                 component={component}
                 modalTitle={modalTitle} />
+            <MoveOut renter={renter} renterRL={renterRelatives} />
         </div>
     )
 }

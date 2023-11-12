@@ -16,8 +16,6 @@ public class Room {
     private int roomStatus;
     @Column(name = "price")
     private String roomPrice;
-    @Column(name = "ma_kh")
-    private String renter_id;
 
     public Room(){
 
@@ -29,7 +27,6 @@ public class Room {
         this.rId = RId;
         this.name = Name;
         this.roomPrice = RoomPrice;
-        this.renter_id =Renter_Id;
     }
 
     public void setName(String name) {
@@ -38,14 +35,6 @@ public class Room {
 
     public String getName() {
         return name;
-    }
-
-    public void setRenter_id(String renter_id) {
-        this.renter_id = renter_id;
-    }
-
-    public String getRenter_id() {
-        return renter_id;
     }
 
     public void setrId(int rId) {

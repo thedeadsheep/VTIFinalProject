@@ -1,8 +1,10 @@
 package com.VTI.Phongtro.Services;
 
 import com.VTI.Phongtro.DAO.RenterDAO;
+import com.VTI.Phongtro.DAO.RenterRoomDAO;
 import com.VTI.Phongtro.DAO.RoomDAO;
 import com.VTI.Phongtro.Entities.Renter;
+import com.VTI.Phongtro.Entities.RenterRoom;
 import com.VTI.Phongtro.Entities.Room;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.Objects;
 public class RoomServices {
     private final RoomDAO roomDAO = new RoomDAO();
     private final RenterDAO renterDAO = new RenterDAO();
+    private final RenterRoomDAO rrDAO = new RenterRoomDAO();
 
     public List<Room> getAllRoom(){ return roomDAO.getAllRoom();}
     public Room getRoomById(String id){return roomDAO.getById(id);}
@@ -84,11 +87,27 @@ public class RoomServices {
         }
         return result;
     }
+    public boolean setRoomIsEmpty(String old_id, String new_id){
+        if (new_id.contains("khongcogi")){
+            RenterRoom rr = rrDAO.getByRenterId(old_id);
+            rr.setStatus(false);
+            Room room = roomDAO.getById(rr.getRoomId());
+            room.setRoomStatus(0);
+            try{
+                rrDAO.updateRRStatus(rr);
+                boolean a = roomDAO.updateRoom(room);
+                return a;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
     public boolean addRenterToRoom(String id, String renter_id){
         /*
          *
          */
-        boolean result = false ;
+        boolean result = true ;
         Room oldRoom = roomDAO.getById(id);
         if(oldRoom == null) {
             return false;
@@ -99,28 +118,31 @@ public class RoomServices {
         if (oldRoom.getRoomStatus() == 2){
             return false;
         }
-        oldRoom.setRenter_id(renter_id);
+        RenterRoom rr = new RenterRoom(renter_id, id,true);
         oldRoom.setRoomStatus(1);
         try{
+            rrDAO.addRenterRoom(rr);
             result = roomDAO.updateRoom(oldRoom);
         }catch (Exception e){
             e.printStackTrace();
+            result = false;
         }
         return result;
     }
     public List<Renter> getAllRentersInRoom(String room_id){
-        boolean result = true;
-        Room room = roomDAO.getById(room_id);
-        if (room == null){
+        List <RenterRoom> rrList = rrDAO.getByRoomId(room_id);
+        if (rrList == null){
             return new ArrayList<>();
         }
-        String renterId = room.getRenter_id();
-        if (renterId == null || renterId.isEmpty()){
-            return new ArrayList<>();
+        List<Renter> renterList = new ArrayList<Renter>();
+        for (RenterRoom rr :rrList){
+            Renter renter = renterDAO.getById(rr.getRenterId());
+            if (renter != null){
+                if(renter.isConO()){
+                    renterList.add(renter);
+                }
+            }
         }
-        Renter renter = renterDAO.getById(renterId);
-        List<Renter> renterList = renterDAO.getAllRenterRelative(renterId);
-        renterList.add(renter);
         return renterList;
     }
 }

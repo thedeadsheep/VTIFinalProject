@@ -1,4 +1,4 @@
-
+import { getAllServicesPrice, addNewService, updateServicePrice } from "../Services/ServicePrice.Services"
 import { useForm } from 'react-hook-form';
 
 export default function CreateAndUpdatePrice(props) {
@@ -15,6 +15,25 @@ export default function CreateAndUpdatePrice(props) {
 
     function formInputHandler(data) {
         console.log(data)
+        if (state.MODE === "create") {
+            createHandler(data)
+        } else if (state.MODE === "update") {
+            updateHandler(data)
+        }
+    }
+    async function createHandler(data) {
+        await addNewService(data).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+    async function updateHandler(data) {
+        await updateServicePrice(data).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
     return (
         <>
