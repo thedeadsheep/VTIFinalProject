@@ -88,18 +88,23 @@ public class RoomServices {
         return result;
     }
     public boolean setRoomIsEmpty(String old_id, String new_id){
-        if (new_id.contains("khongcogi")){
-            RenterRoom rr = rrDAO.getByRenterId(old_id);
-            rr.setStatus(false);
-            Room room = roomDAO.getById(rr.getRoomId());
+        RenterRoom rr = rrDAO.getByRenterId(old_id);
+        Renter renter = renterDAO.getById(old_id);
+        if(renter.getLink_with() == null){
+            renter.setLink_with("");
+        }
+
+        rr.setStatus(false);
+        Room room = roomDAO.getById(rr.getRoomId());
+        if(renter.getLink_with().isBlank()){
             room.setRoomStatus(0);
-            try{
-                rrDAO.updateRRStatus(rr);
-                boolean a = roomDAO.updateRoom(room);
-                return a;
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        }
+        try{
+            rrDAO.updateRRStatus(rr);
+            boolean a = roomDAO.updateRoom(room);
+            return a;
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return false;
     }

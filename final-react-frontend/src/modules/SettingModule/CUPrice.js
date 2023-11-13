@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 export default function CreateAndUpdatePrice(props) {
     const state = props.state
-
+    const price = state.defaultValues || {}
     const {
         register,
         handleSubmit,
@@ -37,10 +37,9 @@ export default function CreateAndUpdatePrice(props) {
     }
     return (
         <>
-            <h1>
-                CreateAndUpdatePrice
-            </h1>
-            <div>
+            <div style={{
+                width: "100%"
+            }}>
                 <form
                     onSubmit={handleSubmit((data) =>
                         formInputHandler(data)
@@ -48,7 +47,7 @@ export default function CreateAndUpdatePrice(props) {
                 >
                     <label>
                         Tên Dịch vụ
-                        <input {...register('name', { required: "Nhập nội dung" })} />
+                        <input {...register('name', { required: "Nhập nội dung" })} defaultValue={price.name} />
                         {errors.name && <p className='err-message'>{errors.name.message}</p>}
                     </label>
                     <label>
@@ -59,7 +58,7 @@ export default function CreateAndUpdatePrice(props) {
                                 value: /^(0|[1-9]\d*)(\.\d+)?$/,
                                 message: "Nhập giá dịch vụ"
                             }
-                        })} />
+                        })} defaultValue={price.price} />
                         {errors.price && <p className='err-message'>{errors.price.message}</p>}
                     </label>
                     <label>

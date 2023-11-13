@@ -24,6 +24,8 @@ export default function MoveOut(props) {
             console.log(res)
         }).catch((err) => {
             console.log(err)
+        }).finally(() => {
+            window.location.reload()
         })
     }
     return (
@@ -32,31 +34,44 @@ export default function MoveOut(props) {
                 onSubmit={handleSubmit((data) =>
                     formInputHandler(data)
                 )}>
-                <select
-                    {...register("old_id", { required: true })}
-                >
-                    <option defaultValue hidden>
+                <label>
+                    Người Chuyển đi
+                    <select
+                        {...register("old_id", { required: true })}
+                    >
+                        <option defaultValue hidden>
 
-                    </option>
-                    <option value={renter.id}>
-                        {`Tên ${renter.ho_tenlot} ${renter.ten} CMND/CCCD ${renter.soCCCD}`}
-                    </option>
-                </select>
-                <select
-                    {...register("new_id", { required: true })}
-                >
-                    <option defaultValue value={"khongcogi"}>
-                        Không có Người liên kết
-                    </option>
-                    {renterRS.map(rt => (
-                        <option key={rt.id} value={rt.id}>
-                            Tên {rt.ho_tenlot} {rt.ten} CMND/CCCD {rt.soCCCD}
                         </option>
-                    ))}
-                </select>
-                <button onClick={() => console.log(renterRS)}>
-                    check
-                </button>
+                        <option value={renter.id}>
+                            {`Tên ${renter.ho_tenlot} ${renter.ten} CMND/CCCD ${renter.soCCCD}`}
+                        </option>
+                    </select>
+                </label>
+                <label>
+                    Để lại phòng cho
+
+                    <select
+                        {...register("new_id", { required: true })}
+                    >
+                        {renterRS.length > 0 ?
+                            <>
+                                {renterRS.map(rt => (
+                                    <option key={rt.id} value={rt.id}>
+                                        Tên {rt.ho_tenlot} {rt.ten} CMND/CCCD {rt.soCCCD}
+                                    </option>
+                                ))}
+                            </> :
+                            <>
+                                <option defaultValue value={"khongcogi"}>
+                                    Không có Người liên kết
+                                </option>
+                            </>
+                        }
+
+                    </select>
+                </label>
+
+
                 <input
                     type="submit"
 

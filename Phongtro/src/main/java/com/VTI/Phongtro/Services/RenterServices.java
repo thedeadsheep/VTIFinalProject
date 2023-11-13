@@ -32,6 +32,21 @@ public class RenterServices {
         }
         return result;
     }
+    public String addRenterRelative(Renter renter) {
+        String result = "init";
+        try {
+            result = renterDAO.saveRenter(renter);
+            renter.setId(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //Result là id của người vừa được add
+        String chuPhong = renter.getLink_with();
+        RenterRoom rr = rrDAO.getByRenterId(chuPhong);
+        rr.setRenterId(renter.getId());
+        rrDAO.addRenterRoom(rr);
+        return result;
+    }
 
     public boolean updateRenterProfile(String id, Renter renter) {
         //Cập nhật họ tên ngày sinh người thuê

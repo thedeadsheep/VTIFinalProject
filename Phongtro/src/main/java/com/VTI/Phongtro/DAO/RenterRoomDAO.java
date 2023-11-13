@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class RenterRoomDAO {
-    public List<RenterRoom> getAllRoom(){
+    public List<RenterRoom> getAllRenterRoom(){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             return session.createQuery("from RenterRoom", RenterRoom.class).list();
         }
@@ -41,7 +41,7 @@ public class RenterRoomDAO {
     }
     public List<RenterRoom> getByRoomId(String id){
         try (Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query query = session.createQuery("from RenterRoom where roomId = :id  and status = 1");
+            Query query = session.createQuery("from RenterRoom where roomId = :id  and status = true");
             query.setParameter("id", id);
             return query.getResultList();
         }

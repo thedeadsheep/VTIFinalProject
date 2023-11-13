@@ -62,17 +62,7 @@ function ProfileDetailPage() {
         getRenter()
         getRenterRelatives()
     }, [id])
-    async function moveAway() {
-        if (window.confirm("Xác nhận chuyển di?")) {
-            await confirmMoveAway(id).then((res) => {
-                console.log(res)
-                setIsHere(false)
-            }).catch((err) => {
-                console.log(err)
-            })
-        }
 
-    }
     function dateConvert(dS, isWithTime) {
         let m = new Date(dS)
 
@@ -103,6 +93,10 @@ function ProfileDetailPage() {
         } else if (state === "updateProfile") {
             setModalTitle("Cập nhật thông tin")
             setComponent(<CreateAndUpdateProfileComponent state={{ MODE: 'update' }} renter={renter} />)
+            setIsOpen(true)
+        } else if (state === "MovingOut") {
+            setModalTitle("Xác nhận chuyển đi")
+            setComponent(<MoveOut renter={renter} renterRL={renterRelatives} />)
             setIsOpen(true)
         }
     }
@@ -209,10 +203,10 @@ function ProfileDetailPage() {
                                 </button>
                                 {renter.link_with ? <></> : <>
                                     <button onClick={() => openModal("createRelative")}>
-                                        Them nguoi o chung (nho them vao phong_khach)
+                                        Thêm người ở chung
                                     </button>
                                 </>}
-                                <button onClick={moveAway}>
+                                <button onClick={() => openModal("MovingOut")}>
                                     Bấm vào để xác nhận chuyển đi
                                 </button>
                             </> : <></>}
@@ -232,7 +226,7 @@ function ProfileDetailPage() {
                 closeModal={closeModalPopUp}
                 component={component}
                 modalTitle={modalTitle} />
-            <MoveOut renter={renter} renterRL={renterRelatives} />
+
         </div>
     )
 }

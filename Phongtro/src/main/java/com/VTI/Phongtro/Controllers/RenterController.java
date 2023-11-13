@@ -79,7 +79,7 @@ public class RenterController {
         renter.setNgay_chuyen_vao(currentDate);
         renter.setConO(true);
         renter.setLink_with(id);
-        String result = renterServices.addRenter(renter);
+        String result = renterServices.addRenterRelative(renter);
         if (result.contains("init")) {
             return new ResponseEntity("Something Went Wrong!", HttpStatus.BAD_REQUEST);
         }
@@ -99,8 +99,9 @@ public class RenterController {
         if(!result){
             new ResponseEntity("Phát sinh lỗi", HttpStatus.BAD_REQUEST);
         }
-        boolean rs = roomServices.setRoomIsEmpty(old_id, new_id);
         String stringRS = renterServices.changeRelative(old_id,new_id);
+        boolean rs = roomServices.setRoomIsEmpty(old_id, new_id);
+
         return new ResponseEntity(stringRS, HttpStatus.OK);
     }
 

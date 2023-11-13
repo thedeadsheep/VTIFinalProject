@@ -95,7 +95,7 @@ function RoomList(props) {
                     </tr>
                     {
                         data.map(room => (
-                            <tr className={`${styles.dataRow}`} key={room.rId} onClick={() => getRenterHandler(room)}>
+                            <tr className={`${styles.dataRow}`} key={room.rId} >
                                 <td>
                                     {room.name}
                                 </td>
@@ -107,12 +107,24 @@ function RoomList(props) {
                                     {room.roomStatus === 0 ? "Phòng Trống" : room.roomStatus === 1 ? "Phòng có người" : "Phòng đang sửa chữa"}
                                 </td>
                                 <td className={`${styles.function}`}>
-                                    <button onClick={() => openModal("update", room)}>
-                                        cập nhật chi tiết
-                                    </button>
-                                    <button onClick={() => changeRoomStatus(room)}>
-                                        {room.roomStatus === 0 ? "Sửa chữa phòng" : "Hoàn thiện sửa chữa"}
-                                    </button>
+
+
+                                    {room.roomStatus !== 1 ?
+                                        <>
+                                            <button onClick={() => openModal("update", room)}>
+                                                cập nhật chi tiết
+                                            </button>
+                                            <button onClick={() => changeRoomStatus(room)}>
+                                                {room.roomStatus === 0 ? "Sửa chữa phòng" : "Hoàn thiện sửa chữa"}
+                                            </button>
+                                        </>
+                                        : <>
+                                            <button onClick={() => getRenterHandler(room)}>
+                                                Người trong phòng
+                                            </button>
+                                        </>
+                                    }
+
                                 </td>
                             </tr>
                         ))
