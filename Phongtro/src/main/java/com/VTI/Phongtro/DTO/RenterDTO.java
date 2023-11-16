@@ -6,8 +6,10 @@ import jakarta.persistence.Column;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class RenterDTO {
+    private String id;
     private String ho_tenlot;
     private String ten;
     private String ngay_sinh;
@@ -17,12 +19,13 @@ public class RenterDTO {
     private String quanhe;
     private String link_with;
     private String SDT;
+    private List<Renter> RL;
 
     public RenterDTO(
             String ho_tenlot, String ten,
             String ngay_sinh,
             String soCCCD, String link_with, String quanhe,
-            String diaChiThuongTru, String queQuan, String SDT) {
+            String diaChiThuongTru, String queQuan, String SDT, String id) {
         this.ho_tenlot = ho_tenlot;
         this.soCCCD = soCCCD;
         this.ngay_sinh = ngay_sinh;
@@ -32,6 +35,7 @@ public class RenterDTO {
         this.diaChiThuongTru = diaChiThuongTru;
         this.quanhe = quanhe;
         this.SDT = SDT;
+        this.id = id;
     }
     public Renter toRenter() throws ParseException {
         Renter renter = new Renter();
@@ -45,6 +49,15 @@ public class RenterDTO {
         renter.setQuanhe(this.quanhe);
         renter.setSoCCCD(this.soCCCD);
         renter.setSDT(this.SDT);
+        renter.setId(this.id);
         return renter;
+    }
+
+    public void setRL(List<Renter> RL) {
+        this.RL = RL;
+    }
+
+    public String getId() {
+        return this.id;
     }
 }

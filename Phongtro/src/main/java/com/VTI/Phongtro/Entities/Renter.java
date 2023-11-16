@@ -1,5 +1,6 @@
 package com.VTI.Phongtro.Entities;
 
+import com.VTI.Phongtro.DTO.RenterDTO;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -178,7 +179,9 @@ public class Renter {
     public void setSDT(String SDT) {
         this.SDT = SDT;
     }
-
+    public RenterDTO toDTO(){
+        return  new RenterDTO(ho_tenlot,ten,ngay_sinh.toString(),soCCCD,link_with,quanhe,diaChiThuongTru,queQuan,SDT,id);
+    }
     @Override
     public String toString() {
         return "KhachHang-HoTen" + ho_tenlot + " " + ten + " - soCCCD " + soCCCD;

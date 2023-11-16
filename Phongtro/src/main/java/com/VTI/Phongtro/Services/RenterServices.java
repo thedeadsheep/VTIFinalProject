@@ -4,14 +4,12 @@ package com.VTI.Phongtro.Services;
 import com.VTI.Phongtro.DAO.RenterDAO;
 import com.VTI.Phongtro.DAO.RenterRoomDAO;
 import com.VTI.Phongtro.DAO.RoomDAO;
+import com.VTI.Phongtro.DTO.RenterDTO;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Entities.RenterRoom;
-import com.VTI.Phongtro.Entities.Room;
+import com.google.gson.Gson;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class RenterServices {
     private final RenterDAO renterDAO = new RenterDAO();
@@ -25,6 +23,7 @@ public class RenterServices {
     public List<Renter> getAllRenterRelative(String id){return renterDAO.getAllRenterRelative(id);}
     public String addRenter(Renter renter) {
         String result = "init";
+        renter.setLink_with("");
         try {
             result = renterDAO.saveRenter(renter);
         } catch (Exception e) {
@@ -117,5 +116,29 @@ public class RenterServices {
             }
         }
         return "Cập nhật thành công";
+    }
+
+    public String getRentersAndRelative(){
+
+        String result = "";
+        List<Renter> RL = renterDAO.getAllRenterWithNotLink();
+        List<RenterDTO> DTOList = new ArrayList<>();
+        for (Renter renter: RL){
+            RenterDTO renterDTO = renter.toDTO();
+            DTOList.add(renterDTO);
+        }
+
+        try{
+            for (RenterDTO renterDTO: DTOList){
+                renterDTO.setRL(renterDAO.getAllRenterRelative(renterDTO.getId()));
+            }
+        }catch (Exception e){
+
+            e.printStackTrace();
+            return "Phát Sinh Lỗi";
+        }
+
+        result = new Gson().toJson(DTOList);
+        return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.VTI.Phongtro.Utils;
 
+import com.VTI.Phongtro.Entities.RoomStat;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Entities.RenterRoom;
 import com.VTI.Phongtro.Entities.Room;
@@ -20,6 +21,7 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(ServicesPrice.class);
                 configuration.addAnnotatedClass(Room.class);
                 configuration.addAnnotatedClass(RenterRoom.class);
+                configuration.addAnnotatedClass(RoomStat.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
 

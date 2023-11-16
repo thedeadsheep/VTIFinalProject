@@ -23,6 +23,11 @@ public class RenterController {
         String result = new Gson().toJson(renterServices.getAllRenter());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/getRentersAndRelative")
+    public ResponseEntity<String> GetRentersAndRelative() {
+        String result = renterServices.getRentersAndRelative();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
     @GetMapping("/getAllRenterRelatives")
     public ResponseEntity<String> GetAllRenterRelatives(@RequestParam("id") String id) {
         String result = new Gson().toJson(renterServices.getAllRenterRelative(id));
