@@ -130,14 +130,25 @@ public class RenterServices {
 
         try{
             for (RenterDTO renterDTO: DTOList){
-                renterDTO.setRL(renterDAO.getAllRenterRelative(renterDTO.getId()));
+                renterDTO.setRL(renterDAO.getAllRenterRelativeNotMove(renterDTO.getId()));
             }
         }catch (Exception e){
 
             e.printStackTrace();
             return "Phát Sinh Lỗi";
         }
+        try{
+            for (RenterDTO renterDTO: DTOList){
+                renterDTO.setRoom(roomDAO.getById(
+                        rrDAO.getByRenterId(
+                                renterDTO.getId()
+                        ).getRoomId()));
+            }
+        }catch (Exception e){
 
+            e.printStackTrace();
+            return "Phát Sinh Lỗi";
+        }
         result = new Gson().toJson(DTOList);
         return result;
     }

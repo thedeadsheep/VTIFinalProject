@@ -1,0 +1,40 @@
+.tableWrap{
+    border: 0.3px solid;
+}
+.displayRow{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    align-items: center;
+    text-align: center;
+}   
+.displayRow .name{
+     text-align: start;
+}   
+.displayRow.title{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    background-color: #e6e6e6;
+    
+}   
+.childRow .displayRow .name{
+    margin-left: 20px;
+    
+}
+.childRow .displayRow{
+}
+.displayRow:hover{
+    background-color: #FFF445;
+}
+.childRow .displayRow:hover {
+    background-color: #FFF445;
+}
+.functionCol{
+    text-align: end;
+}
+.functionButton{
+    background-color: transparent;
+    cursor: pointer;
+}
+.functionButton:hover{
+    background-color: #FF9045;
+}

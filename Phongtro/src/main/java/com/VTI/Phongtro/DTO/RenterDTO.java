@@ -1,6 +1,7 @@
 package com.VTI.Phongtro.DTO;
 
 import com.VTI.Phongtro.Entities.Renter;
+import com.VTI.Phongtro.Entities.Room;
 import jakarta.persistence.Column;
 
 import java.text.ParseException;
@@ -20,6 +21,7 @@ public class RenterDTO {
     private String link_with;
     private String SDT;
     private List<Renter> RL;
+    private Room room;
 
     public RenterDTO(
             String ho_tenlot, String ten,
@@ -60,4 +62,5 @@ public class RenterDTO {
     public String getId() {
         return this.id;
     }
+    public void setRoom(Room room){this.room = room;}
 }

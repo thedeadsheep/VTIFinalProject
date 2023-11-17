@@ -57,6 +57,11 @@ async function confirmMoveAway(data) {
     const url = WEB_API + `updateRenterStatus?old_id=${data.old_id}&new_id=${data.new_id}`
     return await axios.put(url)
 }
+
+async function getRenterWithRelative() {
+    const url = WEB_API + `getRentersAndRelative`
+    return await axios.get(url)
+}
 export {
     updateRenterProfile,
     addNewRelative,
@@ -64,5 +69,6 @@ export {
     getAllRenters,
     getRenterById,
     getAllRenterRelatives,
-    confirmMoveAway
+    confirmMoveAway,
+    getRenterWithRelative
 }

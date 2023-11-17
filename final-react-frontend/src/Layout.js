@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Outlet } from "react-router"
 import { useLocation, useNavigate } from "react-router"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeftLong, faBars, faHouse, faPersonWalkingLuggage, faDoorOpen, faReceipt, faWrench } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeftLong, faBars, faHouse, faPersonWalkingLuggage, faDoorOpen, faReceipt, faWrench, faUsersGear } from "@fortawesome/free-solid-svg-icons"
 import styles from "./layout.module.css"
 function Layout() {
     const lc = useLocation()
@@ -73,6 +73,13 @@ function Layout() {
                             className={`${current === "bill" ? styles.active : ""}`}
                         >
                             <FontAwesomeIcon icon={faReceipt} />
+                            <span hidden={isCollapse}>Hóa đơn</span>
+                        </button>
+                        <button
+                            onClick={() => navigate("/userSetting")}
+                            className={`${current === "userSetting" ? styles.active : ""}`}
+                        >
+                            <FontAwesomeIcon icon={faUsersGear} />
                             <span hidden={isCollapse}>Hóa đơn</span>
                         </button>
                     </div>

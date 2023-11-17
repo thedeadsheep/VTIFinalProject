@@ -24,6 +24,14 @@ public class RenterDAO {
         }
 
     }
+    public List<Renter> getAllRenterRelativeNotMove(String id){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query query = session.createQuery("from Renter where link_with = :id and conO = true");
+            query.setParameter("id", id);
+            return query.getResultList();
+        }
+
+    }
     public List<Renter> getAllRenterWithNotLink(){
         try (Session session = HibernateUtil.getSessionFactory().openSession()){
             Query query = session.createQuery("from Renter where link_with = :id");

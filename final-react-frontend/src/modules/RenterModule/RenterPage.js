@@ -93,7 +93,7 @@ function RenterPage() {
                 fontWeight: "500",
                 margin: "15px"
             }}>
-                Danh sách phòng trọ
+                Danh sách khách trọ
 
             </h1>
 
