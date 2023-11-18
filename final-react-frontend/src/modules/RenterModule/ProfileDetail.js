@@ -1,67 +1,9 @@
-import { useEffect, useState } from "react"
-import RenterListComponent from "./renterList"
-import { useParams, useNavigate } from "react-router-dom"
 
-import CreateAndUpdateProfileComponent from './cuProfile';
-import ModalPopup from "../components/ModalPopup"
-import { getRenterById, getAllRenterRelatives, confirmMoveAway } from "../Services/Renter.Services"
 import styles from "./ProfileDetail.module.css"
-import MoveOut from "./moveout";
-function ProfileDetailPage() {
-
-    //useState
-    const [renter, setRenter] = useState({})
-    const [isHere, setIsHere] = useState()
-    const [renterRelatives, setRenterRelatives] = useState([])
-    const [isLoadFunction, setIsloadFunction] = useState(false)
-    const [isOpen, setIsOpen] = useState(false)
-    const [component, setComponent] = useState()
-    const [modalTitle, setModalTitle] = useState()
+function ProfileDetailPage(props) {
+    const renter = props.renter || {}
 
 
-    const navigate = useNavigate()
-    const { id } = useParams()
-
-    async function getRenter() {
-        await getRenterById(id)
-            .then((in4) => {
-                setTimeout(() => {
-                    setRenter(in4)
-                }, 1000)
-
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-
-    }
-    async function getRenterRelatives() {
-        await getAllRenterRelatives(id)
-            .then((relativeList) => {
-                setTimeout(() => {
-                    setRenterRelatives(relativeList)
-                }, 1000)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-
-    }
-
-    useEffect(() => {
-        if (Object.keys(renter).length > 0) {
-            setIsloadFunction(true)
-            setIsHere(renter.conO)
-        }
-    }, [renter])
-    useEffect(() => {
-        setRenter({})
-        setIsloadFunction(false)
-        setRenterRelatives([])
-        closeModalPopUp()
-        getRenter()
-        getRenterRelatives()
-    }, [id])
 
     function dateConvert(dS, isWithTime) {
         let m = new Date(dS)
@@ -85,42 +27,8 @@ function ProfileDetailPage() {
 
         return dateString
     }
-    function openModal(state) {
-        if (state === "createRelative") {
-            setModalTitle("Thêm Khách trọ")
-            setComponent(<CreateAndUpdateProfileComponent state={{ MODE: 'create', LINK_WITH: renter.id }} />)
-            setIsOpen(true)
-        } else if (state === "updateProfile") {
-            setModalTitle("Cập nhật thông tin")
-            setComponent(<CreateAndUpdateProfileComponent state={{ MODE: 'update' }} renter={renter} />)
-            setIsOpen(true)
-        } else if (state === "MovingOut") {
-            setModalTitle("Xác nhận chuyển đi")
-            setComponent(<MoveOut renter={renter} renterRL={renterRelatives} />)
-            setIsOpen(true)
-        }
-    }
-    function closeModalPopUp(event) {
-        console.log(event)
-        try {
-            if (event.target.id === "close-modal-position") {
-                console.log(
-                    'CloseModal'
-                )
-                setIsOpen(false)
-                setComponent(<></>)
-                setModalTitle("")
-            }
-        } catch {
-            return
-        }
-
-    }
     return (
         <div>
-            <h1>
-                Trang Thông tin của {renter.ho_tenlot + " " + renter.ten}
-            </h1>
             <div className={styles.profileWrap}>
                 <div className={styles.card}>
                     <div className={styles.imageWrap}>
@@ -184,51 +92,11 @@ function ProfileDetailPage() {
                     </div>
 
                 </div>
-                <div className={styles.functionWrap}>
-                    <label>
-                        Chức năng:
-                        <>
-                            {renter.link_with ? <>
-                                <button onClick={() => navigate(`/renter/${renter.link_with}`)}>
-                                    Go to Nguoi duoc lien ket
-                                </button>
-                            </> : <>
-                            </>}
-                        </>
-                        <>
-                            {isHere ? <>
-
-                                <button onClick={() => openModal("updateProfile")}>
-                                    Cập nhật thông tin
-                                </button>
-                                {renter.link_with ? <></> : <>
-                                    <button onClick={() => openModal("createRelative")}>
-                                        Thêm người ở chung
-                                    </button>
-                                </>}
-                                <button onClick={() => openModal("MovingOut")}>
-                                    Bấm vào để xác nhận chuyển đi
-                                </button>
-                            </> : <></>}
-
-                        </>
-                    </label>
-                </div>
-
             </div>
-
-
-            <div className="relationship">
-                <RenterListComponent title="Danh Sach nguoi o chung" renters={renterRelatives} />
-            </div>
-            <ModalPopup
-                isOpen={isOpen}
-                closeModal={closeModalPopUp}
-                component={component}
-                modalTitle={modalTitle} />
 
         </div>
     )
 }
+
 
 export default ProfileDetailPage

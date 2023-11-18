@@ -1,13 +1,17 @@
 
 import { useNavigate } from "react-router-dom"
+import { useState } from "react";
 import LoadingComponent from "../components/loading";
-
+import ModalPopup from '../components/ModalPopup'
+import ProfileDetailPage from "./ProfileDetail";
 
 function RenterListComponent(props) {
     let renters = props.renters || []
     const navigate = useNavigate();
 
-
+    const [isOpen, setIsOpen] = useState(false)
+    const [component, setComponent] = useState()
+    const [modalTitle, setModalTitle] = useState()
 
 
     function dateConvert(dS, isWithTime) {
@@ -42,6 +46,29 @@ function RenterListComponent(props) {
             </>
         )
     }
+    function openModal(state, rt) {
+        if (state === "RenterInformation") {
+            setModalTitle("Thong tin khach tro")
+            setComponent(<ProfileDetailPage renter={rt} />)
+            setIsOpen(true)
+        }
+    }
+    function closeModalPopUp(event) {
+        console.log(event)
+        try {
+            if (event.target.id === "close-modal-position") {
+                console.log(
+                    'CloseModal'
+                )
+                setIsOpen(false)
+                setComponent(<></>)
+                setModalTitle("")
+            }
+        } catch {
+            return
+        }
+
+    }
     return (
         <div>
             <div className="list-wrap" >
@@ -70,7 +97,7 @@ function RenterListComponent(props) {
                         {renters.map(renter => (
                             <tr
                                 key={renter.id}
-                                onClick={() => navigate(`/renter/${renter.id}`)}
+                                onClick={() => openModal("RenterInformation", renter)}
                                 className={`${renter.conO ? "con-o" : "chuyen-di"} ${renter.link_with ? "" : "chu-phong"}`}
                             >
 
@@ -103,6 +130,11 @@ function RenterListComponent(props) {
                 </table>
 
             </div>
+            <ModalPopup
+                isOpen={isOpen}
+                closeModal={closeModalPopUp}
+                component={component}
+                modalTitle={modalTitle} />
         </div>
     )
 }

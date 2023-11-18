@@ -26,6 +26,8 @@ export default function CreateAndUpdatePrice(props) {
             console.log(res)
         }).catch((err) => {
             console.log(err)
+        }).finally(() => {
+            window.location.reload()
         })
     }
     async function updateHandler(data) {
@@ -33,6 +35,8 @@ export default function CreateAndUpdatePrice(props) {
             console.log(res)
         }).catch((err) => {
             console.log(err)
+        }).finally(() => {
+            window.location.reload()
         })
     }
     return (

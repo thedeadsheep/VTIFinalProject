@@ -1,9 +1,12 @@
 package com.VTI.Phongtro.Entities;
 
+import jakarta.persistence.Id;
+
 import java.util.Date;
 
 public class Bill {
 
+    @Id
     private String bill_id;
     private int room_id;
     private Date date_create;
