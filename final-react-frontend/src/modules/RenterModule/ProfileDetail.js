@@ -5,27 +5,12 @@ function ProfileDetailPage(props) {
 
 
 
-    function dateConvert(dS, isWithTime) {
+    function dateConvert(dS) {
         let m = new Date(dS)
 
-        let dateString
-        if (isWithTime) {
-            dateString =
-
-                "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
-                ("0" + m.getDate()).slice(-2) + ", " +
-                m.getFullYear() + " - " +
-                ("0" + m.getHours()).slice(-2) + ":" +
-                ("0" + m.getMinutes()).slice(-2) + ":" +
-                ("0" + m.getSeconds()).slice(-2);
-        } else {
-            dateString =
-                "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
-                ("0" + m.getDate()).slice(-2) + ", " +
-                m.getFullYear()
-        }
-
-        return dateString
+        return "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
+            ("0" + m.getDate()).slice(-2) + ", " +
+            m.getFullYear()
     }
     return (
         <div>
@@ -33,63 +18,62 @@ function ProfileDetailPage(props) {
                 <div className={styles.card}>
                     <div className={styles.imageWrap}>
                         <img src="asd" className={styles.image} />
+                        {renter.soCCCD ? <div className={styles.in4mationWrap}>
+
+                            <label>
+                                Số CCCD/CMND
+                                <p className={styles.CCCD}>
+                                    {renter.soCCCD}
+                                </p>
+                            </label>
+                        </div> : <></>}
+
                     </div>
                     <div className={styles.renterInformation}>
-                        <label>
-                            Họ và tên lót
-                            <p>
-                                {renter.ho_tenlot}
-                            </p>
-                        </label>
-                        <label>
-                            Tên
-                            <p>
-                                {renter.ten}
-                            </p>
+                        <div className={styles.in4mationWrap}>
+                            <label>
+                                Họ và tên
+                                <p>
+                                    {`${renter.ho_tenlot} ${renter.ten}`}
+                                </p>
+                            </label>
+                            {renter.ngay_sinh ? <label>
+                                Ngày sinh
+                                <p>
+                                    {dateConvert(renter.ngay_sinh)}
+                                </p>
+                            </label> : <></>}
+                            {renter.queQuan ? <label>
+                                Quê quán/ Nơi sinh
+                                <p>
+                                    {renter.queQuan}
+                                </p>
+                            </label> : <></>}
+                            {renter.diaChiThuongTru ? <label>
+                                Địa chỉ thường trú
+                                <p>
+                                    {renter.diaChiThuongTru}
+                                </p>
+                            </label> : <></>}
 
-                        </label>
-                        <label>
-                            Ngày sinh
-                            <p>
-                                {dateConvert(renter.ngay_sinh, false)}
-                            </p>
+                        </div>
+                        <div className={styles.in4mationWrap}>
+                            {renter.ngay_chuyen_vao ? <label>
+                                Ngày đăng ký:
+                                <p>
+                                    {dateConvert(renter.ngay_chuyen_vao)}
+                                </p>
+                            </label> : <></>}
+                            {renter.ngay_chuyen_di ? <label>
+                                Ngày chuyển đi:
+                                <p>
+                                    {renter.conO ? <>Hiện tại còn Ở</> : <>{dateConvert(renter.ngay_chuyen_di)}</>}
+                                </p>
+                            </label> : <></>}
 
-                        </label>
-                        <label>
-                            Số CCCD/CMND
-                            <p>
-                                {renter.soCCCD}
-                            </p>
-                        </label>
-                        <label>
-                            Quê quán/ Nơi sinh
-                            <p>
-                                {renter.queQuan}
-                            </p>
-
-                        </label>
-                        <label>
-                            Địa chỉ thường trú
-                            <p>
-                                {renter.diaChiThuongTru}
-                            </p>
-                        </label>
+                        </div>
                     </div>
-                    <div className={styles.renterInformation}>
-                        <label>
-                            Ngày đăng ký chuyển vào:
-                            <p>
-                                {dateConvert(renter.ngay_chuyen_vao, 1)}
-                            </p>
-                        </label>
-                        <label>
-                            Ngày chuyển đi:
-                            <p>
-                                {renter.conO ? <>Hiện tại còn Ở</> : <>{dateConvert(renter.ngay_chuyen_di, 1)}</>}
-                            </p>
-                        </label>
 
-                    </div>
 
                 </div>
             </div>

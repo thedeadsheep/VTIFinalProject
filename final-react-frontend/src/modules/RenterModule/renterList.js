@@ -48,7 +48,7 @@ function RenterListComponent(props) {
     }
     function openModal(state, rt) {
         if (state === "RenterInformation") {
-            setModalTitle("Thong tin khach tro")
+            setModalTitle("Thông tin Khách trọ")
             setComponent(<ProfileDetailPage renter={rt} />)
             setIsOpen(true)
         }

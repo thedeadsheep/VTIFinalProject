@@ -100,6 +100,10 @@ function RenterAndRealativeList(props) {
             <h1 onClick={console.log(data)}>
                 Danh sach khach tro con o
             </h1>
+
+            <select>
+
+            </select>
             {exportData.map((renter) => (
                 <div key={renter.id}>
                     <div style={{

@@ -1,56 +1,33 @@
-.profileWrap{
-    background-color: rgb(230, 230, 230);
-    min-height: 400px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    
-}
 .card{
-    max-width: 750px;
-    max-height: 400px;
-    background-color: rgb(253, 250, 233);
-    margin: 10px;
-    border-radius: 20px;
     display: flex;
     flex-direction: row;
 }
 .imageWrap{
-    margin: 20px;
-}
-.image{
-    width: 225px;
-    height: 300px;
-}
-.renterInformation{
-    padding:  70px 10px;
-    display: flex;
-    flex-wrap: wrap;
-}
-.renterInformation label{
-    font-size: 14px;
-    margin: 1px;
-}
-.renterInformation label p{
-    font-size: 20px;
-    padding: 1px 0px;
-    margin: 0;
-    font-weight: 500;
-    word-spacing: 1px;
-    letter-spacing: 0.7px;
-    border-bottom: 0.2px solid;
-}
-.renterInformation label button{
-    margin-top: 5px;
-}
-.functionWrap label{
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
-.functionWrap button{
-    margin-top: 7px;
+.image{
+    width: 150px;
+    height: 200px;
+    border-radius: 10px;
+}
+.renterInformation{
+    display: flex;
     padding: 10px;
-    background: #FAAE48;
-    
-
+    align-items: center;
+}
+.in4mationWrap{
+    max-width: 200px;
+    margin-top: 3px;
+}
+.in4mationWrap label{
+    font-size: 13px;
+}
+.in4mationWrap label p{
+    font-size: 16px;
+    margin: 5px 0;
+}
+.CCCD{
+    letter-spacing: 2px;
 }
