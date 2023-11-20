@@ -18,6 +18,11 @@ public class ServicesPriceController {
         String Result = new Gson().toJson(servicesPriceServices.getAllPrices());
         return  new ResponseEntity<>(Result, HttpStatus.OK);
     }
+    @GetMapping("/getContractInformation")
+    public ResponseEntity getContractPrice(){
+        String Result = new Gson().toJson(servicesPriceServices.getAllPrices());
+        return  new ResponseEntity<>(Result, HttpStatus.OK);
+    }
     @PostMapping("/addService")
     public ResponseEntity addService(@RequestBody ServicesPrice sp){
         boolean result = servicesPriceServices.addService(sp);
@@ -36,4 +41,5 @@ public class ServicesPriceController {
         }
         return new ResponseEntity("update completed", HttpStatus.OK);
     }
+
 }

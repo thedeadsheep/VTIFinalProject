@@ -7,7 +7,6 @@ import ProfileDetailPage from "./ProfileDetail";
 
 function RenterListComponent(props) {
     let renters = props.renters || []
-    const navigate = useNavigate();
 
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState()

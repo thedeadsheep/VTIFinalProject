@@ -69,19 +69,20 @@ function Layout() {
                             <span hidden={isCollapse}>Phòng</span>
                         </button>
                         <button
+                            onClick={() => navigate("/userSetting")}
+                            className={`${current === "userSetting" ? styles.active : ""}`}
+                        >
+                            <FontAwesomeIcon icon={faUsersGear} />
+                            <span hidden={isCollapse}>cập nhật khách trọ</span>
+                        </button>
+                        <button
                             onClick={() => navigate("/bill")}
                             className={`${current === "bill" ? styles.active : ""}`}
                         >
                             <FontAwesomeIcon icon={faReceipt} />
                             <span hidden={isCollapse}>Hóa đơn</span>
                         </button>
-                        <button
-                            onClick={() => navigate("/userSetting")}
-                            className={`${current === "userSetting" ? styles.active : ""}`}
-                        >
-                            <FontAwesomeIcon icon={faUsersGear} />
-                            <span hidden={isCollapse}>Hóa đơn</span>
-                        </button>
+
                     </div>
 
                 </div >

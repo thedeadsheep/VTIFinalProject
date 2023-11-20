@@ -4,6 +4,8 @@ import ModalPopup from '../components/ModalPopup'
 import styles from './RRList.module.css'
 import CreateAndUpdateProfileComponent from './cuProfile';
 import MoveOut from "./moveout";
+import PrintComponent from '../components/PrintComponent';
+import CONTRACT from '../components/contract';
 function dateConvert(dS, isWithTime) {
     let m = new Date(dS)
 
@@ -49,7 +51,6 @@ export default function RenterRelativeComponent() {
     return (
         <div>
             <RenterAndRealativeList list={rentersData} />
-
         </div>
     )
 }
@@ -98,7 +99,7 @@ function RenterAndRealativeList(props) {
     return (
         <div>
             <h1 onClick={console.log(data)}>
-                Danh sach khach tro con o
+                Danh sách khách ở trọ
             </h1>
 
             <select>
@@ -122,16 +123,16 @@ function RenterAndRealativeList(props) {
                         }}
                             onClick={() => openModal("createRelative", renter.id)}
                         >
-                            Them nguoi o chung
+                            Thêm Người ở chung
                         </button>
                     </div>
 
                     <div className={styles.tableWrap}>
                         <div className={`${styles.displayRow} ${styles.title} `}>
-                            <div>Ho va ten</div>
-                            <div>So dien thoai</div>
-                            <div>so cccd</div>
-                            <div> chuc nang</div>
+                            <div>Họ và tên</div>
+                            <div>Số điện thoại</div>
+                            <div>Số CCCD/CMND</div>
+                            <div>Chức năng</div>
                         </div>
                         <DataDisplay data={renter} />
                         <div className={styles.RL}>
@@ -161,6 +162,8 @@ function DataDisplay(props) {
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState()
     const [modalTitle, setModalTitle] = useState()
+    const [isPrint, setIsPrint] = useState(false)
+
     function openModal(state) {
         if (state === "createRelative") {
             setModalTitle("Thêm Khách trọ")
@@ -174,6 +177,11 @@ function DataDisplay(props) {
             setModalTitle("Xác nhận chuyển đi")
             setComponent(<MoveOut renter={data} renterRL={data.RL} />)
             setIsOpen(true)
+        } else if (state === "Contract") {
+            setModalTitle("Hợp đồng")
+            setComponent(<PrintComponent data={data} />)
+            setIsOpen(true)
+            setIsPrint(true)
         }
     }
     function closeModalPopUp(event) {
@@ -207,17 +215,24 @@ function DataDisplay(props) {
 
                 </div>
                 <div className={styles.functionCol}>
+                    {!data.link_with ? <button
+                        className={styles.functionButton}
+                        onClick={() => openModal("Contract")}
+                    >
+                        Hợp đồng
+                    </button> : ""}
+
                     <button
                         className={styles.functionButton}
                         onClick={() => openModal("updateProfile")}
                     >
-                        cap nhat
+                        Cập nhật
                     </button>
                     <button
                         className={styles.functionButton}
                         onClick={() => openModal("MovingOut")}
                     >
-                        Chuyen di
+                        Chuyển đi
                     </button>
                 </div>
 
@@ -226,7 +241,9 @@ function DataDisplay(props) {
                 isOpen={isOpen}
                 closeModal={closeModalPopUp}
                 component={component}
-                modalTitle={modalTitle} />
+                modalTitle={modalTitle}
+                isPrint={isPrint}
+            />
         </div>
 
 

@@ -23,6 +23,14 @@ public class RenterController {
         String result = new Gson().toJson(renterServices.getAllRenter());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/getOwnerInformation")
+    public ResponseEntity<String> getOwnerInformation() {
+        String result = "";
+        Renter renter = new Renter("Trần Quốc", "Việt", new Date("2000/03/15"), null,null,
+                "352538853", null, null,"51 Đường 6 TDC, Dĩ An, Dĩ An, Bình Dương", "An Giang", "0838224577");
+        result = new Gson().toJson(renter);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
     @GetMapping("/getRentersAndRelative")
     public ResponseEntity<String> GetRentersAndRelative() {
         String result = renterServices.getRentersAndRelative();

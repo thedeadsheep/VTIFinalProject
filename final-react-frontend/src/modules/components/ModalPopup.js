@@ -2,7 +2,7 @@ function ModalPopup(props) {
     let isOpen = props.isOpen
     const component = props.component
     const modalTitle = props.modalTitle
-
+    const isPrint = props.isPrint
     if (!isOpen) {
         return (<></>)
     }
@@ -63,9 +63,11 @@ function ModalPopup(props) {
                     height: "auto",
                     width: "auto",
                     padding: "15px",
-                    display: "flex",
+                    display: "block",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+                    overflowY: "scroll",
+                    maxHeight: "800px"
                 }}>
                     {component}
                 </div>
