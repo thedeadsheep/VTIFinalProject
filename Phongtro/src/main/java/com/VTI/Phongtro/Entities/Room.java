@@ -16,6 +16,8 @@ public class Room {
     private int roomStatus;
     @Column(name = "price")
     private String roomPrice;
+    @Column(name = "dia_chi")
+    private String RoomAddress;
 
     public Room(){
 

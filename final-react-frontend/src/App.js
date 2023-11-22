@@ -7,6 +7,7 @@ import Layout from './Layout';
 import RoomPage from './modules/RoomModule/RoomPage';
 import NotFound from './modules/components/notfound';
 import SettingPage from './modules/SettingModule/SettingPage';
+import RoomRecord from './modules/RoomModule/roomrecord';
 import RenterRelativeComponent from './modules/RenterModule/RRList';
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path='/renter/:id' element={<ProfileDetailPage />} />
             <Route path='/room/' element={<RoomPage />} />
             <Route path='/userSetting/' element={<RenterRelativeComponent />} />
+            <Route path='/roomRecord/' element={<RoomRecord />} />
             <Route path='/setting/' element={<SettingPage />} />
           </Route>
           <Route path='*' element={<NotFound />} />

@@ -3,9 +3,13 @@ package com.VTI.Phongtro.Services;
 import com.VTI.Phongtro.DAO.RenterDAO;
 import com.VTI.Phongtro.DAO.RenterRoomDAO;
 import com.VTI.Phongtro.DAO.RoomDAO;
+import com.VTI.Phongtro.DAO.RoomStatDAO;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Entities.RenterRoom;
 import com.VTI.Phongtro.Entities.Room;
+import com.VTI.Phongtro.Entities.RoomStat;
+import com.VTI.Phongtro.Utils.NormalUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +19,17 @@ public class RoomServices {
     private final RoomDAO roomDAO = new RoomDAO();
     private final RenterDAO renterDAO = new RenterDAO();
     private final RenterRoomDAO rrDAO = new RenterRoomDAO();
+    private final RoomStatDAO rsDAO = new RoomStatDAO();
+    private final NormalUtils normalUtils = new NormalUtils();
 
     public List<Room> getAllRoom(){ return roomDAO.getAllRoom();}
     public Room getRoomById(String id){return roomDAO.getById(id);}
 
     public List<Room> getEmptyRoom(){
         return roomDAO.getEmptyRoom();
+    }
+    public List<Room> getNotEmptyRoom(){
+        return roomDAO.getNotEmptyRoom();
     }
 
     public boolean addRoom(Room room){
@@ -149,5 +158,35 @@ public class RoomServices {
             }
         }
         return renterList;
+    }
+    public String addRoomStat(RoomStat roomStat){
+        // *note: Số điện số nước không phải lúc nào cũng ghi cùng lúc
+        // vì thế thì 1 trong 2 trường null
+        // cần phải lấp lại bằng thông số ghi gần nhất của trường bị trống
+        roomStat.setCommited(false);
+        roomStat.setRecordDate(normalUtils.ngayGhiDienNuoc());
+        try{
+            rsDAO.addRoomStat(roomStat);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Có lỗi sảy ra hãy thử lại!";
+        }
+        return  "Ghi điện nước hoàn thành!";
+    }
+    public String updateRoomStat(RoomStat roomStat){
+        roomStat.setCommited(true);
+        try{
+            rsDAO.updateRoomStat(roomStat);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Có lỗi sảy ra hãy thử lại!";
+        }
+        return  "Ghi điện nước hoàn thành!";
+    }
+    public String getAllRoomStat(){
+        return new Gson().toJson(rsDAO.getAllRoomStat());
+    }
+    public String getRoomStatOfRoom(String room_id){
+        return new Gson().toJson(rsDAO.getRoomStatByRoomId(room_id));
     }
 }

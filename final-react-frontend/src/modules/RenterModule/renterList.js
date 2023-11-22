@@ -1,5 +1,3 @@
-
-import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 import LoadingComponent from "../components/loading";
 import ModalPopup from '../components/ModalPopup'

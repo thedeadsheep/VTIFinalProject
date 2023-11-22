@@ -12,6 +12,10 @@ async function getEmptyRoom() {
     let url = WEB_API + `getEmptyRoom`
     return await axios.get(url)
 }
+async function getNotEmptyRoom() {
+    let url = WEB_API + `getNotEmptyRoom`
+    return await axios.get(url)
+}
 async function createNewRoom(data) {
     console.log(data)
     const url = WEB_API + `addNewRoom`
@@ -42,5 +46,6 @@ export {
     addRenterToRoom,
     updateRoomDetail,
     updateRoomStatus,
-    getAllRentersInRoom
+    getAllRentersInRoom,
+    getNotEmptyRoom
 }

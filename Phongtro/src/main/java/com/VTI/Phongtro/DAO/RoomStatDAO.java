@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomStatDAO {
+    public List<RoomStat> getAllRoomStat(){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            return session.createQuery("from RoomStat").getResultList();
+        }
+    }
 
     public List<RoomStat>getRoomStatByRoomId(String room_id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
@@ -18,6 +23,27 @@ public class RoomStatDAO {
             query.setParameter("id", room_id);
             return query.getResultList();
         }
+    }
+    public RoomStat getTheNewestRecordOfRoom(String room_id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Query query =  session.createQuery("from RoomStat r order by r.recordDate where room_id = :id");
+        query.setParameter("id", room_id);
+        List<RoomStat> RL = new ArrayList<RoomStat>();
+        try{
+            query.getResultList();
+        }catch (Exception e){
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        if (RL.isEmpty()){
+            return  new RoomStat();
+        }
+        return RL.get(0);
     }
     public RoomStat getNewestUncommitedByRoomId(String room_id){
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -57,7 +83,7 @@ public class RoomStatDAO {
             session.close();
         }
         if (RL.isEmpty()){
-            return  new RoomStat();
+            return new RoomStat();
         }
         return RL.get(0);
     }
@@ -82,7 +108,23 @@ public class RoomStatDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.update(roomStat);
+            session.merge(roomStat);
+            transaction.commit();
+        }catch (Exception e){
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+    public void deleteRoomStatRecord(RoomStat roomStat){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.remove(roomStat);
             transaction.commit();
         }catch (Exception e){
             if (transaction != null) {

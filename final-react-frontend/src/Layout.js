@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import { Outlet } from "react-router"
 import { useLocation, useNavigate } from "react-router"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeftLong, faBars, faHouse, faPersonWalkingLuggage, faDoorOpen, faReceipt, faWrench, faUsersGear } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeftLong, faBars, faHouse, faPersonWalkingLuggage, faDoorOpen, faReceipt, faWrench, faUsersGear, faFilePen } from "@fortawesome/free-solid-svg-icons"
 import styles from "./layout.module.css"
 function Layout() {
     const lc = useLocation()
     const navigate = useNavigate()
     const [cantReturn, setCantReturn] = useState(false)
     const [current, setCurrent] = useState([])
-    const [isCollapse, setIsCollapse] = useState(true)
+    const [isCollapse, setIsCollapse] = useState(localStorage.getItem("isCollapseNavbar"))
     function backFunction() {
         if (lc.pathname !== "/") {
             let arr = lc.pathname.split("/")
@@ -31,7 +31,10 @@ function Layout() {
         setCurrent(lc.pathname.split("/")[1] || "Home")
 
     }, [lc])
-
+    function navbarCollapse() {
+        setIsCollapse(!isCollapse)
+        localStorage.setItem("isCollapseNavbar", isCollapse)
+    }
     return (
         < div style={{
             display: "flex",
@@ -43,7 +46,7 @@ function Layout() {
             >
                 <div>
                     <div>
-                        <button onClick={() => setIsCollapse(!isCollapse)}>
+                        <button onClick={() => navbarCollapse()}>
                             <FontAwesomeIcon icon={faBars} />
                             <span hidden={isCollapse}> collapse</span>
                         </button>
@@ -67,6 +70,13 @@ function Layout() {
                         >
                             <FontAwesomeIcon icon={faDoorOpen} />
                             <span hidden={isCollapse}>Phòng</span>
+                        </button>
+                        <button
+                            onClick={() => navigate("/roomRecord")}
+                            className={`${current === "roomRecord" ? styles.active : ""}`}
+                        >
+                            <FontAwesomeIcon icon={faFilePen} />
+                            <span hidden={isCollapse}>Ghi điện nước</span>
                         </button>
                         <button
                             onClick={() => navigate("/userSetting")}

@@ -31,6 +31,11 @@ public class RoomController {
         String result = new Gson().toJson(roomServices.getEmptyRoom());
         return new ResponseEntity<String>(result,HttpStatus.OK);
     }
+    @GetMapping("/getNotEmptyRoom")
+    public ResponseEntity<String> GetNotEmptyRoom(){
+        String result = new Gson().toJson(roomServices.getNotEmptyRoom());
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
     @PostMapping("/addNewRoom")
     public ResponseEntity addNewRoom(@RequestBody Room room){
         

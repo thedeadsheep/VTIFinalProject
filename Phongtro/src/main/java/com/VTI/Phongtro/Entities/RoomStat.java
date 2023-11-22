@@ -23,13 +23,13 @@ public class RoomStat {
 
     @Id
     @Column(name = "ngay_ghi")
-    private Date recordDate;
+    private String recordDate;//
 
     @Column(name = "ghi_nhan")
     private boolean isCommited;
 
     public RoomStat(){}
-    public RoomStat(String room_id, int elecNumber, int waterNumber, Date recordDate, boolean isCommited){
+    public RoomStat(String room_id, int elecNumber, int waterNumber, String recordDate, boolean isCommited){
         this.elecNumber = elecNumber;
         this.recordDate = recordDate;
         this.waterNumber = waterNumber;
@@ -46,7 +46,7 @@ public class RoomStat {
         isCommited = commited;
     }
 
-    public Date getRecordDate() {
+    public String getRecordDate() {
         return recordDate;
     }
 
@@ -66,7 +66,7 @@ public class RoomStat {
         return waterNumber;
     }
 
-    public void setRecordDate(Date recordDate) {
+    public void setRecordDate(String recordDate) {
         this.recordDate = recordDate;
     }
 
