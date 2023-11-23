@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 export default function CreateAndUpdatePrice(props) {
     const state = props.state
     const price = state.defaultValues || {}
+    console.log(price)
     const {
         register,
         handleSubmit,
@@ -15,23 +16,10 @@ export default function CreateAndUpdatePrice(props) {
 
     function formInputHandler(data) {
         console.log(data)
-        if (state.MODE === "create") {
-            createHandler(data)
-        } else if (state.MODE === "update") {
-            updateHandler(data)
-        }
-    }
-    async function createHandler(data) {
-        await addNewService(data).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        }).finally(() => {
-            window.location.reload()
-        })
+        updateHandler(data)
     }
     async function updateHandler(data) {
-        await updateServicePrice(data).then((res) => {
+        await updateServicePrice(price.id, data).then((res) => {
             console.log(res)
         }).catch((err) => {
             console.log(err)
@@ -49,26 +37,33 @@ export default function CreateAndUpdatePrice(props) {
                         formInputHandler(data)
                     )}
                 >
+
                     <label>
-                        Tên Dịch vụ
-                        <input {...register('name', { required: "Nhập nội dung" })} defaultValue={price.name} />
-                        {errors.name && <p className='err-message'>{errors.name.message}</p>}
-                    </label>
-                    <label>
-                        Giá dịch vụ
-                        <input {...register('price', {
+                        Giá điện
+                        <input {...register('elecPrice', {
                             required: "Nhập nội dung",
                             pattern: {
                                 value: /^(0|[1-9]\d*)(\.\d+)?$/,
                                 message: "Nhập giá dịch vụ"
                             }
-                        })} defaultValue={price.price} />
-                        {errors.price && <p className='err-message'>{errors.price.message}</p>}
+                        })} defaultValue={price.elecPrice} />
+                        {errors.elecPrice && <p className='err-message'>{errors.elecPrice.message}</p>}
+                    </label>
+                    <label>
+                        Giá nước
+                        <input {...register('waterPrice', {
+                            required: "Nhập nội dung",
+                            pattern: {
+                                value: /^(0|[1-9]\d*)(\.\d+)?$/,
+                                message: "Nhập giá dịch vụ"
+                            }
+                        })} defaultValue={price.waterPrice} />
+                        {errors.waterPrice && <p className='err-message'>{errors.waterPrice.message}</p>}
                     </label>
                     <label>
                         <input
                             type='submit'
-                            value={state.MODE === "create" ? "Thêm dịch vụ" : "Cập nhật dịch vụ"}
+                            value={"Cập nhật giá"}
                             disabled={!isValid && !isDirty}
                         />
                     </label>

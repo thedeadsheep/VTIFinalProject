@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import { Outlet } from "react-router"
 import { useLocation, useNavigate } from "react-router"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeftLong, faBars, faHouse, faPersonWalkingLuggage, faDoorOpen, faReceipt, faWrench, faUsersGear, faFilePen } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeftLong, faBars, faHouse, faPersonWalkingLuggage, faDoorOpen, faReceipt, faWrench, faUsersGear, faFilePen, faL } from "@fortawesome/free-solid-svg-icons"
 import styles from "./layout.module.css"
 function Layout() {
     const lc = useLocation()
     const navigate = useNavigate()
     const [cantReturn, setCantReturn] = useState(false)
     const [current, setCurrent] = useState([])
-    const [isCollapse, setIsCollapse] = useState(localStorage.getItem("isCollapseNavbar"))
+    const [isCollapse, setIsCollapse] = useState(localStorage.getItem("isCollapseNavbar") === "true" ? true : false)
     function backFunction() {
         if (lc.pathname !== "/") {
             let arr = lc.pathname.split("/")
@@ -33,7 +33,8 @@ function Layout() {
     }, [lc])
     function navbarCollapse() {
         setIsCollapse(!isCollapse)
-        localStorage.setItem("isCollapseNavbar", isCollapse)
+        let localValue = localStorage.getItem("isCollapseNavbar") === "true" ? false : true
+        localStorage.setItem("isCollapseNavbar", localValue)
     }
     return (
         < div style={{

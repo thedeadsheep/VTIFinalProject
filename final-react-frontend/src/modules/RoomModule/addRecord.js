@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-
+import { addRoomRecord } from "../Services/Room.Services"
 export default function AddRecord(props) {
     const room = props.room
     const {
@@ -9,8 +9,21 @@ export default function AddRecord(props) {
     } = useForm({
         mode: "onBlur",
     });
-    function formInputHandler() {
+    function formInputHandler(data) {
+        if (data.elecNumber === "" && data.waterNumber === "") {
+            console.log("phải nhập ít mhaats 1 trong 2 trường")
+            return
+        }
 
+    }
+    async function addRecord(data) {
+        await addRoomRecord(data).then((res) => {
+            console.log(res)
+        }).catch((errors) => {
+            console.log(errors)
+        }).finally((() => {
+
+        }))
     }
     return (
         <div>
@@ -37,7 +50,6 @@ export default function AddRecord(props) {
                     <input
                         type='submit'
                         value={"Ghi"}
-                        disabled={!isValid && !isDirty}
                     />
                 </label>
             </form>

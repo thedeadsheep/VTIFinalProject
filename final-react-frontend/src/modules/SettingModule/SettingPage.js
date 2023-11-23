@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react"
-import CreateAndUpdatePrice from "./CUPrice"
 import PriceList from "./PriceList"
-import { getAllServicesPrice } from "../Services/ServicePrice.Services"
+import { getCurrentPrice, getAllServicesPrice } from "../Services/ServicePrice.Services"
+import PriceHistory from "./priceHistory"
 
 
 function SettingPage() {
 
-    const [priceList, setPriceList] = useState([])
+    const [priceHistory, setPriceHistory] = useState([])
+    const [priceList, setPriceList] = useState({})
     useEffect(() => {
         getPriceList()
+        getHistory()
+
     }, [])
-    async function getPriceList() {
+    async function getHistory() {
         await getAllServicesPrice().then((res) => {
+            console.log(res.data)
+            setPriceHistory(res.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+    async function getPriceList() {
+        await getCurrentPrice().then((res) => {
             console.log(res.data)
             setPriceList(res.data)
         }).catch((err) => {
@@ -25,9 +36,20 @@ function SettingPage() {
 
 
             </h1>
-            <div>
-                <PriceList priceList={priceList} />
+            <div id="price" style={{
+                display: "flex",
+                flexDirection: "row"
+            }}>
+                <div style={{
+                    marginRight: "2px"
+                }}>
+                    <PriceList priceList={priceList} />
+                </div>
+                <div>
+                    <PriceHistory list={priceHistory} />
+                </div>
             </div>
+
 
         </>
     )

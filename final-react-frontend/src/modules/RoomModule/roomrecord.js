@@ -69,7 +69,7 @@ export default function RoomRecord() {
                         </th>
                     </tr>
                     {roomList.map((room) => (
-                        <tr>
+                        <tr key={room.rId}>
                             <td>
                                 {room.rId}
                             </td>

@@ -8,19 +8,16 @@ import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Entities.RenterRoom;
 import com.VTI.Phongtro.Entities.Room;
 import com.VTI.Phongtro.Entities.RoomStat;
-import com.VTI.Phongtro.Utils.NormalUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class RoomServices {
     private final RoomDAO roomDAO = new RoomDAO();
     private final RenterDAO renterDAO = new RenterDAO();
     private final RenterRoomDAO rrDAO = new RenterRoomDAO();
     private final RoomStatDAO rsDAO = new RoomStatDAO();
-    private final NormalUtils normalUtils = new NormalUtils();
 
     public List<Room> getAllRoom(){ return roomDAO.getAllRoom();}
     public Room getRoomById(String id){return roomDAO.getById(id);}
@@ -164,7 +161,7 @@ public class RoomServices {
         // vì thế thì 1 trong 2 trường null
         // cần phải lấp lại bằng thông số ghi gần nhất của trường bị trống
         roomStat.setCommited(false);
-        roomStat.setRecordDate(normalUtils.ngayGhiDienNuoc());
+        roomStat.setDefaultRecordDate();
         try{
             rsDAO.addRoomStat(roomStat);
         }catch (Exception e){

@@ -2,6 +2,8 @@ package com.VTI.Phongtro.Entities;
 
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -12,20 +14,33 @@ public class ServicesPrice {
     @Column(name = "DV_id", unique = true)
     private int id;
 
-    @Column(name="ten_dv")
-    private String name;
+    @Column(name="gia_dien")
+    private String elecPrice;
+    @Column(name="gia_nuoc")
+    private String waterPrice;
+    @Column(name = "thoi_gian_ap_dung")
+    private String dateApplied;
+    @Column(name = "thoi_gian_ket_thuc")
+    private String expireDate ;
 
-    @Column(name = "gia_dv")
-    private String price;
     public ServicesPrice(){
 
     }
-    public ServicesPrice(int id, String name, String price){
-        this.id = id;
-        this.name = name;
-        this.price = price;
+    public ServicesPrice(int id, String elecPrice, String waterPrice, String dateApplied, String expireDate){
+        this.id= id;
+        this.elecPrice = elecPrice;
+        this.waterPrice = waterPrice;
+        this.dateApplied = dateApplied;
+        this.expireDate = expireDate;
     }
-
+    public void setDateAppliedDefault(){
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+        this.dateApplied = timeStamp;
+    }
+    public void setExpireDateDefault(){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+        this.expireDate = timeStamp;
+    }
     public int getId() {
         return id;
     }
@@ -34,23 +49,35 @@ public class ServicesPrice {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public void setdateApplied(String dateApplied) {
+        this.dateApplied = dateApplied;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setElecPrice(String elecPrice) {
+        this.elecPrice = elecPrice;
     }
 
-    public String getPrice() {
-        return price;
+    public void setexpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setWaterPrice(String waterPrice) {
+        this.waterPrice = waterPrice;
     }
-    @Override
-    public String toString(){
-        return "Ten dich vu:" +this.name +" gia dich vu: " +this.price;
+
+    public String getdateApplied() {
+        return dateApplied;
+    }
+
+    public String getElecPrice() {
+        return elecPrice;
+    }
+
+    public String getexpireDate() {
+        return expireDate;
+    }
+
+    public String getWaterPrice() {
+        return waterPrice;
     }
 }

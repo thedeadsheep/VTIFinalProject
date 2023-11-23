@@ -21,6 +21,10 @@ async function createNewRoom(data) {
     const url = WEB_API + `addNewRoom`
     return await axios.post(url, data)
 }
+async function addRoomRecord(data) {
+    const url = WEB_API + `addRoomRecord`
+    return await axios.post(url, data)
+}
 async function addRenterToRoom(renter_id, room_id) {
     const url = WEB_API + `addRenterToRoom?renter_id=${renter_id}&room_id=${room_id}`
     return await axios.put(url)
@@ -44,6 +48,7 @@ export {
     getEmptyRoom,
     createNewRoom,
     addRenterToRoom,
+    addRoomRecord,
     updateRoomDetail,
     updateRoomStatus,
     getAllRentersInRoom,

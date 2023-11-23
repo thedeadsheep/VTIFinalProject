@@ -13,9 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class ServicesPriceController {
 
     private ServicesPriceServices servicesPriceServices = new ServicesPriceServices();
+    @GetMapping("/getPriceList")
+    public ResponseEntity getPriceList(){
+        String Result = new Gson().toJson(servicesPriceServices.getAllPrices());
+        return  new ResponseEntity<>(Result, HttpStatus.OK);
+    }
     @GetMapping("/getPrice")
     public ResponseEntity getPrice(){
-        String Result = new Gson().toJson(servicesPriceServices.getAllPrices());
+        String Result = servicesPriceServices.getCurrentPrice();
         return  new ResponseEntity<>(Result, HttpStatus.OK);
     }
     @GetMapping("/getContractInformation")
@@ -33,8 +38,8 @@ public class ServicesPriceController {
     }
 
     @PutMapping("/updateServicePrice")
-    public ResponseEntity updateRenterProfile(@RequestBody ServicesPrice servicesPrice) {
-        int id = servicesPrice.getId();
+    public ResponseEntity<String> updateRenterProfile(@RequestParam("old_sp") String oldSP_id, @RequestBody ServicesPrice servicesPrice) {
+        int id = Integer.parseInt(oldSP_id) ;
         boolean result = servicesPriceServices.updateServicePrice(id, servicesPrice);
         if (!result) {
             return new ResponseEntity("not found", HttpStatus.NOT_FOUND);

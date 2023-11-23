@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -36,14 +38,16 @@ public class RoomStat {
         this.room_id = room_id;
         this.isCommited= isCommited;
     }
-
-
+    public void setDefaultRecordDate(){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+        this.recordDate = timeStamp;
+    }
     public boolean isCommited() {
         return isCommited;
     }
 
     public void setCommited(boolean commited) {
-        isCommited = commited;
+        this.isCommited = commited;
     }
 
     public String getRecordDate() {
