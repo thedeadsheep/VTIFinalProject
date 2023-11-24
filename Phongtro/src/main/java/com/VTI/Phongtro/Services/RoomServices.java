@@ -156,10 +156,11 @@ public class RoomServices {
         }
         return renterList;
     }
-    public String addRoomStat(RoomStat roomStat){
+    public String addRoomStat(String room_id, RoomStat roomStat){
         // *note: Số điện số nước không phải lúc nào cũng ghi cùng lúc
         // vì thế thì 1 trong 2 trường null
         // cần phải lấp lại bằng thông số ghi gần nhất của trường bị trống
+        roomStat.setRoom_id(room_id);
         roomStat.setCommited(false);
         roomStat.setDefaultRecordDate();
         try{
@@ -183,6 +184,7 @@ public class RoomServices {
     public String getAllRoomStat(){
         return new Gson().toJson(rsDAO.getAllRoomStat());
     }
+    public String getNewsetStat(String room_id){ return new Gson().toJson(rsDAO.getTheNewestRecordOfRoom(room_id));}
     public String getRoomStatOfRoom(String room_id){
         return new Gson().toJson(rsDAO.getRoomStatByRoomId(room_id));
     }

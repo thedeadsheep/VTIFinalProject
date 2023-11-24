@@ -27,11 +27,11 @@ public class RoomStatDAO {
     public RoomStat getTheNewestRecordOfRoom(String room_id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        Query query =  session.createQuery("from RoomStat r order by r.recordDate where room_id = :id");
+        Query query =  session.createQuery("from RoomStat r where room_id = :id order by r.recordDate desc");
         query.setParameter("id", room_id);
         List<RoomStat> RL = new ArrayList<RoomStat>();
         try{
-            query.getResultList();
+            RL = query.getResultList();
         }catch (Exception e){
             if (transaction != null) {
                 transaction.rollback();

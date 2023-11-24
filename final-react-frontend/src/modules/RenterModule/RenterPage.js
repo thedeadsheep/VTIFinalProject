@@ -66,27 +66,7 @@ function RenterPage() {
         console.log(searchMode)
         setSearchMode(e.target.value)
     }
-    function openModalHandler(mode) {
-        if (mode === "create") {
-            setModalTitle("Thêm khách trọ")
-            setComponent(<CreateAndUpdateProfileComponent state={{ MODE: "create" }} />)
-            setOpenModal(true)
-        }
-    }
-    function closeModalHandler(event) {
-        try {
-            if (event.target.id === "close-modal-position") {
-                console.log(
-                    'CloseModal'
-                )
-                setOpenModal(false)
-                setComponent(<></>)
-                setModalTitle("")
-            }
-        } catch {
-            return
-        }
-    }
+
     return (
         <>
             <h1 style={{
@@ -99,30 +79,9 @@ function RenterPage() {
 
             <div className="function" style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "flex-end",
             }}>
-                <button className="btn add-renter-btn" onClick={() => openModalHandler("create")} style={{
-                    color: "black",
-                    background: "#FFC745",
-                    fontSize: "18px",
-                    padding: "8px",
-                    borderRadius: "10px"
-                }}>
-                    <span style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
 
-                    }}>
-                        <FontAwesomeIcon icon={faPlus} style={{
-                            border: "2px solid",
-                            borderRadius: "5px",
-                            padding: "3px",
-                            marginRight: "5px"
-
-                        }} /> Thêm khách trọ
-                    </span>
-                </button>
                 <div className="filter">
                     <div>
 
@@ -165,8 +124,7 @@ function RenterPage() {
                 </Pagination>
             </div>
 
-            {openModal ? <>
-                <ModalPopup component={component} isOpen={openModal} closeModal={closeModalHandler} modalTitle={modalTitle} /> </> : <></>}
+
         </>
     )
 

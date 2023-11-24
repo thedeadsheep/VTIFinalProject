@@ -4,6 +4,10 @@ async function getAllRoom() {
     let url = WEB_API + "getAllRooms"
     return await axios.get(url)
 }
+async function getNewestStat(id) {
+    let url = WEB_API + `getNewestStat?room_id=${id}`
+    return await axios.get(url)
+}
 async function getRoomById(id) {
     let url = WEB_API + `getRoomById?id=${id}`
     return await axios.get(url)
@@ -21,8 +25,8 @@ async function createNewRoom(data) {
     const url = WEB_API + `addNewRoom`
     return await axios.post(url, data)
 }
-async function addRoomRecord(data) {
-    const url = WEB_API + `addRoomRecord`
+async function addRoomRecord(room_id, data) {
+    const url = WEB_API + `addRoomRecord?room_id=${room_id}`
     return await axios.post(url, data)
 }
 async function addRenterToRoom(renter_id, room_id) {
@@ -47,10 +51,11 @@ export {
     getRoomById,
     getEmptyRoom,
     createNewRoom,
-    addRenterToRoom,
-    addRoomRecord,
     updateRoomDetail,
     updateRoomStatus,
+    addRenterToRoom,
     getAllRentersInRoom,
-    getNotEmptyRoom
+    getNotEmptyRoom,
+    addRoomRecord,
+    getNewestStat
 }

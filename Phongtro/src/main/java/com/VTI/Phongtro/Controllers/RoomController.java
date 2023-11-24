@@ -1,6 +1,7 @@
 package com.VTI.Phongtro.Controllers;
 
 import com.VTI.Phongtro.Entities.Room;
+import com.VTI.Phongtro.Entities.RoomStat;
 import com.VTI.Phongtro.Services.RoomServices;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,16 @@ public class RoomController {
     @GetMapping("/getRenterInRoom")
     public ResponseEntity<String> GetRentersInRoom(@RequestParam("room_id") String roomId){
         String result = new Gson().toJson(roomServices.getAllRentersInRoom(roomId));
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
+    @GetMapping("/getNewestStat")
+    public ResponseEntity<String> GetNewestCommitedStat(@RequestParam("room_id") String roomId){
+        String result = roomServices.getNewsetStat(roomId);
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
+    @PostMapping("/addRoomRecord")
+    public ResponseEntity<String> AddRoomRecord(@RequestParam("room_id") String roomId, @RequestBody RoomStat roomStat){
+        String result = roomServices.addRoomStat(roomId, roomStat);
         return new ResponseEntity<String>(result,HttpStatus.OK);
     }
 }

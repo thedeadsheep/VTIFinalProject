@@ -9,6 +9,7 @@ import NotFound from './modules/components/notfound';
 import SettingPage from './modules/SettingModule/SettingPage';
 import RoomRecord from './modules/RoomModule/roomrecord';
 import RenterRelativeComponent from './modules/RenterModule/RRList';
+import BillPage from './modules/BillModule/billPage';
 function App() {
   return (
     <div >
@@ -21,6 +22,7 @@ function App() {
             <Route path='/room/' element={<RoomPage />} />
             <Route path='/userSetting/' element={<RenterRelativeComponent />} />
             <Route path='/roomRecord/' element={<RoomRecord />} />
+            <Route path='/billPage/' element={<BillPage />} />
             <Route path='/setting/' element={<SettingPage />} />
           </Route>
           <Route path='*' element={<NotFound />} />

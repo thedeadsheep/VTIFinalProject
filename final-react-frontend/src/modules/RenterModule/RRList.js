@@ -5,29 +5,9 @@ import styles from './RRList.module.css'
 import CreateAndUpdateProfileComponent from './cuProfile';
 import MoveOut from "./moveout";
 import PrintComponent from '../components/PrintComponent';
-import CONTRACT from '../components/contract';
-function dateConvert(dS, isWithTime) {
-    let m = new Date(dS)
 
-    let dateString
-    if (isWithTime) {
-        dateString =
-
-            "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
-            ("0" + m.getDate()).slice(-2) + ", " +
-            m.getFullYear() + " - " +
-            ("0" + m.getHours()).slice(-2) + ":" +
-            ("0" + m.getMinutes()).slice(-2) + ":" +
-            ("0" + m.getSeconds()).slice(-2);
-    } else {
-        dateString =
-            "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
-            ("0" + m.getDate()).slice(-2) + ", " +
-            m.getFullYear()
-    }
-
-    return dateString
-}
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -79,6 +59,11 @@ function RenterAndRealativeList(props) {
             setComponent(<CreateAndUpdateProfileComponent state={{ MODE: 'create', LINK_WITH: renter_id }} />)
             setIsOpen(true)
         }
+        if (state === "create") {
+            setModalTitle("Thêm khách trọ")
+            setComponent(<CreateAndUpdateProfileComponent state={{ MODE: "create" }} />)
+            setIsOpen(true)
+        }
     }
     function closeModalPopUp(event) {
         console.log(event)
@@ -101,10 +86,41 @@ function RenterAndRealativeList(props) {
             <h1 onClick={console.log(data)}>
                 Danh sách khách ở trọ
             </h1>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center"
+            }}>
+                <button className="btn add-renter-btn" onClick={() => openModal("create")} style={{
+                    color: "black",
+                    background: "#FFC745",
+                    fontSize: "18px",
+                    padding: "8px",
+                    borderRadius: "10px"
+                }}>
+                    <span style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
 
-            <select>
+                    }}>
+                        <FontAwesomeIcon icon={faPlus} style={{
+                            border: "2px solid",
+                            borderRadius: "5px",
+                            padding: "3px",
+                            marginRight: "5px"
 
-            </select>
+                        }} /> Thêm khách trọ
+                    </span>
+                </button>
+                <select>
+                    <option>
+                        Lọc nội dung theo phòng
+                    </option>
+                </select>
+            </div>
+
             {exportData.map((renter) => (
                 <div key={renter.id}>
                     <div style={{

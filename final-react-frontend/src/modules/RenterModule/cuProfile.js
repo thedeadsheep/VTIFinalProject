@@ -10,7 +10,6 @@ function CreateAndUpdateProfileComponent(props) {
     const renter = props.renter || {}
     renter.ngay_sinh = new Date(renter.ngay_sinh).toLocaleDateString("sv-SE")
 
-    const navigate = useNavigate()
     const [isInputCCCD, setIsInputCCCD] = useState(true)
     const [emptyRooms, setEmptyRooms] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
@@ -70,7 +69,7 @@ function CreateAndUpdateProfileComponent(props) {
             if (!state.LINK_WITH) {
                 await takeRenterToRoom(response.data, data.roomID)
             }
-            navigate(`/renter/${response.data}`)
+
         } else {
             console.log("notDone")
         }
@@ -155,19 +154,19 @@ function CreateAndUpdateProfileComponent(props) {
                         <label>
                             Số điện thoại
                             <input {...register('SDT', {
-                                validate: value => value.length === 10 || "Nhập số điện thoại 10 số",
+                                validate: value => value.length === 9 || "Nhập số điện thoại 9 số",
                                 pattern: {
                                     value: /^(0|[1-9]\d*)(\.\d+)?$/,
                                     message: "Hãy nhập số"
                                 }
-                            })} defaultValue={renter.SDT} style={inputTag} />
-
+                            })} defaultValue={renter.SDT} style={inputTag} placeholder={"Nhập 9 số sau số 0"} />
+                            {errors.SDT && <p className='err-message'>{errors.SDT.message}</p>}
                         </label>
                         {isInputCCCD ? <label>
                             Số Căn Cước Công Dân/ Chứng Minh Nhân Dân *
                             <input {...register('soCCCD', {
-                                required: 'Nhap thong tin vao',
-                                validate: value => value.length === 9 || value.length === 12 || "nhap cai gi a",
+                                required: 'Nhập số CMND hoặc CCCD',
+                                validate: value => value.length === 9 || value.length === 12 || "9 số CMND, hoặc 12 số CCCD",
                                 pattern: {
                                     value: /^(0|[1-9]\d*)(\.\d+)?$/,
                                     message: "Hãy nhập số"
@@ -180,7 +179,7 @@ function CreateAndUpdateProfileComponent(props) {
                                 <label>
                                     Phòng đăng ký *
                                     <select onClick={() => getAllEmptyRoom()} {...register("roomID", {
-                                        required: "Chonj phongf"
+                                        required: "Chọn phòng"
                                     })} placeholder='Chọn Phòng'>
 
                                         {emptyRooms.map((room) => (

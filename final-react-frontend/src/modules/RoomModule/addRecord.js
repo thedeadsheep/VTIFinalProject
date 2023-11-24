@@ -1,29 +1,36 @@
 import { useForm } from 'react-hook-form';
-import { addRoomRecord } from "../Services/Room.Services"
+import { addRoomRecord, getNewestStat } from "../Services/Room.Services"
+import { useState } from 'react';
 export default function AddRecord(props) {
-    const room = props.room
+    const room = props.room || {}
+    const [oldRecord, setOldRecord] = useState({})
     const {
         register,
         handleSubmit,
         formState: { errors, isValid, isDirty },
     } = useForm({
         mode: "onBlur",
+        defaultValues: getOldRecord
     });
     function formInputHandler(data) {
-        if (data.elecNumber === "" && data.waterNumber === "") {
-            console.log("phải nhập ít mhaats 1 trong 2 trường")
-            return
-        }
-
+        addRecord(room.rId, data)
     }
-    async function addRecord(data) {
-        await addRoomRecord(data).then((res) => {
+    async function addRecord(room_id, data) {
+        await addRoomRecord(room_id, data).then((res) => {
             console.log(res)
         }).catch((errors) => {
             console.log(errors)
         }).finally((() => {
-
+            window.location.reload()
         }))
+    }
+    async function getOldRecord() {
+        await getNewestStat(room.rId).then((res) => {
+            console.log(res.data)
+            setOldRecord(res.data)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
     return (
         <div>
@@ -40,11 +47,11 @@ export default function AddRecord(props) {
             >
                 <label>
                     Số điện
-                    <input {...register('elecNumber', {})} />
+                    <input {...register('elecNumber', {})} defaultValue={oldRecord.elecNumber} />
                 </label>
                 <label>
                     Số nước
-                    <input {...register('waterNumber', {})} />
+                    <input {...register('waterNumber', {})} defaultValue={oldRecord.waterNumber} />
                 </label>
                 <label>
                     <input

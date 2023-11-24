@@ -6,14 +6,16 @@ import AddRecord from "./addRecord"
 export default function RoomRecord() {
 
     const [roomList, setRoomList] = useState([])
+    const [oldRecordList, setOldRecordList] = useState([])
     const [isOpen, setIsOpen] = useState(false)
-    const [component, setComponent] = useState()
+    const [component, setComponent] = useState(<></>)
     const [modalTitle, setModalTitle] = useState()
     useEffect(() => {
         getData()
     }, [])
     function getData() {
         getRoomList()
+        getOldRecord()
     }
     async function getRoomList() {
         await getNotEmptyRoom().then((res) => {
@@ -23,7 +25,14 @@ export default function RoomRecord() {
             console.log(err)
         })
     }
-
+    async function getOldRecord() {
+        await getNotEmptyRoom().then((res) => {
+            console.log(res)
+            setRoomList(res.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     function openModal(state, room) {
         if (state === "addRoomRecord") {
             setModalTitle("Ghi Điện nước")
@@ -53,7 +62,9 @@ export default function RoomRecord() {
     }
     return (
         <div>
-            Room list
+            <h2>
+                Ghi Điện nước
+            </h2>
             <table>
                 <tbody>
                     <tr>

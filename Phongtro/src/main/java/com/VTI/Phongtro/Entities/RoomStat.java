@@ -31,7 +31,7 @@ public class RoomStat {
     private boolean isCommited;
 
     public RoomStat(){}
-    public RoomStat(String room_id, int elecNumber, int waterNumber, String recordDate, boolean isCommited){
+    public RoomStat(String  room_id, int elecNumber, int waterNumber, String recordDate, boolean isCommited){
         this.elecNumber = elecNumber;
         this.recordDate = recordDate;
         this.waterNumber = waterNumber;
@@ -39,7 +39,7 @@ public class RoomStat {
         this.isCommited= isCommited;
     }
     public void setDefaultRecordDate(){
-        String timeStamp = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
         this.recordDate = timeStamp;
     }
     public boolean isCommited() {
@@ -62,7 +62,7 @@ public class RoomStat {
         return elecNumber;
     }
 
-    public void setRoom_id(String room_id) {
+    public void setRoom_id(String  room_id) {
         this.room_id = room_id;
     }
 
