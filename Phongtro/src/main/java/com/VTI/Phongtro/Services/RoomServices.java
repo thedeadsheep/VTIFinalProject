@@ -188,4 +188,19 @@ public class RoomServices {
     public String getRoomStatOfRoom(String room_id){
         return new Gson().toJson(rsDAO.getRoomStatByRoomId(room_id));
     }
+    public String deleteRoomStat(String room_id, String recordDate){
+        RoomStat roomStat = rsDAO.getCorrectly(room_id, recordDate);
+        if (roomStat == null){
+            return "Không thấy nội dung tìm kiếm";
+        }
+        if(roomStat.isCommited()){
+            return "Không thể xóa nội dung này";
+        }
+        try{
+            rsDAO.deleteRoomStatRecord(roomStat);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Xóa thành công";
+    }
 }

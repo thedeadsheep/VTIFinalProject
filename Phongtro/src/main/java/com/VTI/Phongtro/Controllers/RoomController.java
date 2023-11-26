@@ -89,4 +89,9 @@ public class RoomController {
         String result = roomServices.addRoomStat(roomId, roomStat);
         return new ResponseEntity<String>(result,HttpStatus.OK);
     }
+    @DeleteMapping("/deleteRoomRecord")
+    public ResponseEntity<String> DeleteRoomRecord(@RequestParam("room_id") String roomId, @RequestParam("record_date") String recordDate){
+        String result = roomServices.deleteRoomStat(roomId, recordDate);
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
 }

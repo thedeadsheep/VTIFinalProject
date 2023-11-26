@@ -73,7 +73,29 @@ public class RoomStatDAO {
         query.setParameter("id", room_id);
         List<RoomStat> RL = new ArrayList<RoomStat>();
         try{
-            query.getResultList();
+            RL = query.getResultList();
+        }catch (Exception e){
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        if (RL.isEmpty()){
+            return new RoomStat();
+        }
+        return RL.get(0);
+    }
+    public RoomStat getCorrectly(String room_id, String recordDate){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Query query =  session.createQuery("from RoomStat where room_id = :id and recordDate = :rd");
+        query.setParameter("id", room_id);
+        query.setParameter("rd", recordDate);
+        List<RoomStat> RL = new ArrayList<RoomStat>();
+        try{
+            RL = query.getResultList();
         }catch (Exception e){
             if (transaction != null) {
                 transaction.rollback();

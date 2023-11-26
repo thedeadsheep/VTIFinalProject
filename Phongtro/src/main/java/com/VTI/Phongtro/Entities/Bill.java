@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Bill {
@@ -14,7 +16,7 @@ public class Bill {
     @Column(name="id", unique = true)
     private String bill_id;
     @Column(name = "phong_id")
-    private int room_id;
+    private String room_id;
     @Column(name = "ngay_tao_hd")
     private String date_create;
     @Column(name = "ngay_thanh_toan_hd")
@@ -35,7 +37,7 @@ public class Bill {
     public Bill(){
 
     }
-    public Bill(String bill_id, int room_id,
+    public Bill(String bill_id, String room_id,
                 String date_create, String date_paid,
                 int water_number, int elec_number,
                 boolean isPaid, int total,
@@ -51,7 +53,14 @@ public class Bill {
         this.waterPrice = waterPrice;
         this.elecPrice = elecPrice;
     }
-
+    public void initBill(String room_id){
+        this.room_id= room_id;
+        this.isPaid = false;
+        this.date_create = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+    }
+    public void setPayDate(){
+        this.date_paid =  new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+    }
     public int getElecPrice() {
         return elecPrice;
     }
@@ -72,7 +81,7 @@ public class Bill {
         return date_create;
     }
 
-    public void setRoom_id(int room_id) {
+    public void setRoom_id(String room_id) {
         this.room_id = room_id;
     }
 
@@ -92,7 +101,7 @@ public class Bill {
         this.date_create = date_create;
     }
 
-    public int getRoom_id() {
+    public String getRoom_id() {
         return room_id;
     }
 
@@ -112,8 +121,8 @@ public class Bill {
         return water_number;
     }
 
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
     }
 
     public String getBill_id() {

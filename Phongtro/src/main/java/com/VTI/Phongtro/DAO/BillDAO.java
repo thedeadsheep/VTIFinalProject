@@ -4,6 +4,7 @@ import com.VTI.Phongtro.Entities.Bill;
 import com.VTI.Phongtro.Utils.HibernateUtil;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -33,6 +34,41 @@ public class BillDAO {
             Query query = session.createQuery("from Bill b order by b.isPaid, b.date_create where room_id = :id",Bill.class);
             query.setParameter("id", room_id);
             return query.getResultList();
+        }
+    }
+    public String addNewBill(Bill bill){
+        String result = "init";
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.save(bill);
+            result =bill.getBill_id();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+    public void updateBill(Bill bill){
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.merge(bill);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 }
