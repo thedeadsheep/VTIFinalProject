@@ -18,16 +18,12 @@ public class ServicesPriceController {
         String Result = new Gson().toJson(servicesPriceServices.getAllPrices());
         return  new ResponseEntity<>(Result, HttpStatus.OK);
     }
-    @GetMapping("/getPrice")
+    @GetMapping("/getPrice")//get current price -take for contract
     public ResponseEntity getPrice(){
         String Result = servicesPriceServices.getCurrentPrice();
         return  new ResponseEntity<>(Result, HttpStatus.OK);
     }
-    @GetMapping("/getContractInformation")
-    public ResponseEntity getContractPrice(){
-        String Result = new Gson().toJson(servicesPriceServices.getAllPrices());
-        return  new ResponseEntity<>(Result, HttpStatus.OK);
-    }
+
     @PostMapping("/addService")
     public ResponseEntity addService(@RequestBody ServicesPrice sp){
         boolean result = servicesPriceServices.addService(sp);

@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 
 public class BillServiecs {
     private final BillDAO billDAO = new BillDAO();
-    private final ServicesPriceDAO servicesPriceDAO = new ServicesPriceDAO();
 
     public String getAllBill(){
         return new Gson().toJson(billDAO.getAllBill());
@@ -16,6 +15,7 @@ public class BillServiecs {
     public String getBillById(String bill_id){
         return new Gson().toJson(billDAO.getById(bill_id));
     }
+    public String getUnPaiedBill(){return new Gson().toJson(billDAO.getAllBillIsNotPay());}
     public String getAllBillOfRoom(String room_id){
         return new Gson().toJson(billDAO.getAllBillOfRoom(room_id));
     }
