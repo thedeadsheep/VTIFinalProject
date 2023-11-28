@@ -3,7 +3,8 @@ import CONTRACT from "./contract"
 import ReactToPrint from "react-to-print"
 
 export default function PrintComponent(props) {
-    let data = props.data || {}
+    const data = props.data || {}
+    const rId = props.room_id
     let componentRef = useRef()
     return (
         <div>
@@ -11,7 +12,7 @@ export default function PrintComponent(props) {
                 trigger={() => <button>In tài liệu</button>}
                 content={() => componentRef}
             />
-            <CONTRACT ref={(el) => (componentRef = el)} renterValue={data} />
+            <CONTRACT ref={(el) => (componentRef = el)} renterValue={data} rId={rId} />
 
         </div>
     )

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const WEB_API = "http://localhost:8080/renter/"
-
+const OWNER_API = "http://localhost:8080/owner/"
 async function getAllRenters() {
     const url = WEB_API + "getAllRenters"
 
@@ -41,6 +41,10 @@ async function getAllRenterRelatives(id) {
     })
     return response.json()
 }
+async function getOwner(rId) {
+    const url = OWNER_API + `ownerInformation?room_id=${rId}`
+    return await axios.get(url)
+}
 async function addNewRenter(data) {
     const url = WEB_API + `addNewRenter`
     return await axios.post(url, data)
@@ -70,5 +74,6 @@ export {
     getRenterById,
     getAllRenterRelatives,
     confirmMoveAway,
-    getRenterWithRelative
+    getRenterWithRelative,
+    getOwner
 }

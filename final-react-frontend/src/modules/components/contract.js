@@ -1,30 +1,54 @@
 import styles from "./contract.module.css"
-import React from "react"
+import { getOwner } from "../Services/Renter.Services"
+import React, { useEffect, useState } from "react"
+import { getCurrentPrice } from "../Services/ServicePrice.Services"
 const CONTRACT = React.forwardRef((props, ref) => {
 
 
-
+    const [ownerData, setOwnerData] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     const renter = props.renterValue || {}
-    function getDate() {
-        const m = new Date()
-        let dateString =
-            "Ngày " + ("0" + m.getDate()).slice(-2) + " " +
-            "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
-            "Năm " + m.getFullYear()
-        return dateString
+    const rId = props.rId || "khogn"
+    useEffect(() => {
+        loadingData()
+    }, [])
+    useEffect(() => {
+        console.log(ownerData)
+
+    }, [isLoading, ownerData])
+    async function loadingData() {
+        await getOwnerData()
+        setIsLoading(false)
     }
-    console.log(renter)
-    function formatDate(date) {
-        let m = new Date(date)
-        let dateString =
-            ("0" + m.getDate()).slice(-2) + "-" +
-            ("0" + (m.getMonth() + 1)).slice(-2) + "-" +
-            m.getFullYear()
+    async function getOwnerData() {
+        await getOwner(rId).then((res) => {
+            console.log(res)
+            setOwnerData(res.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    function dateFormat(date) {
+        let m
+        let dateString
+        if (date === "currentDate") {
+            m = new Date()
+            dateString =
+                "Ngày " + ("0" + m.getDate()).slice(-2) + " " +
+                "Tháng " + ("0" + (m.getMonth() + 1)).slice(-2) + " " +
+                "Năm " + m.getFullYear()
+        } else {
+            m = new Date(date)
+            dateString =
+                ("0" + m.getDate()).slice(-2) + "-" +
+                ("0" + (m.getMonth() + 1)).slice(-2) + "-" +
+                m.getFullYear()
+        }
         return dateString
 
     }
-
-
+    if (isLoading) { return (<></>) }
     return (
         <>
 
@@ -38,31 +62,38 @@ const CONTRACT = React.forwardRef((props, ref) => {
                 </div>
                 <div className="body">
                     <p className={styles.contract}>
-                        Hôm nay, {getDate()}, tại địa chỉ:  <input className={`${styles.contract} ${styles.contractInput} ${styles.address}`} />
+                        Hôm nay, {dateFormat("currentDate")}, tại địa chỉ:  <input defaultValue={ownerData.chuNha.diaChiThuongTru} className={`${styles.contract} ${styles.contractInput} ${styles.address}`} />
                     </p>
                     <p className={styles.contract}>Chúng tôi gồm</p>
-                    <p className={styles.contract}>1. Đại diện bên cho thuê (Bên A)</p>
-                    <p className={styles.contract}>Ông/bà: <input className={`${styles.contract} ${styles.contractInput}`} /> Sinh ngày: <input className={`${styles.contract} ${styles.contractInput}`} /></p>
-                    <p className={styles.contract}>Nơi đăng ký thường trú: <input className={`${styles.contract} ${styles.contractInput} ${styles.address}`} /> </p>
                     <p className={styles.contract}>
-                        CCCD/CMND số:  <input className={`${styles.contract} ${styles.contractInput}`} /> cấp ngày  <input className={`${styles.contract} ${styles.contractInput}`} /> tại: <input className={`${styles.contract} ${styles.contractInput} ${styles.address}`} />
+                        1. Đại diện bên cho thuê (Bên A)
                     </p>
-                    <p className={styles.contract}>Số điện thoại: <input className={`${styles.contract} ${styles.contractInput}`} /></p>
+                    <p className={styles.contract}>
+                        Ông/bà: <input defaultValue={`${ownerData.chuNha.ho_tenlot} ${ownerData.chuNha.ten}`} className={`${styles.contract} ${styles.contractInput}`} />
+                        Sinh ngày: <input defaultValue={dateFormat(ownerData.chuNha.ngay_sinh)} className={`${styles.contract} ${styles.contractInput}`} />
+                    </p>
+                    <p className={styles.contract}>Nơi đăng ký thường trú: <input defaultValue={ownerData.chuNha.diaChiThuongTru} className={`${styles.contract} ${styles.contractInput} ${styles.address}`} /> </p>
+                    <p className={styles.contract}>
+                        CCCD/CMND số:  <input defaultValue={ownerData.chuNha.soCCCD} className={`${styles.contract} ${styles.contractInput}`} /> cấp ngày  <input className={`${styles.contract} ${styles.contractInput}`} /> tại: <input className={`${styles.contract} ${styles.contractInput} ${styles.address}`} />
+                    </p>
+                    <p className={styles.contract}>Số điện thoại: <input defaultValue={ownerData.chuNha.SDT} className={`${styles.contract} ${styles.contractInput}`} /></p>
                     <p className={styles.contract}>2. Đại diện bên thuê (Bên B)</p>
                     <p className={styles.contract}>Ông/bà:  <input className={`${styles.contract} ${styles.contractInput}`} defaultValue={renter.ho_tenlot + " " + renter.ten} />
-                        Sinh ngày:  <input className={`${styles.contract} ${styles.contractInput}`} defaultValue={formatDate(renter.ngay_sinh)} />
+                        Sinh ngày:  <input className={`${styles.contract} ${styles.contractInput}`} defaultValue={dateFormat(renter.ngay_sinh)} />
                     </p>
                     <p className={styles.contract}>Nơi đăng ký thường trú:  <input className={`${styles.contract} ${styles.contractInput} ${styles.address}`} defaultValue={renter.diaChiThuongTru} /></p>
                     <p className={styles.contract}>
                         CCCD/CMND số:  <input className={`${styles.contract} ${styles.contractInput}`} defaultValue={renter.soCCCD} /> cấp ngày  <input className={`${styles.contract} ${styles.contractInput}`} /> tại: <input className={`${styles.contract} ${styles.contractInput} ${styles.address}`} />
                     </p>
                     <p className={styles.contract}>Sau khi bàn bạc trên tinh thần dân chủ, hai bên đưa ra thống nhất như sau:</p>
-                    <p className={styles.contract}>Bên A đồng ý cho bên B thuê 01 phòng ỏ tại địa chỉ:  <input className={`${styles.contract} ${styles.contractInput} ${styles.address}`} /> </p>
-                    <p className={styles.contract}>Giá thuê:  <input className={`${styles.contract} ${styles.contractInput}`} /> đ/tháng</p>
-                    <p className={styles.contract}>Tiền điện:  <input className={`${styles.contract} ${styles.contractInput}`} /> đ/kWh tính theo chỉ số công tơ điện</p>
-                    <p className={styles.contract}>Tiền nước: <input className={`${styles.contract} ${styles.contractInput}`} /> đ/m<sup>3</sup> tính theo chỉ số của đồng hồ nước</p>
+                    <p className={styles.contract}>
+                        Bên A đồng ý cho bên B thuê 01 phòng ỏ tại địa chỉ:  <input defaultValue={`${ownerData.thongTinPhong.name}, ${ownerData.chuNha.diaChiThuongTru}`} className={`${styles.contract} ${styles.contractInput} ${styles.address}`} />
+                    </p>
+                    <p className={styles.contract}>Giá thuê:  <input defaultValue={ownerData.thongTinPhong.roomPrice} className={`${styles.contract} ${styles.contractInput}`} /> đ/tháng</p>
+                    <p className={styles.contract}>Tiền điện:  <input defaultValue={ownerData.giaDichVu.elecPrice} className={`${styles.contract} ${styles.contractInput}`} /> đ/kWh tính theo chỉ số công tơ điện</p>
+                    <p className={styles.contract}>Tiền nước: <input defaultValue={ownerData.giaDichVu.waterPrice} className={`${styles.contract} ${styles.contractInput}`} /> đ/m<sup>3</sup> tính theo chỉ số của đồng hồ nước</p>
                     <p className={styles.contract}>Số tiền đặt cọc:    <input className={`${styles.contract} ${styles.contractInput}`} />   </p>
-                    <p className={styles.contract}>Hợp đồng có giá trị từ {getDate()}</p>
+                    <p className={styles.contract}>Hợp đồng có giá trị từ {dateFormat()}</p>
                     <p className={styles.contract}><b>TRÁCH NHIỆM CỦA CÁC BÊN</b></p>
                     <p className={styles.contract}>Trách nhiệm của bên A:</p>
                     <p className={styles.contract}>

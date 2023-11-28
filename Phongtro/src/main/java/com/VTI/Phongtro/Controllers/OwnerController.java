@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/owner")
 public class OwnerController {
     private final OtherService otherService = new OtherService();
     @GetMapping("ownerInformation")
-    public ResponseEntity<String> getOwnerInformation(@RequestParam("room_id") String room_id){
+    public ResponseEntity<String> getOwnerInformation(@RequestParam("room_id") String room_id) throws ParseException {
         String result = otherService.getContractInformation(room_id) ;
         return new ResponseEntity<String>(result,HttpStatus.OK );
     }

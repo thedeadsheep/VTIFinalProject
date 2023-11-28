@@ -26,7 +26,7 @@ function Monitor() {
                     </span>
 
                 </div>
-                <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/bill")}>
+                <div className={`${monitorStyle.item} ${monitorStyle.function}`} onClick={() => navigate("/billpage")}>
                     <span>
                         <FontAwesomeIcon icon={faReceipt} /> Hóa đơn
                     </span>

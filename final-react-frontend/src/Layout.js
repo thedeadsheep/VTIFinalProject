@@ -87,8 +87,8 @@ function Layout() {
                             <span hidden={isCollapse}>cập nhật khách trọ</span>
                         </button>
                         <button
-                            onClick={() => navigate("/bill")}
-                            className={`${current === "bill" ? styles.active : ""}`}
+                            onClick={() => navigate("/billpage")}
+                            className={`${current === "billpage" ? styles.active : ""}`}
                         >
                             <FontAwesomeIcon icon={faReceipt} />
                             <span hidden={isCollapse}>Hóa đơn</span>

@@ -138,7 +138,7 @@ function CreateAndUpdateProfileComponent(props) {
                         </label>
                         <label>
                             Ngày Sinh *
-                            <input max="2008-01-01" {...register('ngay_sinh', { required: "Hãy chọn ngày sinh", valueAsDate: true })} type='date' onChange={dateInput} defaultValue={renter.ngay_sinh} style={inputTag} />
+                            <input {...register('ngay_sinh', { required: "Hãy chọn ngày sinh", valueAsDate: true })} type='date' onChange={dateInput} defaultValue={renter.ngay_sinh} style={inputTag} />
                             {errors.ngay_sinh && <p className='err-message'>{errors.ngay_sinh.message}</p>}
                         </label>
                         <label>

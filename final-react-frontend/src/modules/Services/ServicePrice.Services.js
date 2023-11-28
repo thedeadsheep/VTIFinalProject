@@ -5,6 +5,7 @@ function getAllServicesPrice() {
     let url = WEB_API + `getPriceList`
     return axios.get(url)
 }
+
 function getCurrentPrice() {
     let url = WEB_API + `getPrice`
     return axios.get(url)

@@ -38,7 +38,8 @@ export default function RenterRelativeComponent() {
 
 
 function RenterAndRealativeList(props) {
-    const data = props.list || {}
+    const data = props.list.sort((a, b) => a.room.rId - b.room.rId) || {}
+
     const [filterValue, setFilterValue] = useState("nothing")
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState()
@@ -180,7 +181,7 @@ function DataDisplay(props) {
     const [modalTitle, setModalTitle] = useState()
     const [isPrint, setIsPrint] = useState(false)
 
-    function openModal(state) {
+    function openModal(state, room_id) {
         if (state === "createRelative") {
             setModalTitle("Thêm Khách trọ")
             setComponent()
@@ -195,7 +196,7 @@ function DataDisplay(props) {
             setIsOpen(true)
         } else if (state === "Contract") {
             setModalTitle("Hợp đồng")
-            setComponent(<PrintComponent data={data} />)
+            setComponent(<PrintComponent data={data} room_id={room_id} />)
             setIsOpen(true)
             setIsPrint(true)
         }
@@ -233,7 +234,7 @@ function DataDisplay(props) {
                 <div className={styles.functionCol}>
                     {!data.link_with ? <button
                         className={styles.functionButton}
-                        onClick={() => openModal("Contract")}
+                        onClick={() => openModal("Contract", data.room.rId)}
                     >
                         Hợp đồng
                     </button> : ""}
