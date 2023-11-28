@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { addNewRenter, addNewRelative, updateRenterProfile } from '../Services/Renter.Services';
-import { useNavigate } from 'react-router';
+
 import LoadingComponent from "../components/loading"
 import { addRenterToRoom, getEmptyRoom } from '../Services/Room.Services';
 function CreateAndUpdateProfileComponent(props) {

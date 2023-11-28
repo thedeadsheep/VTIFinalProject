@@ -32,8 +32,8 @@ public class BillController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PostMapping("/createNewBill")
-    public ResponseEntity<String> CreateNewBill(@RequestParam("room_id") String room_id) {
-        String result = billServiecs.addNewBill(room_id);
+    public ResponseEntity<String> CreateNewBill(@RequestParam("room_id") String room_id, @RequestBody Bill bill) {
+        String result = billServiecs.addNewBill(room_id,bill);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PutMapping("/updateBill")

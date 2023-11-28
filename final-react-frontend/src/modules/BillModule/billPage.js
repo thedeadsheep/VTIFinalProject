@@ -52,9 +52,8 @@ function RoomList(props) {
                                 justifyContent: "flex-end"
                             }}>
                                 <button>
-                                    Xuất Hóa đơn
+                                    Tạo hóa đơn
                                 </button>
-
                                 <button>
                                     Xem tất cả hóa đơn
                                 </button>

@@ -19,8 +19,7 @@ public class BillServiecs {
     public String getAllBillOfRoom(String room_id){
         return new Gson().toJson(billDAO.getAllBillOfRoom(room_id));
     }
-    public String addNewBill(String room_id){
-        Bill bill = new Bill();
+    public String addNewBill(String room_id, Bill bill){
         bill.initBill(room_id);
         String bill_id = billDAO.addNewBill(bill);
         bill.setBill_id(bill_id);

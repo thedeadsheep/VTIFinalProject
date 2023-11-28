@@ -1,7 +1,6 @@
 import styles from "./contract.module.css"
 import { getOwner } from "../Services/Renter.Services"
 import React, { useEffect, useState } from "react"
-import { getCurrentPrice } from "../Services/ServicePrice.Services"
 const CONTRACT = React.forwardRef((props, ref) => {
 
 
