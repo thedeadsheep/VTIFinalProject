@@ -8,6 +8,7 @@ import PrintComponent from '../components/PrintComponent';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import CONTRACT from '../components/contract';
 
 
 
@@ -251,6 +252,7 @@ function DataDisplay(props) {
                     >
                         Chuyển đi
                     </button>
+
                 </div>
 
             </div>

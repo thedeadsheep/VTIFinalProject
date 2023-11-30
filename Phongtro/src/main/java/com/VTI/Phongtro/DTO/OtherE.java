@@ -1,4 +1,4 @@
-package com.VTI.Phongtro.Entities;
+package com.VTI.Phongtro.DTO;
 
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Entities.Room;

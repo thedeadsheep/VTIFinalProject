@@ -8,6 +8,9 @@ export default function PrintComponent(props) {
     let componentRef = useRef()
     return (
         <div>
+            <button onClick={() => console.log(componentRef)}>
+                as
+            </button>
             <ReactToPrint
                 trigger={() => <button>In tài liệu</button>}
                 content={() => componentRef}

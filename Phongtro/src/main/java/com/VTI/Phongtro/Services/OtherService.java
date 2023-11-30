@@ -2,7 +2,7 @@ package com.VTI.Phongtro.Services;
 
 import com.VTI.Phongtro.DAO.RoomDAO;
 import com.VTI.Phongtro.DAO.ServicesPriceDAO;
-import com.VTI.Phongtro.Entities.OtherE;
+import com.VTI.Phongtro.DTO.OtherE;
 import com.VTI.Phongtro.Entities.Renter;
 import com.google.gson.Gson;
 

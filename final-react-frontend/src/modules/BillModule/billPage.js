@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getNotEmptyRoom } from "../Services/Room.Services"
+import RecordCard from "./recordCard"
 
 export default function BillPage() {
 
@@ -16,7 +17,6 @@ export default function BillPage() {
     }
     return (
         <div>
-            BillPage
             <RoomList roomList={roomList} />
         </div>
     )
@@ -27,9 +27,7 @@ function RoomList(props) {
     return (
 
         <div>
-            <button onClick={() => console.log(rl)}>
-                tét
-            </button>
+
             <table style={{
                 width: "100%"
             }}>
