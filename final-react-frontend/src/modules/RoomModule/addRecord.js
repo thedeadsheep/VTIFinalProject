@@ -3,17 +3,15 @@ import { addRoomRecord, getNewestStat } from "../Services/Room.Services"
 import { useState } from 'react';
 export default function AddRecord(props) {
     const room = props.room || {}
-    const [oldRecord, setOldRecord] = useState({})
     const {
         register,
         handleSubmit,
         formState: { errors, isValid, isDirty },
     } = useForm({
         mode: "onBlur",
-        defaultValues: getOldRecord
     });
     function formInputHandler(data) {
-        addRecord(room.rId, data)
+        addRecord(room.room_id, data)
     }
     async function addRecord(room_id, data) {
         await addRoomRecord(room_id, data).then((res) => {
@@ -23,14 +21,6 @@ export default function AddRecord(props) {
         }).finally((() => {
             window.location.reload()
         }))
-    }
-    async function getOldRecord() {
-        await getNewestStat(room.rId).then((res) => {
-            console.log(res.data)
-            setOldRecord(res.data)
-        }).catch((err) => {
-            console.log(err)
-        })
     }
     return (
         <div>
@@ -47,11 +37,11 @@ export default function AddRecord(props) {
             >
                 <label>
                     Số điện
-                    <input {...register('elecNumber', {})} defaultValue={oldRecord.elecNumber} />
+                    <input {...register('elecNumber', {})} defaultValue={room.chiSoGanNhat.elecNumber} />
                 </label>
                 <label>
                     Số nước
-                    <input {...register('waterNumber', {})} defaultValue={oldRecord.waterNumber} />
+                    <input {...register('waterNumber', {})} defaultValue={room.chiSoGanNhat.waterNumber} />
                 </label>
                 <label>
                     <input

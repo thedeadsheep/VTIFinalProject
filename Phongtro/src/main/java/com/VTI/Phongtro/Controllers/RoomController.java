@@ -79,6 +79,12 @@ public class RoomController {
         String result = new Gson().toJson(roomServices.getAllRentersInRoom(roomId));
         return new ResponseEntity<String>(result,HttpStatus.OK);
     }
+    @GetMapping("/getRSOfOCCRoom")
+    public ResponseEntity<String> GetRSOfOCCRoom(){
+        String result = new Gson().toJson(roomServices.getAllRoomStatOfOccupied());
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
+
     @GetMapping("/getNewestStat")
     public ResponseEntity<String> GetNewestCommitedStat(@RequestParam("room_id") String roomId){
         String result = roomServices.getNewsetStat(roomId);

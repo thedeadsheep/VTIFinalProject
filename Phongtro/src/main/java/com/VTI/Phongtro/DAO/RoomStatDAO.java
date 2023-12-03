@@ -24,6 +24,13 @@ public class RoomStatDAO {
             return query.getResultList();
         }
     }
+    public List<RoomStat>getRoomStatUnCommitedByRoomId(String room_id){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query query =  session.createQuery("from RoomStat where room_id = :id and isCommited = false");
+            query.setParameter("id", room_id);
+            return query.getResultList();
+        }
+    }
     public RoomStat getTheNewestRecordOfRoom(String room_id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -52,7 +59,7 @@ public class RoomStatDAO {
         query.setParameter("id", room_id);
         List<RoomStat> RL = new ArrayList<RoomStat>();
         try{
-            query.getResultList();
+            RL = query.getResultList();
         }catch (Exception e){
             if (transaction != null) {
                 transaction.rollback();

@@ -1,7 +1,7 @@
 import styles from "./contract.module.css"
 import { getOwner } from "../Services/Renter.Services"
 import React, { useEffect, useState } from "react"
-const CONTRACT = React.forwardRef((props, ref) => {
+const CONTRACT = ((props) => {
 
 
     const [ownerData, setOwnerData] = useState({})
@@ -31,6 +31,7 @@ const CONTRACT = React.forwardRef((props, ref) => {
     function dateFormat(date) {
         let m
         let dateString
+        console.log("renter", renter)
         if (date === "currentDate") {
             m = new Date()
             dateString =
@@ -51,7 +52,7 @@ const CONTRACT = React.forwardRef((props, ref) => {
     return (
         <>
 
-            <div className={styles.A4Size} ref={ref}>
+            <div className={styles.A4Size}>
                 <div className={styles.header}>
                     <p className={styles.contract}>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
                     <p className={styles.contract}>
@@ -92,7 +93,7 @@ const CONTRACT = React.forwardRef((props, ref) => {
                     <p className={styles.contract}>Tiền điện:  <input defaultValue={ownerData.giaDichVu.elecPrice} className={`${styles.contract} ${styles.contractInput}`} /> đ/kWh tính theo chỉ số công tơ điện</p>
                     <p className={styles.contract}>Tiền nước: <input defaultValue={ownerData.giaDichVu.waterPrice} className={`${styles.contract} ${styles.contractInput}`} /> đ/m<sup>3</sup> tính theo chỉ số của đồng hồ nước</p>
                     <p className={styles.contract}>Số tiền đặt cọc:    <input className={`${styles.contract} ${styles.contractInput}`} />   </p>
-                    <p className={styles.contract}>Hợp đồng có giá trị từ {dateFormat()}</p>
+                    <p className={styles.contract}>Hợp đồng có giá trị từ {dateFormat(renter.ngay_chuyen_vao)}</p>
                     <p className={styles.contract}><b>TRÁCH NHIỆM CỦA CÁC BÊN</b></p>
                     <p className={styles.contract}>Trách nhiệm của bên A:</p>
                     <p className={styles.contract}>

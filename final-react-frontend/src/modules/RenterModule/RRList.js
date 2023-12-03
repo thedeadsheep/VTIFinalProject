@@ -8,7 +8,6 @@ import PrintComponent from '../components/PrintComponent';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import CONTRACT from '../components/contract';
 
 
 
@@ -116,11 +115,6 @@ function RenterAndRealativeList(props) {
                         }} /> Thêm khách trọ
                     </span>
                 </button>
-                <select>
-                    <option>
-                        Lọc nội dung theo phòng
-                    </option>
-                </select>
             </div>
 
             {exportData.map((renter) => (

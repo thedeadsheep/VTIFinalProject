@@ -1,12 +1,12 @@
 import { useEffect } from "react"
 import { useState } from "react"
 import ModalPopup from '../components/ModalPopup'
-import { getNotEmptyRoom } from "../Services/Room.Services"
+import { getRSOfOCCRoom } from "../Services/Room.Services"
 import AddRecord from "./addRecord"
+import { json } from "react-router"
 export default function RoomRecord() {
 
     const [roomList, setRoomList] = useState([])
-    const [oldRecordList, setOldRecordList] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState(<></>)
     const [modalTitle, setModalTitle] = useState()
@@ -14,25 +14,16 @@ export default function RoomRecord() {
         getData()
     }, [])
     function getData() {
-        getRoomList()
-        getOldRecord()
+        getRSOfOCC()
     }
-    async function getRoomList() {
-        await getNotEmptyRoom().then((res) => {
-            console.log(res)
-            setRoomList(res.data)
+    async function getRSOfOCC() {
+        await getRSOfOCCRoom().then((res) => {
+            setRoomList(JSON.parse(res.data))
         }).catch((err) => {
             console.log(err)
         })
     }
-    async function getOldRecord() {
-        await getNotEmptyRoom().then((res) => {
-            console.log(res)
-            setRoomList(res.data)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
+
     function openModal(state, room) {
         if (state === "addRoomRecord") {
             setModalTitle("Ghi Điện nước")
@@ -82,18 +73,23 @@ export default function RoomRecord() {
                     {roomList.map((room) => (
                         <tr key={room.rId}>
                             <td>
-                                {room.rId}
+                                {room.room_id}
                             </td>
                             <td>
-                                {room.name}
+                                {room.roomName}
                             </td>
                             <td>
                                 <button onClick={() => openModal("addRoomRecord", room)}>
                                     Ghi diện nước
                                 </button>
+
                                 <button onClick={() => openModal("showHistory", room.rId)}>
                                     Lịch sử
                                 </button>
+                                <button onClick={() => openModal("showHistory", room.rId)}>
+                                    Cập nhật chênh lệch
+                                </button>
+
                             </td>
                         </tr>
                     ))}

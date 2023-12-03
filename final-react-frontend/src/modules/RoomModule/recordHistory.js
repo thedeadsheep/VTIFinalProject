@@ -7,7 +7,10 @@ export default function recordHistory(props) {
 
     return (
         <div>
-            <table></table>
+            <table>
+
+
+            </table>
 
         </div>
     )

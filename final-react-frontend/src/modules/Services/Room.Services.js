@@ -46,6 +46,11 @@ async function getAllRentersInRoom(room_id) {
     return await axios.get(url)
 
 }
+async function getRSOfOCCRoom(room_id) {
+    let url = WEB_API + `getRSOfOCCRoom`
+    return await axios.get(url)
+
+}
 export {
     getAllRoom,
     getRoomById,
@@ -57,5 +62,6 @@ export {
     getAllRentersInRoom,
     getNotEmptyRoom,
     addRoomRecord,
-    getNewestStat
+    getNewestStat,
+    getRSOfOCCRoom
 }

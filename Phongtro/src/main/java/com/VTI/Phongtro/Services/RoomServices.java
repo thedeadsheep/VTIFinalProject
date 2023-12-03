@@ -4,6 +4,7 @@ import com.VTI.Phongtro.DAO.RenterDAO;
 import com.VTI.Phongtro.DAO.RenterRoomDAO;
 import com.VTI.Phongtro.DAO.RoomDAO;
 import com.VTI.Phongtro.DAO.RoomStatDAO;
+import com.VTI.Phongtro.DTO.RoomStatDTO;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Entities.RenterRoom;
 import com.VTI.Phongtro.Entities.Room;
@@ -181,8 +182,23 @@ public class RoomServices {
         }
         return  "Ghi điện nước hoàn thành!";
     }
-    public String getAllRoomStat(){
-        return new Gson().toJson(rsDAO.getAllRoomStat());
+    public String getAllRoomStatOfOccupied(){
+        List<Room> RL = roomDAO.getNotEmptyRoom();
+        if (RL.isEmpty()){
+            return "Khong tim thay phong co nguoi";
+        }
+        List<RoomStatDTO> RSDTO = new ArrayList<>();
+        for (Room room: RL){
+            RoomStatDTO roomStatDTO = new RoomStatDTO();
+            roomStatDTO.setRoomName(room.getName());
+            roomStatDTO.setRoom_id(Integer.toString(room.getrId()));
+            RSDTO.add(roomStatDTO);
+        }
+        for (RoomStatDTO roomStatDTO: RSDTO){
+            roomStatDTO.setChiSoGanNhat(rsDAO.getTheNewestRecordOfRoom(roomStatDTO.getRoom_id()));
+            roomStatDTO.setLichSuGhi(rsDAO.getRoomStatByRoomId(roomStatDTO.getRoom_id()));
+        }
+        return new Gson().toJson(RSDTO);
     }
     public String getNewsetStat(String room_id){ return new Gson().toJson(rsDAO.getTheNewestRecordOfRoom(room_id));}
     public String getRoomStatOfRoom(String room_id){

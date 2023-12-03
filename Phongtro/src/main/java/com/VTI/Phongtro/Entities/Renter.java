@@ -181,7 +181,7 @@ public class Renter {
         this.SDT = SDT;
     }
     public RenterDTO toDTO(){
-        return  new RenterDTO(ho_tenlot,ten,ngay_sinh.toString(),soCCCD,link_with,quanhe,diaChiThuongTru,queQuan,SDT,id);
+        return  new RenterDTO(ho_tenlot,ten,ngay_sinh.toString(),soCCCD,link_with,quanhe,diaChiThuongTru,queQuan,SDT,id, ngay_chuyen_vao);
     }
     @Override
     public String toString() {

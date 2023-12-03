@@ -31,16 +31,24 @@ public class BillController {
         String result = billServiecs.getAllBillOfRoom(room_id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/getTempBillOfRoom")
+    public ResponseEntity<String> getTempBillOfRoom(@RequestParam("room_id") String room_id) {
+        String result = billServiecs.getAllBillOfRoom(room_id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
     @PostMapping("/createNewBill")
     public ResponseEntity<String> CreateNewBill(@RequestParam("room_id") String room_id, @RequestBody Bill bill) {
         String result = billServiecs.addNewBill(room_id,bill);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    @PutMapping("/updateBill")
+    /*
+      @PutMapping("/updateBill")
     public ResponseEntity<String> UpdateBillContent(@RequestBody Bill bill  ) {
         String result = billServiecs.updateBill(bill);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    */
+
     @PutMapping("/confirmBill")
     public ResponseEntity<String> ConfirmPaiedBill(@RequestParam("bill_id") String bill_id) {
         String result = billServiecs.confirmBillWasPaid(bill_id);

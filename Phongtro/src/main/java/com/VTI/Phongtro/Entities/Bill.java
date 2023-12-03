@@ -24,13 +24,17 @@ public class Bill {
     @Column(name = "tong_tien")
     private int total;
     @Column(name = "gia_dien")
-    private int elecPrice;
+    private String elecPrice;
     @Column(name = "gia_nuoc")
-    private int waterPrice;
+    private String waterPrice;
     @Column(name = "so_dien")
-    private int water_number;
+    private int new_water_number;
     @Column(name = "so_nuoc")
-    private int elec_number;
+    private int new_elec_number;
+    @Column(name = "so_dien_cu")
+    private int old_water_number;
+    @Column(name = "so_nuoc_cu")
+    private int old_elec_number;
     @Column(name = "da_thanh_toan")
     private boolean isPaid;
 
@@ -39,15 +43,18 @@ public class Bill {
     }
     public Bill(String bill_id, String room_id,
                 String date_create, String date_paid,
-                int water_number, int elec_number,
+                int new_water_number, int new_elec_number,
+                int old_elec_number, int old_water_number,
                 boolean isPaid, int total,
-                int waterPrice, int elecPrice){
+                String waterPrice, String elecPrice){
         this.bill_id = bill_id;
         this.date_create = date_create;
         this.date_paid = date_paid;
         this.room_id = room_id;
-        this.water_number = water_number;
-        this.elec_number = elec_number;
+        this.new_water_number = new_water_number;
+        this.new_elec_number = new_elec_number;
+        this.old_elec_number = old_elec_number;
+        this.old_water_number = old_water_number;
         this.isPaid = isPaid;
         this.total = total;
         this.waterPrice = waterPrice;
@@ -61,19 +68,20 @@ public class Bill {
     public void setPayDate(){
         this.date_paid =  new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
     }
-    public int getElecPrice() {
+    public String getElecPrice() {
         return elecPrice;
     }
 
-    public int getWaterPrice() {
+
+    public String getWaterPrice() {
         return waterPrice;
     }
 
-    public void setElecPrice(int elecPrice) {
+    public void setElecPrice(String elecPrice) {
         this.elecPrice = elecPrice;
     }
 
-    public void setWaterPrice(int waterPrice) {
+    public void setWaterPrice(String waterPrice) {
         this.waterPrice = waterPrice;
     }
 
@@ -93,9 +101,7 @@ public class Bill {
         this.bill_id = bill_id;
     }
 
-    public int getElec_number() {
-        return elec_number;
-    }
+
 
     public void setDate_create(String date_create) {
         this.date_create = date_create;
@@ -112,13 +118,33 @@ public class Bill {
     public int getTotal() {
         return total;
     }
-
-    public void setElec_number(int elec_number) {
-        this.elec_number = elec_number;
+    public int getNew_elec_number() {
+        return new_elec_number;
+    }
+    public void setNew_elec_number(int elec_number) {
+        this.new_elec_number = elec_number;
+    }
+    public int getNew_water_number() {
+        return new_water_number;
+    }
+    public void setNew_water_number(int water_number) {
+        this.new_water_number = water_number;
     }
 
-    public int getWater_number() {
-        return water_number;
+    public void setOld_elec_number(int old_elec_number) {
+        this.old_elec_number = old_elec_number;
+    }
+
+    public int getOld_elec_number() {
+        return old_elec_number;
+    }
+
+    public void setOld_water_number(int old_water_number) {
+        this.old_water_number = old_water_number;
+    }
+
+    public int getOld_water_number() {
+        return old_water_number;
     }
 
     public void setIsPaid(boolean isPaid) {
@@ -133,8 +159,6 @@ public class Bill {
         this.total = total;
     }
 
-    public void setWater_number(int water_number) {
-        this.water_number = water_number;
-    }
+
 }
 
