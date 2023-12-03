@@ -4,6 +4,7 @@ import ModalPopup from '../components/ModalPopup'
 import { getRSOfOCCRoom } from "../Services/Room.Services"
 import AddRecord from "./addRecord"
 import { json } from "react-router"
+import RecordHistory from "./recordHistory"
 export default function RoomRecord() {
 
     const [roomList, setRoomList] = useState([])
@@ -31,7 +32,7 @@ export default function RoomRecord() {
             setIsOpen(true)
         } else if (state === "showHistory") {
             setModalTitle("Lịch sử ghi")
-            setComponent()
+            setComponent(<RecordHistory room={room.lichSuGhi} />)
             setIsOpen(true)
         }
     }
@@ -49,7 +50,6 @@ export default function RoomRecord() {
         } catch {
             return
         }
-
     }
     return (
         <div>
@@ -71,7 +71,7 @@ export default function RoomRecord() {
                         </th>
                     </tr>
                     {roomList.map((room) => (
-                        <tr key={room.rId}>
+                        <tr key={room.room_id}>
                             <td>
                                 {room.room_id}
                             </td>
@@ -83,12 +83,10 @@ export default function RoomRecord() {
                                     Ghi diện nước
                                 </button>
 
-                                <button onClick={() => openModal("showHistory", room.rId)}>
+                                <button onClick={() => openModal("showHistory", room)}>
                                     Lịch sử
                                 </button>
-                                <button onClick={() => openModal("showHistory", room.rId)}>
-                                    Cập nhật chênh lệch
-                                </button>
+
 
                             </td>
                         </tr>

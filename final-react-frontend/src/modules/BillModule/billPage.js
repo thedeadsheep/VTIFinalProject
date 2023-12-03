@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { getNotEmptyRoom } from "../Services/Room.Services"
-import RecordCard from "./recordCard"
+import ModalPopup from '../components/ModalPopup'
+import AddBill from "./addBill"
+import BillList from "./billList"
 
 export default function BillPage() {
 
@@ -24,15 +26,47 @@ export default function BillPage() {
 
 function RoomList(props) {
     const rl = props.roomList
+    const [isOpen, setIsOpen] = useState(false)
+    const [component, setComponent] = useState(<></>)
+    const [modalTitle, setModalTitle] = useState()
+    function openModal(state, room) {
+        if (state === "createBill") {
+            setModalTitle("Tạo hóa đơn")
+            setComponent(<AddBill room_id={room.rId} />)
+            setIsOpen(true)
+        } else if (state === "showAllBillsOfRoom") {
+
+            setModalTitle("Danh sách hóa đơn")
+            setComponent(<BillList list={billList || []} />)
+            setIsOpen(true)
+        }
+    }
+    function closeModalPopUp(event) {
+        console.log(event)
+        try {
+            if (event.target.id === "close-modal-position") {
+                console.log(
+                    'CloseModal'
+                )
+                setIsOpen(false)
+                setComponent(<></>)
+                setModalTitle("")
+            }
+        } catch {
+            return
+        }
+    }
+
     return (
-
         <div>
-
             <table style={{
                 width: "100%"
             }}>
                 <tbody>
                     <tr>
+                        <th>
+                            STT
+                        </th>
                         <th>
                             Tên Phòng
                         </th>
@@ -42,6 +76,9 @@ function RoomList(props) {
                     </tr>
                     {rl.map((room) => (
                         <tr key={room.rId}>
+                            <th>
+                                {room.rId}
+                            </th>
                             <td>
                                 {room.name}
                             </td>
@@ -49,10 +86,10 @@ function RoomList(props) {
                                 display: "flex",
                                 justifyContent: "flex-end"
                             }}>
-                                <button>
+                                <button onClick={() => openModal("createBill", room)}>
                                     Tạo hóa đơn
                                 </button>
-                                <button>
+                                <button onClick={() => openModal("showAllBillsOfRoom", room)}>
                                     Xem tất cả hóa đơn
                                 </button>
                             </td>
@@ -60,6 +97,11 @@ function RoomList(props) {
                     ))}
                 </tbody>
             </table>
+            <ModalPopup
+                isOpen={isOpen}
+                closeModal={closeModalPopUp}
+                component={component}
+                modalTitle={modalTitle} />
         </div>
     )
 }

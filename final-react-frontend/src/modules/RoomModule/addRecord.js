@@ -23,30 +23,44 @@ export default function AddRecord(props) {
         }))
     }
     return (
-        <div>
+        <div >
             <h3 style={{
-                margin: "5px 0"
+                margin: "10px 0"
             }}>
-                {room.name}
+                {room.roomName}
             </h3>
 
             <form
                 onSubmit={handleSubmit((data) =>
                     formInputHandler(data)
                 )}
+                style={{
+                    display: "flex",
+                    flexWrap: "wrap"
+                }}
             >
-                <label>
+                <label style={{
+                    width: "50%"
+                }}>
                     Số điện
                     <input {...register('elecNumber', {})} defaultValue={room.chiSoGanNhat.elecNumber} />
                 </label>
-                <label>
+                <label style={{
+                    width: "50%"
+                }}>
                     Số nước
                     <input {...register('waterNumber', {})} defaultValue={room.chiSoGanNhat.waterNumber} />
                 </label>
-                <label>
+                <label style={{
+                    width: "100%"
+                }}>
                     <input
                         type='submit'
                         value={"Ghi"}
+                        style={{
+                            background: "#FFF34A",
+                            border: "none"
+                        }}
                     />
                 </label>
             </form>

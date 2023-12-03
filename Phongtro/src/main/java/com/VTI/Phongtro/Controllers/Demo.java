@@ -2,7 +2,6 @@ package com.VTI.Phongtro.Controllers;
 
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Services.RenterServices;
-import com.VTI.Phongtro.Utils.NormalUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,18 +19,12 @@ import java.util.Date;
 @RequestMapping("/demo")
 public class Demo {
     private final RenterServices renterServices = new RenterServices();
-    private final NormalUtils NU = new NormalUtils();
     @GetMapping("/hello-world")
     public String helloWorld() {
         System.out.println("Hello-world Printed");
         return "hello-world";
     }
-    @GetMapping("/testingFunction")
-    public ResponseEntity TestingFunction(){
-        String str = NU.ngayGhiDienNuoc();
-        str = str.substring(0,8);
-        return new ResponseEntity<>(str,HttpStatus.OK);
-    }
+
     @PostMapping("/demoRenter")
     public ResponseEntity<String> addRenter() throws ParseException {
         String result = "ha";

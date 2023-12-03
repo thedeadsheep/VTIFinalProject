@@ -24,9 +24,7 @@ function ModalPopup(props) {
                 background: "#F7F7FA",
                 display: "flex",
                 flexDirection: "column",
-                borderRadius: "20px",
                 minHeight: "300px",
-                padding: "10px",
                 "boxShadow": "11px 10px 19px -5px rgba(0,0,0,0.4)"
             }}>
                 <div className="header" style={{
@@ -34,7 +32,8 @@ function ModalPopup(props) {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     padding: "15px",
-                    borderBottom: "0.3px solid gray"
+                    borderBottom: "0.3px solid gray",
+
                 }}>
                     <div className="title" style={{
                         display: "flex",
@@ -45,8 +44,8 @@ function ModalPopup(props) {
                         {modalTitle}
                     </div>
                     <button onClick={props.closeModal} style={{
-                        width: "35px",
-                        height: "35px",
+                        width: "40px",
+                        height: "30px",
                         borderRadius: "8px",
                         border: "none",
                         display: "flex",
@@ -54,7 +53,8 @@ function ModalPopup(props) {
                         alignItems: "center",
                         padding: "0",
                         margin: "0",
-                        background: "white"
+                        background: "#D1300C",
+                        color: "white"
                     }} id="close-modal-position">
                         X
                     </button>
@@ -67,7 +67,7 @@ function ModalPopup(props) {
                     justifyContent: "center",
                     alignItems: "center",
                     overflowY: "scroll",
-                    maxHeight: "800px"
+                    maxHeight: "800px",
                 }}>
                     {component}
                 </div>
