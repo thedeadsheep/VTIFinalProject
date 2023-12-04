@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { addRoomRecord, getNewestStat } from "../Services/Room.Services"
-import { useState } from 'react';
+import { addRoomRecord } from "../Services/Room.Services"
+
 export default function AddRecord(props) {
     const room = props.room || {}
     const {

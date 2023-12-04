@@ -1,14 +1,13 @@
 package com.VTI.Phongtro.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+@Entity
+@Table(name = "hoa_don")
 public class Bill {
 
     @Id
@@ -23,6 +22,8 @@ public class Bill {
     private String date_paid;
     @Column(name = "tong_tien")
     private int total;
+    @Column(name = "gia_phong")
+    private String roomPrice;
     @Column(name = "gia_dien")
     private String elecPrice;
     @Column(name = "gia_nuoc")
@@ -46,7 +47,7 @@ public class Bill {
                 int new_water_number, int new_elec_number,
                 int old_elec_number, int old_water_number,
                 boolean isPaid, int total,
-                String waterPrice, String elecPrice){
+                String waterPrice, String elecPrice, String roomPrice){
         this.bill_id = bill_id;
         this.date_create = date_create;
         this.date_paid = date_paid;
@@ -59,6 +60,7 @@ public class Bill {
         this.total = total;
         this.waterPrice = waterPrice;
         this.elecPrice = elecPrice;
+        this.roomPrice = roomPrice;
     }
     public void initBill(String room_id){
         this.room_id= room_id;
@@ -72,6 +74,9 @@ public class Bill {
         return elecPrice;
     }
 
+    public String getRoomPrice() {
+        return roomPrice;
+    }
 
     public String getWaterPrice() {
         return waterPrice;
@@ -83,6 +88,10 @@ public class Bill {
 
     public void setWaterPrice(String waterPrice) {
         this.waterPrice = waterPrice;
+    }
+
+    public void setRoomPrice(String roomPrice) {
+        this.roomPrice = roomPrice;
     }
 
     public String getDate_create() {

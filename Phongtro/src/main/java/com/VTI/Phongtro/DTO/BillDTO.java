@@ -5,10 +5,12 @@ import com.VTI.Phongtro.Entities.RoomStat;
 import com.VTI.Phongtro.Entities.ServicesPrice;
 
 public class BillDTO {
+
     ServicesPrice currentPrice;
-    Room romm;
+    Room room;
     RoomStat oldNumber;
     RoomStat newNumber;
+
     public BillDTO(){}
 
     public void setCurrentPrice(ServicesPrice currentPrice) {
@@ -16,7 +18,7 @@ public class BillDTO {
     }
 
     public Room getRomm() {
-        return romm;
+        return room;
     }
 
     public void setNewNumber(RoomStat newNumber) {
@@ -35,8 +37,8 @@ public class BillDTO {
         return oldNumber;
     }
 
-    public void setRomm(Room romm) {
-        this.romm = romm;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public ServicesPrice getCurrentPrice() {

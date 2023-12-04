@@ -1,0 +1,30 @@
+.billWrap input{
+    width:min-content;
+    font-size: large;
+    border: none;
+    border-bottom: 0.3px solid black ;
+    border-radius: 0;
+    background-color: transparent;
+    max-width: 100px;
+     text-align: center;
+}
+.roomDetail{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.numberInput input{
+   
+}
+.total input{
+     width: 100%;
+  max-width: 100%;
+  
+}
+.createBtn input{
+     width: 100%;
+  max-width: 100%;
+  border: none;
+  background-color: #FFEE00;
+  border-radius: 15px ;
+}

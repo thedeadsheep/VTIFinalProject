@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 export default function PriceHistory(props) {
     function dateConverter(date) {
         if (date) {

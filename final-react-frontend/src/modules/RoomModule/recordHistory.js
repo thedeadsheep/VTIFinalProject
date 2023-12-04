@@ -1,4 +1,4 @@
-import { useState } from "react"
+
 
 export default function RecordHistory(props) {
     let roomHistory = props.room
@@ -7,7 +7,6 @@ export default function RecordHistory(props) {
 
     function dateConverter(date) {
         if (date) {
-
             return `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`
         }
         return ""
@@ -39,7 +38,9 @@ export default function RecordHistory(props) {
                     {roomHistory.map((item) => (
                         <tr style={{
                             color: item.isCommited ? "green" : "red"
-                        }}>
+
+                        }}
+                            key={item.recordDate}>
                             <td>
                                 {roomHistory.indexOf(item) + 1}
                             </td>

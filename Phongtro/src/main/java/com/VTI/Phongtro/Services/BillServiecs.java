@@ -35,21 +35,34 @@ public class BillServiecs {
         billDTO.setCurrentPrice(sp) ;
         RoomStat oldNumber = roomStatDAO.getNewestCommitedByRoomId(room_id);
         RoomStat newNumber = roomStatDAO.getNewestUncommitedByRoomId(room_id);
-        if(oldNumber == null){
-            return "Somting when wrong";
+        if(oldNumber.getElecNumber() == -1){
+            return "err01";
         }
-        if (newNumber == null){
-            return "Không có nội dung mới để tạo hoán đơn";
+        if (newNumber.getElecNumber() == -1){
+            System.out.println("khong cos gif commit");
+            return "err02";
         }
         billDTO.setOldNumber(oldNumber);
         billDTO.setNewNumber(newNumber);
-        billDTO.setRomm(roomDAO.getById(room_id));
+        billDTO.setRoom(roomDAO.getById(room_id));
         return new Gson().toJson(billDTO);
     }
     public String addNewBill(String room_id, Bill bill){
         bill.initBill(room_id);
         String bill_id = billDAO.addNewBill(bill);
         bill.setBill_id(bill_id);
+        if (!bill_id.isBlank()){
+            List<RoomStat> RSL = roomStatDAO.getRoomStatUnCommitedByRoomId(room_id);
+            for (RoomStat rs: RSL){
+                rs.setCommited(true);
+                try{
+                    roomStatDAO.updateRoomStat(rs);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    return "Cập nhật thất bại, lỗi Db";
+                }
+            }
+        }
         return new Gson().toJson(bill);
     }
 
@@ -85,17 +98,7 @@ public class BillServiecs {
             e.printStackTrace();
             return "Cập nhật thất bại, lỗi Db";
         }
-        String room_id = bill.getRoom_id();
-        List<RoomStat> RSL = roomStatDAO.getRoomStatUnCommitedByRoomId(room_id);
-        for (RoomStat rs: RSL){
-            rs.setCommited(true);
-            try{
-                roomStatDAO.updateRoomStat(rs);
-            }catch (Exception e){
-                e.printStackTrace();
-                return "Cập nhật thất bại, lỗi Db";
-            }
-        }
+
         return "Cập nhật thành công, bill đã được thanh toán";
     }
 

@@ -30,7 +30,9 @@ public class RoomStat {
     @Column(name = "ghi_nhan")
     private boolean isCommited;
 
-    public RoomStat(){}
+    public RoomStat(){
+        this.elecNumber=-1;
+    }
     public RoomStat(String  room_id, int elecNumber, int waterNumber, String recordDate, boolean isCommited){
         this.elecNumber = elecNumber;
         this.recordDate = recordDate;

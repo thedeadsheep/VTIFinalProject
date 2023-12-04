@@ -1,4 +1,4 @@
-import { getAllServicesPrice, addNewService, updateServicePrice } from "../Services/ServicePrice.Services"
+import { updateServicePrice } from "../Services/ServicePrice.Services"
 import { useForm } from 'react-hook-form';
 
 export default function CreateAndUpdatePrice(props) {

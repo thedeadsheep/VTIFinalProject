@@ -3,7 +3,6 @@ import { useState } from "react"
 import ModalPopup from '../components/ModalPopup'
 import { getRSOfOCCRoom } from "../Services/Room.Services"
 import AddRecord from "./addRecord"
-import { json } from "react-router"
 import RecordHistory from "./recordHistory"
 export default function RoomRecord() {
 

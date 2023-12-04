@@ -1,21 +1,15 @@
 import { useEffect, useState, useMemo } from "react"
 import RenterListComponent from "./renterList"
 import { getAllRenters } from "../Services/Renter.Services"
-import { useNavigate } from "react-router"
 import Pagination from "../components/pagination"
-import ModalPopup from "../components/ModalPopup"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import CreateAndUpdateProfileComponent from "./cuProfile"
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const PageSize = 10
 function RenterPage() {
 
     const [renters, setRenters] = useState([])
     const [searchMode, setSearchMode] = useState(2)
-    const [openModal, setOpenModal] = useState(false)
-    const [modalTitle, setModalTitle] = useState("")
-    const [component, setComponent] = useState()
     const [textSearchValue, setTextSearchValue] = useState("")
     const [currentPage, setCurrentPage] = useState()
     let data = useMemo(() => {
@@ -23,7 +17,6 @@ function RenterPage() {
         const lastPageIndex = firstPageIndex + PageSize;
         return renters.slice(firstPageIndex, lastPageIndex)
     }, [currentPage, renters])
-    const navigate = useNavigate()
     useEffect(() => {
         getRenters()
     }, [])

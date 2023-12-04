@@ -16,7 +16,7 @@ async function getTempBillOfRoom(room_id) {
 }
 async function getBillById(bill_id) {
     const url = WEB_API + `getBillById?bill_id=${bill_id}`
-    return await axios.get(url, data)
+    return await axios.get(url)
 }
 async function createNewBill(room_id, data) {
     const url = WEB_API + `createNewBill?room_id=${room_id}`

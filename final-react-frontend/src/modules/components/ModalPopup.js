@@ -2,7 +2,6 @@ function ModalPopup(props) {
     let isOpen = props.isOpen
     const component = props.component
     const modalTitle = props.modalTitle
-    const isPrint = props.isPrint
     if (!isOpen) {
         return (<></>)
     }

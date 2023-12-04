@@ -55,7 +55,7 @@ public class RoomStatDAO {
     public RoomStat getNewestUncommitedByRoomId(String room_id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        Query query =  session.createQuery("from RoomStat r order by r.recordDate where room_id = :id and isCommited = false");
+        Query query =  session.createQuery("from RoomStat r where room_id = :id and isCommited = false order by r.recordDate desc");
         query.setParameter("id", room_id);
         List<RoomStat> RL = new ArrayList<RoomStat>();
         try{
@@ -69,14 +69,14 @@ public class RoomStatDAO {
             session.close();
         }
         if (RL.isEmpty()){
-            return  new RoomStat();
+            return new RoomStat();
         }
         return RL.get(0);
     }
     public RoomStat getNewestCommitedByRoomId(String room_id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        Query query =  session.createQuery("from RoomStat r order by r.recordDate where room_id = :id and isCommited = true");
+        Query query =  session.createQuery("from RoomStat r where room_id = :id and isCommited = true order by r.recordDate desc");
         query.setParameter("id", room_id);
         List<RoomStat> RL = new ArrayList<RoomStat>();
         try{

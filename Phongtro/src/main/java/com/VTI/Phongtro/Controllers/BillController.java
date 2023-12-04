@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/bill")
 public class BillController {
@@ -33,7 +35,13 @@ public class BillController {
     }
     @GetMapping("/getTempBillOfRoom")
     public ResponseEntity<String> getTempBillOfRoom(@RequestParam("room_id") String room_id) {
-        String result = billServiecs.getAllBillOfRoom(room_id);
+        String result = billServiecs.getTempBillValueOfRoom(room_id);
+        if(Objects.equals(result, "err01")){
+            return new ResponseEntity<>("Có cái gì đó bị lỗi", HttpStatus.BAD_REQUEST);
+        }
+        if(Objects.equals(result, "err02")){
+            return new ResponseEntity<>("Không có chỉ số mới để tạo hóa đơn", HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PostMapping("/createNewBill")
