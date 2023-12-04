@@ -36,8 +36,8 @@ function RoomList(props) {
             setIsOpen(true)
         } else if (state === "showAllBillsOfRoom") {
 
-            setModalTitle("Danh sách hóa đơn")
-            setComponent(<BillList />)
+            setModalTitle(`Danh sách hóa đơn ${room.name}`)
+            setComponent(<BillList room_id={room.rId} />)
             setIsOpen(true)
         }
     }
