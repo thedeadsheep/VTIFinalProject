@@ -49,7 +49,10 @@ async function getAllRentersInRoom(room_id) {
 async function getRSOfOCCRoom(room_id) {
     let url = WEB_API + `getRSOfOCCRoom`
     return await axios.get(url)
-
+}
+async function deleteRoomRecord(room_id, recordDate) {
+    let url = WEB_API + `deleteRoomRecord?room_id=${room_id}&record_date=${recordDate}`
+    return await axios.delete(url)
 }
 export {
     getAllRoom,
@@ -63,5 +66,6 @@ export {
     getNotEmptyRoom,
     addRoomRecord,
     getNewestStat,
-    getRSOfOCCRoom
+    getRSOfOCCRoom,
+    deleteRoomRecord
 }

@@ -36,10 +36,13 @@ public class BillServiecs {
         RoomStat oldNumber = roomStatDAO.getNewestCommitedByRoomId(room_id);
         RoomStat newNumber = roomStatDAO.getNewestUncommitedByRoomId(room_id);
         if(oldNumber.getElecNumber() == -1){
-            return "err01";
+            oldNumber = new RoomStat(room_id,0,0,null,false);
         }
         if (newNumber.getElecNumber() == -1){
             System.out.println("khong cos gif commit");
+            System.out.println(newNumber.getElecNumber() == -1);
+
+            System.out.println(newNumber.getElecNumber());
             return "err02";
         }
         billDTO.setOldNumber(oldNumber);

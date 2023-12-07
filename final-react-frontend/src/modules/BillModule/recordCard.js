@@ -1,6 +1,7 @@
-export default function RecordCard() {
+import { parse } from "@fortawesome/fontawesome-svg-core"
 
-
+export default function RecordCard(props) {
+    let bill = props.bill || {}
     const inputStyle = {
         marginLeft: "10px",
         border: "none",
@@ -18,6 +19,26 @@ export default function RecordCard() {
         margin: "0",
         padding: "0"
     }
+
+    function getStringValue(mode) {
+        let newValue, oldValue, price, donvi, total
+
+        if (mode === "water") {
+            oldValue = bill.old_water_number
+            newValue = bill.new_water_number
+            price = bill.waterPrice
+            donvi = "m3"
+            total = (parseInt(newValue) - parseInt(oldValue)) * parseInt(price)
+        } else if (mode === "elec") {
+            oldValue = bill.old_elec_number
+            newValue = bill.new_elec_number
+            price = bill.elecPrice
+            donvi = "kWh"
+            total = (parseInt(newValue) - parseInt(oldValue)) * parseInt(price)
+        }
+        let stringBuilder = `(${newValue}-${oldValue})*${price}/${donvi} = ${total}`
+        return stringBuilder
+    }
     return (
         <div style={{
             width: "350px",
@@ -28,14 +49,14 @@ export default function RecordCard() {
                 padding: "10px"
             }}>
                 <h1 style={pTag}>
-                    Phiếu thu
+                    Phiếu thu:
                 </h1>
                 <div>
                     <label style={labelStyle}>
                         <p style={pTag}>
                             Phòng:
                         </p>
-                        <input style={inputStyle} />
+                        <input style={inputStyle} defaultValue={bill.room_id || ""} />
                     </label>
                 </div>
                 <div>
@@ -43,7 +64,7 @@ export default function RecordCard() {
                         <p style={pTag}>
                             Tháng:
                         </p>
-                        <input style={inputStyle} />
+                        <input style={inputStyle} defaultValue={""} />
                     </label>
                 </div>
                 <div>
@@ -51,7 +72,7 @@ export default function RecordCard() {
                         <p style={pTag}>
                             Tiền phòng:
                         </p>
-                        <input style={inputStyle} />
+                        <input style={inputStyle} defaultValue={bill.roomPrice} />
                     </label>
                 </div>
                 <div>
@@ -59,7 +80,7 @@ export default function RecordCard() {
                         <p style={pTag}>
                             Tiền điện:
                         </p>
-                        <input style={inputStyle} />
+                        <input style={inputStyle} defaultValue={getStringValue("elec")} />
                     </label>
                 </div>
                 <div>
@@ -67,7 +88,7 @@ export default function RecordCard() {
                         <p style={pTag}>
                             Tiền nước:
                         </p>
-                        <input style={inputStyle} />
+                        <input style={inputStyle} defaultValue={getStringValue("water")} />
                     </label>
                 </div>
                 <div>
@@ -75,7 +96,7 @@ export default function RecordCard() {
                         <p style={pTag}>
                             Tổng cộng:
                         </p>
-                        <input style={inputStyle} />
+                        <input style={inputStyle} defaultValue={bill.total} />
                     </label>
                 </div>
             </div>

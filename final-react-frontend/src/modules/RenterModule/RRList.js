@@ -191,7 +191,7 @@ function DataDisplay(props) {
             setIsOpen(true)
         } else if (state === "Contract") {
             setModalTitle("Hợp đồng")
-            setComponent(<PrintComponent data={data} room_id={room_id} />)
+            setComponent(<PrintComponent data={data} room_id={room_id} state="printContract" />)
             setIsOpen(true)
             setIsPrint(true)
         }

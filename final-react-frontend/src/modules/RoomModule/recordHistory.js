@@ -1,3 +1,4 @@
+import { deleteRoomRecord } from "../Services/Room.Services"
 
 
 export default function RecordHistory(props) {
@@ -10,6 +11,15 @@ export default function RecordHistory(props) {
             return `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`
         }
         return ""
+    }
+    async function deleteRecord(record) {
+        await deleteRoomRecord(record.room_id, record.recordDate).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        }).finally(() => {
+            window.location.reload()
+        })
     }
     return (
         <div>
@@ -53,7 +63,7 @@ export default function RecordHistory(props) {
                                 {dateConverter(item.recordDate)}
                             </td>
                             {item.isCommited ? <></> : <td>
-                                <button>
+                                <button onClick={() => deleteRecord(item)}>
                                     Xóa bản ghi
                                 </button>
                             </td>}

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import { getAllBillsByRoomId } from "../Services/Bill.Services"
+import { confirmBill, getAllBillsByRoomId } from "../Services/Bill.Services"
 
 export default function BillList(props) {
     const room_id = props.room_id
@@ -20,6 +20,20 @@ export default function BillList(props) {
         }).catch((err) => {
             console.log(err)
         })
+    }
+    async function confirm(bill_id) {
+        if (window.confirm("Xác nhận đã thanh toán")) {
+            await confirmBill(bill_id).then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+            }).finally(() => {
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000)
+
+            })
+        }
     }
     if (loading) return (
         <div>
@@ -63,13 +77,11 @@ export default function BillList(props) {
                                     {bill.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
                                 </td>
                                 <td>
-                                    <button>
-                                        Xác nhận đã thanh toán
-                                    </button>
                                     {!bill.isPaid ?
-                                        <button>
-                                            Xóa hóa đơn
-                                        </button> : <></>}
+                                        <button onClick={() => confirm(bill.bill_id)}>
+                                            Xác nhận đã thanh toán
+                                        </button> : <></>
+                                    }
 
                                 </td>
                             </tr>

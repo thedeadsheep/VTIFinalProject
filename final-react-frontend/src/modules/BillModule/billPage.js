@@ -3,14 +3,35 @@ import { getNotEmptyRoom } from "../Services/Room.Services"
 import ModalPopup from '../components/ModalPopup'
 import AddBill from "./addBill"
 import BillList from "./billList"
+import PrintReceipt from "./printReceipt"
 
 export default function BillPage() {
 
-
+    const [isOpen, setIsOpen] = useState(false)
+    const [component, setComponent] = useState(<></>)
+    const [modalTitle, setModalTitle] = useState()
     const [roomList, setRoomList] = useState([])
     useEffect(() => {
         getData()
     }, [])
+    function openModal(state, room) {
+        if (state === "printBill") {
+            setModalTitle("In phiếu thu")
+            setComponent(<PrintReceipt />)
+            setIsOpen(true)
+        }
+    }
+    function closeModalPopUp(event) {
+        try {
+            if (event.target.id === "close-modal-position") {
+                setIsOpen(false)
+                setComponent(<></>)
+                setModalTitle("")
+            }
+        } catch {
+            return
+        }
+    }
     async function getData() {
         await getNotEmptyRoom().then((res) => {
             console.log(res)
@@ -19,7 +40,20 @@ export default function BillPage() {
     }
     return (
         <div>
-            <RoomList roomList={roomList} />
+
+            <div>
+                <div>
+                    <button onClick={() => openModal("printBill")}>
+                        In phiếu thu
+                    </button>
+                </div>
+                <RoomList roomList={roomList} />
+            </div>
+            <ModalPopup
+                isOpen={isOpen}
+                closeModal={closeModalPopUp}
+                component={component}
+                modalTitle={modalTitle} />
         </div>
     )
 }
@@ -45,9 +79,6 @@ function RoomList(props) {
         console.log(event)
         try {
             if (event.target.id === "close-modal-position") {
-                console.log(
-                    'CloseModal'
-                )
                 setIsOpen(false)
                 setComponent(<></>)
                 setModalTitle("")

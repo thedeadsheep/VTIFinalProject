@@ -23,6 +23,11 @@ button{
   margin: 0 3px
 
 }
+.printActive{
+  border-color: #FFC94A !important;
+  box-shadow: #FFC94A 2.4px 2.4px 3.2px;
+  transition: 0.3s ease-out;
+}
 button:hover{
   border-radius: 0;
   transition: 0.7s ease-in-out;
@@ -87,7 +92,7 @@ span{
 }
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 /* Track */
@@ -97,10 +102,10 @@ span{
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #FFF34A; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #FFC94A; 
 }
