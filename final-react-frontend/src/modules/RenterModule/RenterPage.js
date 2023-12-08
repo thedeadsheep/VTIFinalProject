@@ -9,7 +9,7 @@ const PageSize = 10
 function RenterPage() {
 
     const [renters, setRenters] = useState([])
-    const [searchMode, setSearchMode] = useState(2)
+    const [searchMode, setSearchMode] = useState("0")
     const [textSearchValue, setTextSearchValue] = useState("")
     const [currentPage, setCurrentPage] = useState()
     let data = useMemo(() => {

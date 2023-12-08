@@ -4,7 +4,7 @@ public class BillPageDTO {
     private String room_id;
     private String room_name;
     private Boolean canCreateBill;
-
+    public BillPageDTO(){}
     public String getRoom_id() {
         return room_id;
     }

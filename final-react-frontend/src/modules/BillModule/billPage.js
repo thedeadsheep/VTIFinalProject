@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { getNotEmptyRoom } from "../Services/Room.Services"
 import ModalPopup from '../components/ModalPopup'
 import AddBill from "./addBill"
-import BillList from "./billList"
+import BillListOfRoom from "./billListOfRoom"
 import PrintReceipt from "./printReceipt"
+import { getBillPage } from "../Services/Bill.Services"
+import AllBills from "./allBills"
 
 export default function BillPage() {
 
@@ -33,8 +34,8 @@ export default function BillPage() {
         }
     }
     async function getData() {
-        await getNotEmptyRoom().then((res) => {
-            console.log(res)
+        await getBillPage().then(res => {
+            console.log("BP", res)
             setRoomList(res.data)
         })
     }
@@ -42,12 +43,27 @@ export default function BillPage() {
         <div>
 
             <div>
-                <div>
-                    <button onClick={() => openModal("printBill")}>
+                <div style={{
+                    padding: "5px",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                }}>
+                    <p>
+                        Danh sách phòng
+                    </p>
+                    <button onClick={() => openModal("printBill")}
+                        style={{
+                            height: "50px",
+                            minWidth: "100px",
+                            background: "#f9d949"
+                        }}
+                    >
                         In phiếu thu
                     </button>
                 </div>
                 <RoomList roomList={roomList} />
+                <AllBills />
             </div>
             <ModalPopup
                 isOpen={isOpen}
@@ -59,19 +75,19 @@ export default function BillPage() {
 }
 
 function RoomList(props) {
-    const rl = props.roomList
+    const rl = props.roomList || []
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState(<></>)
     const [modalTitle, setModalTitle] = useState()
     function openModal(state, room) {
         if (state === "createBill") {
             setModalTitle("Tạo hóa đơn")
-            setComponent(<AddBill room_id={room.rId} />)
+            setComponent(<AddBill room_id={room.room_id} />)
             setIsOpen(true)
         } else if (state === "showAllBillsOfRoom") {
 
             setModalTitle(`Danh sách hóa đơn ${room.name}`)
-            setComponent(<BillList room_id={room.rId} />)
+            setComponent(<BillListOfRoom room_id={room.room_id} />)
             setIsOpen(true)
         }
     }
@@ -102,24 +118,37 @@ function RoomList(props) {
                             Tên Phòng
                         </th>
                         <th>
+                            Hóa đơn
+                        </th>
+                        <th >
                             Chức năng
                         </th>
                     </tr>
                     {rl.map((room) => (
-                        <tr key={room.rId}>
+                        <tr key={room.room_id}>
                             <th>
-                                {room.rId}
+                                {room.room_id}
                             </th>
                             <td>
-                                {room.name}
+                                {room.room_name}
+                            </td>
+                            <td style={{
+                                color: room.canCreateBill ? "green" : "red",
+                                textAlign: "center"
+                            }}>
+                                {room.canCreateBill ? "Có thể tạo Hóa đơn" : "không thể tạo hóa đơn"}
                             </td>
                             <td style={{
                                 display: "flex",
-                                justifyContent: "flex-end"
+                                justifyContent: "flex-end",
+
                             }}>
-                                <button onClick={() => openModal("createBill", room)}>
-                                    Tạo hóa đơn
-                                </button>
+                                {room.canCreateBill ?
+                                    <button onClick={() => openModal("createBill", room)}>
+                                        Tạo hóa đơn
+                                    </button>
+                                    : <></>
+                                }
                                 <button onClick={() => openModal("showAllBillsOfRoom", room)}>
                                     Xem tất cả hóa đơn
                                 </button>

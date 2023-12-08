@@ -16,7 +16,7 @@ public class BillDAO {
     }
     public List<Bill> getAllBill(){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.createQuery("from Bill", Bill.class).getResultList();
+            return session.createQuery("from Bill b order by b.isPaid, b.date_create", Bill.class).getResultList();
         }
     }
     public List<Bill> getAllBillIsNotPay(){
@@ -31,7 +31,7 @@ public class BillDAO {
     }
     public List<Bill> getAllBillOfRoom(String room_id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query query = session.createQuery("from Bill b where room_id = :id order by b.isPaid, b.date_create",Bill.class);
+            Query query = session.createQuery("from Bill b where room_id = :id order by b.isPaid, b.date_create");
             query.setParameter("id", room_id);
             return query.getResultList();
         }

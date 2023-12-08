@@ -5,12 +5,14 @@ import com.VTI.Phongtro.DAO.RoomDAO;
 import com.VTI.Phongtro.DAO.RoomStatDAO;
 import com.VTI.Phongtro.DAO.ServicesPriceDAO;
 import com.VTI.Phongtro.DTO.BillDTO;
+import com.VTI.Phongtro.DTO.BillPageDTO;
 import com.VTI.Phongtro.Entities.Bill;
 import com.VTI.Phongtro.Entities.Room;
 import com.VTI.Phongtro.Entities.RoomStat;
 import com.VTI.Phongtro.Entities.ServicesPrice;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillServiecs {
@@ -28,6 +30,29 @@ public class BillServiecs {
     public String getUnPaiedBill(){return new Gson().toJson(billDAO.getAllBillIsNotPay());}
     public String getAllBillOfRoom(String room_id){
         return new Gson().toJson(billDAO.getAllBillOfRoom(room_id));
+    }
+
+    public String getOCCRoomsToCreateBills(){
+        List<Room> RL = roomDAO.getNotEmptyRoom();
+        if (RL.isEmpty()){
+            return new Gson().toJson(new ArrayList<BillPageDTO>());
+        }
+        List<BillPageDTO> BPL = new ArrayList<>();
+        for (Room room: RL){
+            BillPageDTO bp = new BillPageDTO();
+            bp.setRoom_id(Integer.toString(room.getrId()));
+            bp.setRoom_name(room.getName());
+            RoomStat rs = roomStatDAO.getNewestUncommitedByRoomId(Integer.toString(room.getrId()));
+            boolean isCreate = false;
+            if (rs.getElecNumber()== -1){
+
+            }else {
+                isCreate = true;
+            }
+            bp.setCanCreateBill(isCreate);
+            BPL.add(bp);
+        }
+        return  new Gson().toJson(BPL);
     }
     public String getTempBillValueOfRoom(String room_id){
         BillDTO billDTO = new BillDTO();

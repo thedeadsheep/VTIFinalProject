@@ -64,7 +64,7 @@ export default function RecordCard(props) {
                         <p style={pTag}>
                             Tháng:
                         </p>
-                        <input style={inputStyle} defaultValue={""} />
+                        <input style={inputStyle} defaultValue={`${bill.date_create.slice(4, 6)}-${bill.date_create.slice(0, 4)}`} />
                     </label>
                 </div>
                 <div>

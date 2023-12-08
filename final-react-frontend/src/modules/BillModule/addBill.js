@@ -69,12 +69,17 @@ export default function AddBill(props) {
         {contentShow}
     </>)
     return (
-        <div>
+        <div style={{
+            padding: "10px"
+        }}>
 
             {tempBill ?
 
                 <div className={styles.billWrap}>
-                    <p>
+                    <p style={{
+                        padding: "5px",
+                        margin: "5px"
+                    }}>
                         Hóa đơn tháng {tempBill.newNumber.recordDate.slice(4, 6)}
                     </p>
                     <form
@@ -82,13 +87,13 @@ export default function AddBill(props) {
                             formInputHandler(data)
                         )}>
                         {setTotal()}
-                        <label className={`${styles.roomDetail}`}>
+                        <label className={`${styles.roomDetail} ${styles.addBill}`}>
                             <input {...register('roomName', { required: "Nhập nội dung" })} defaultValue={tempBill.room.name} />
                             Giá thuê Phòng:
                             <input {...register('roomPrice', { required: "Nhập nội dung" })} defaultValue={tempBill.room.roomPrice} />
                         </label>
 
-                        <label className={`${styles.numberInput}`}>
+                        <label className={`${styles.numberInput} ${styles.addBill}`}>
                             Số điện
                             <span>
                                 <input {...register('new_elec_number', { required: "Nhập nội dung" })} defaultValue={tempBill.newNumber.elecNumber} />-
@@ -96,11 +101,11 @@ export default function AddBill(props) {
                                 <input defaultValue={numberCal(tempBill.newNumber.elecNumber, tempBill.oldNumber.elecNumber, "-")} />
                             </span>
                         </label>
-                        <label className={`${styles.total}`}>
+                        <label className={`${styles.total} ${styles.addBill}`}>
                             Tổng tiền điện:
                             <input defaultValue={total.elec} />
                         </label>
-                        <label className={`${styles.numberInput}`}>
+                        <label className={`${styles.numberInput} ${styles.addBill}`}>
                             Số nước
                             <span>
                                 <input {...register('new_water_number', { required: "Nhập nội dung" })} defaultValue={tempBill.newNumber.waterNumber} />-
@@ -108,15 +113,15 @@ export default function AddBill(props) {
                                 <input defaultValue={numberCal(tempBill.newNumber.waterNumber, tempBill.oldNumber.waterNumber, "-")} />
                             </span>
                         </label>
-                        <label className={`${styles.total}`}>
+                        <label className={`${styles.total} ${styles.addBill}`}>
                             Tổng tiền nước:
                             <input defaultValue={total.water} />
                         </label>
-                        <label className={`${styles.total}`}>
+                        <label className={`${styles.total} ${styles.addBill}`}>
                             Tổng cộng:
                             <input {...register('total', { required: "Nhập nội dung" })} defaultValue={total.all} />
                         </label>
-                        <label className={styles.createBtn}>
+                        <label className={`${styles.createBtn} ${styles.addBill}`}>
                             <input type="submit" value={"Lưu"} />
                         </label>
                     </form>

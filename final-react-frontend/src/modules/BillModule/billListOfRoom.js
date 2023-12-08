@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { confirmBill, getAllBillsByRoomId } from "../Services/Bill.Services"
 
-export default function BillList(props) {
+export default function BillListOfRoom(props) {
     const room_id = props.room_id
     const [loading, setLoading] = useState(true)
     const [billList, setBillList] = useState([])
@@ -44,6 +44,7 @@ export default function BillList(props) {
         <div>
             {billList.length > 0 ?
                 <table>
+
                     <tbody>
                         <tr>
                             <th>
@@ -58,7 +59,7 @@ export default function BillList(props) {
                             <th>
                                 Đã thanh toán
                             </th>
-                            <th>
+                            <th >
                                 Chức năng
                             </th>
                         </tr>

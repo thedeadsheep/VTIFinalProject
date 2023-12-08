@@ -30,6 +30,7 @@ public class BillController {
     }
     @GetMapping("/getAllBillOfRoom")
     public ResponseEntity<String> GetAllBillOfRoom(@RequestParam("room_id") String room_id) {
+      
         String result = billServiecs.getAllBillOfRoom(room_id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -43,6 +44,10 @@ public class BillController {
             return new ResponseEntity<>("Không có chỉ số mới để tạo hóa đơn", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @GetMapping("/billPageValue")
+    public ResponseEntity<String> getBillPage(){
+        return new ResponseEntity<String>(billServiecs.getOCCRoomsToCreateBills(),HttpStatus.OK);
     }
     @PostMapping("/createNewBill")
     public ResponseEntity<String> CreateNewBill(@RequestParam("room_id") String room_id, @RequestBody Bill bill) {

@@ -6,14 +6,14 @@ export default function ReceiptWrap(props) {
         <div style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            padding: "10px"
+            padding: "20px"
         }}>
             {bills ?
                 bills.map(bill => (
                     <div style={{
                         margin: "5px"
                     }}>
-                        <RecordCard bill={bill} key={bill.bill_id} />
+                        <RecordCard bill={bill} key={bill.bill_id + Date.now()} />
                     </div>
 
                 ))

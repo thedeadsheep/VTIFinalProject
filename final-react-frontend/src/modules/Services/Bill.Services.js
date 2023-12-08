@@ -6,6 +6,10 @@ async function getAllBills() {
     let url = WEB_API + `getAllBill`
     return await axios.get(url)
 }
+async function getBillPage() {
+    let url = WEB_API + `billPageValue`
+    return await axios.get(url)
+}
 async function getAllBillsByRoomId(room_id) {
     let url = WEB_API + `getAllBillOfRoom?room_id=${room_id}`
     return await axios.get(url)
@@ -37,5 +41,6 @@ export {
     getBillById,
     createNewBill,
     confirmBill,
-    getAllUnPaidBills
+    getAllUnPaidBills,
+    getBillPage
 }
