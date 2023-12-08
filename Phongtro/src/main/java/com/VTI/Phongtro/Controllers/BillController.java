@@ -30,7 +30,7 @@ public class BillController {
     }
     @GetMapping("/getAllBillOfRoom")
     public ResponseEntity<String> GetAllBillOfRoom(@RequestParam("room_id") String room_id) {
-      
+
         String result = billServiecs.getAllBillOfRoom(room_id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

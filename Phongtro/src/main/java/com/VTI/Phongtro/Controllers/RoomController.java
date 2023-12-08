@@ -100,4 +100,14 @@ public class RoomController {
         String result = roomServices.deleteRoomStat(roomId, recordDate);
         return new ResponseEntity<String>(result,HttpStatus.OK);
     }
+    @GetMapping("/getForRoomStatConfig")
+    public ResponseEntity<String> GetForRoomStatConfig(@RequestParam("room_id") String roomId, @RequestParam("record_date") String recordDate){
+        String result = roomServices.getForRoomStatConfig();
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
+    @PostMapping("/setForRoomStatConfig")
+    public ResponseEntity<String> SetForRoomStatConfig(@RequestParam("room_id") String roomId, @RequestBody RoomStat roomStat){
+        String result = roomServices.setForRoomStatConfig(roomId, roomStat);
+        return new ResponseEntity<String>(result,HttpStatus.OK);
+    }
 }

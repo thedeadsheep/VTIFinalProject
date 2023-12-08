@@ -29,7 +29,9 @@ export default function AllBills() {
                 <p>
                     Danh sách hóa đơn
                 </p>
-                <table>
+                <table style={{
+                    width: "100%"
+                }}>
                     <tbody>
                         <tr>
                             <th>
@@ -50,10 +52,10 @@ export default function AllBills() {
                                 <td>
                                     {`Phòng ${bill.room_id}`}
                                 </td>
-                                <td>
+                                <td style={{ textAlign: "center" }}>
                                     {dayCreate(bill.date_create)}
                                 </td>
-                                <td>
+                                <td style={{ textAlign: "center" }}>
                                     {bill.total} VND
                                 </td>
                             </tr>

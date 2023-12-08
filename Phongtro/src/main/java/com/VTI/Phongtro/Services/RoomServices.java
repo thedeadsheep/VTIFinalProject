@@ -4,6 +4,7 @@ import com.VTI.Phongtro.DAO.RenterDAO;
 import com.VTI.Phongtro.DAO.RenterRoomDAO;
 import com.VTI.Phongtro.DAO.RoomDAO;
 import com.VTI.Phongtro.DAO.RoomStatDAO;
+import com.VTI.Phongtro.DTO.RoomStatConfig;
 import com.VTI.Phongtro.DTO.RoomStatDTO;
 import com.VTI.Phongtro.Entities.Renter;
 import com.VTI.Phongtro.Entities.RenterRoom;
@@ -204,6 +205,8 @@ public class RoomServices {
     public String getRoomStatOfRoom(String room_id){
         return new Gson().toJson(rsDAO.getRoomStatByRoomId(room_id));
     }
+
+
     public String deleteRoomStat(String room_id, String recordDate){
         RoomStat roomStat = rsDAO.getCorrectly(room_id, recordDate);
         if (roomStat == null){
@@ -218,5 +221,32 @@ public class RoomServices {
             e.printStackTrace();
         }
         return "Xóa thành công";
+    }
+    public String getForRoomStatConfig(){
+        List<RoomStatConfig> roomStatConfigList = new ArrayList<>();
+        List<Room> RL = roomDAO.getAllRoom();
+        for (Room room: RL){
+            RoomStatConfig roomStatConfig = new RoomStatConfig();
+            roomStatConfig.setRoom_id(Integer.toString(room.getrId()));
+            roomStatConfig.setRoom_name(room.getName());
+            boolean canUpdate = false;
+            RoomStat rs = rsDAO.getTheNewestRecordOfRoom(Integer.toString(room.getrId()));
+            if (rs.isCommited()){
+                canUpdate = true;
+            }
+            roomStatConfig.setCanUpdateStat(canUpdate);
+        }
+        return new Gson().toJson(roomStatConfigList);
+    }
+    public String setForRoomStatConfig(String room_id, RoomStat roomStat){
+        roomStat.setRoom_id(room_id);
+        roomStat.setDefaultRecordDate();
+        try{
+            rsDAO.addRoomStat(roomStat);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Có lỗi sảy ra hãy thử lại!";
+        }
+        return  "Ghi điện nước hoàn thành!";
     }
 }

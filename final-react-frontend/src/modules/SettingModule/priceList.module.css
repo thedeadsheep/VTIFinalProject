@@ -4,7 +4,9 @@
     border-radius: 10px;
     border: 0.3px solid;
     padding: 10px;
-    width: 300px;
+    width: 350px;
+    height: 322px;
+    box-sizing:border-box;
 }
 .priceHeader{
     display: flex;

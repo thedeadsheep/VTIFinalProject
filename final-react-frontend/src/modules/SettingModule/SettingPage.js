@@ -33,8 +33,6 @@ function SettingPage() {
         <>
             <h1>
                 SettingPage
-
-
             </h1>
             <div id="price" style={{
                 display: "flex",
@@ -48,6 +46,9 @@ function SettingPage() {
                 <div>
                     <PriceHistory list={priceHistory} />
                 </div>
+                <div>
+                    <RoomListForCinfig />
+                </div>
             </div>
 
 
@@ -55,3 +56,12 @@ function SettingPage() {
     )
 }
 export default SettingPage
+
+function RoomListForCinfig() {
+
+    return (
+        <>
+            ban
+        </>
+    )
+}

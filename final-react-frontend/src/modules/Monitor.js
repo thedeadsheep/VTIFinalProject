@@ -2,6 +2,7 @@ import { useNavigate } from "react-router"
 import monitorStyle from './Monitor.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faWrench, faReceipt, faDoorOpen, faPersonWalkingLuggage, faUsersGear } from "@fortawesome/free-solid-svg-icons"
+import Statistics from "./components/Statistics"
 function Monitor() {
 
     const navigate = useNavigate()
@@ -38,6 +39,9 @@ function Monitor() {
                     </span>
 
                 </div>
+            </div>
+            <div className="chart">
+                <Statistics />
             </div>
         </div>
     )
