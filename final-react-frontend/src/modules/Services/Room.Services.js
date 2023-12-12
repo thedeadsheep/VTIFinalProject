@@ -4,6 +4,10 @@ async function getAllRoom() {
     let url = WEB_API + "getAllRooms"
     return await axios.get(url)
 }
+async function getAllRoomCanEditStat() {
+    let url = WEB_API + `getForRoomStatConfig`
+    return await axios.get(url)
+}
 async function getNewestStat(id) {
     let url = WEB_API + `getNewestStat?room_id=${id}`
     return await axios.get(url)
@@ -27,6 +31,10 @@ async function createNewRoom(data) {
 }
 async function addRoomRecord(room_id, data) {
     const url = WEB_API + `addRoomRecord?room_id=${room_id}`
+    return await axios.post(url, data)
+}
+async function setRoomRecord(room_id, data) {
+    const url = WEB_API + `setForRoomStatConfig?room_id=${room_id}`
     return await axios.post(url, data)
 }
 async function addRenterToRoom(renter_id, room_id) {
@@ -67,5 +75,7 @@ export {
     addRoomRecord,
     getNewestStat,
     getRSOfOCCRoom,
-    deleteRoomRecord
+    deleteRoomRecord,
+    getAllRoomCanEditStat,
+    setRoomRecord
 }

@@ -101,7 +101,7 @@ public class RoomController {
         return new ResponseEntity<String>(result,HttpStatus.OK);
     }
     @GetMapping("/getForRoomStatConfig")
-    public ResponseEntity<String> GetForRoomStatConfig(@RequestParam("room_id") String roomId, @RequestParam("record_date") String recordDate){
+    public ResponseEntity<String> GetForRoomStatConfig(){
         String result = roomServices.getForRoomStatConfig();
         return new ResponseEntity<String>(result,HttpStatus.OK);
     }

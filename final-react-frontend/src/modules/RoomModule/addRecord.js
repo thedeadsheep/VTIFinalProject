@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { addRoomRecord } from "../Services/Room.Services"
+import { addRoomRecord, setRoomRecord } from "../Services/Room.Services"
 
 export default function AddRecord(props) {
     const room = props.room || {}
+    const phiaSau = props.phiaSau
+    console.log(phiaSau)
     const {
         register,
         handleSubmit,
@@ -11,7 +13,21 @@ export default function AddRecord(props) {
         mode: "onBlur",
     });
     function formInputHandler(data) {
-        addRecord(room.room_id, data)
+        if (phiaSau) {
+            setRecord(room.room_id, data)
+        } else {
+            addRecord(room.room_id, data)
+        }
+    }
+    async function setRecord(room_id, data) {
+
+        await setRoomRecord(room_id, data).then((res) => {
+            console.log(res)
+        }).catch((errors) => {
+            console.log(errors)
+        }).finally((() => {
+            window.location.reload()
+        }))
     }
     async function addRecord(room_id, data) {
         await addRoomRecord(room_id, data).then((res) => {
@@ -43,13 +59,13 @@ export default function AddRecord(props) {
                     width: "50%"
                 }}>
                     Số điện
-                    <input {...register('elecNumber', {})} defaultValue={room.chiSoGanNhat.elecNumber} />
+                    <input {...register('elecNumber', {})} defaultValue={parseInt(room.chiSoGanNhat.elecNumber) < 0 ? 0 : room.chiSoGanNhat.elecNumber} />
                 </label>
                 <label style={{
                     width: "50%"
                 }}>
                     Số nước
-                    <input {...register('waterNumber', {})} defaultValue={room.chiSoGanNhat.waterNumber} />
+                    <input {...register('waterNumber', {})} defaultValue={parseInt(room.chiSoGanNhat.waterNumber) < 0 ? 0 : room.chiSoGanNhat.waterNumber} />
                 </label>
                 <label style={{
                     width: "100%"

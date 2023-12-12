@@ -231,16 +231,19 @@ public class RoomServices {
             roomStatConfig.setRoom_name(room.getName());
             boolean canUpdate = false;
             RoomStat rs = rsDAO.getTheNewestRecordOfRoom(Integer.toString(room.getrId()));
-            if (rs.isCommited()){
+            if (rs.isCommited() || rs.getElecNumber() == -1){
                 canUpdate = true;
             }
+            roomStatConfig.setCurrentStats(rsDAO.getTheNewestRecordOfRoom(Integer.toString(room.getrId())));
             roomStatConfig.setCanUpdateStat(canUpdate);
+            roomStatConfigList.add(roomStatConfig);
         }
         return new Gson().toJson(roomStatConfigList);
     }
     public String setForRoomStatConfig(String room_id, RoomStat roomStat){
         roomStat.setRoom_id(room_id);
         roomStat.setDefaultRecordDate();
+        roomStat.setCommited(true);
         try{
             rsDAO.addRoomStat(roomStat);
         }catch (Exception e){

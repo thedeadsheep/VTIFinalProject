@@ -1,11 +1,18 @@
 package com.VTI.Phongtro.DTO;
 
+import com.VTI.Phongtro.Entities.RoomStat;
+
 public class RoomStatConfig {
     private String room_id;
     private String room_name;
+    private RoomStat currentStats;
     private boolean canUpdateStat;
 
     public RoomStatConfig(){}
+
+    public RoomStat getCurrentStats() {
+        return currentStats;
+    }
 
     public String getRoom_id() {
         return room_id;
@@ -17,6 +24,10 @@ public class RoomStatConfig {
 
     public boolean getCanUpdateStat() {
         return canUpdateStat;
+    }
+
+    public void setCurrentStats(RoomStat currentStats) {
+        this.currentStats = currentStats;
     }
 
     public void setRoom_id(String room_id) {

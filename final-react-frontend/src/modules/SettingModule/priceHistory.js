@@ -16,7 +16,8 @@ export default function PriceHistory(props) {
                 borderRadius: "10px"
             }}>
                 <table style={{
-                    width: "100%"
+                    width: "100%",
+                    minWidth: "500px"
                 }}>
                     <tbody>
                         <tr>
