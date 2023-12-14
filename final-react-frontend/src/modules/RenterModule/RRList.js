@@ -38,8 +38,9 @@ export default function RenterRelativeComponent() {
 
 
 function RenterAndRealativeList(props) {
-    let data = props.list.sort((a, b) => a.room.rId - b.room.rId) || {}
-
+    let data = props.list || {}
+    console.log(data)
+    data = data.sort((a, b) => a.room.rId - b.room.rId)
     const [filterValue, setFilterValue] = useState("nothing")
     const [isOpen, setIsOpen] = useState(false)
     const [component, setComponent] = useState()

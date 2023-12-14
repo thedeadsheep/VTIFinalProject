@@ -104,10 +104,8 @@ public class RenterServices {
         }
         renterRL.removeIf(renter -> Objects.equals(renter.getId(), new_id));
         renterRL.add(oldRenter);
-        newRenter.setLink_with(null);
+        newRenter.setLink_with("");
         boolean kq1 = renterDAO.updateRenter(newRenter);
-
-
         for (Renter renter: renterRL){
             renter.setLink_with(new_id);
             boolean rs = renterDAO.updateRenter(renter);
@@ -119,7 +117,6 @@ public class RenterServices {
     }
 
     public String getRentersAndRelative(){
-
         String result = "";
         List<Renter> RL = renterDAO.getAllRenterWithNotLink();
         List<RenterDTO> DTOList = new ArrayList<>();

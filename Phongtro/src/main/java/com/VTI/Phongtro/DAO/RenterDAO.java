@@ -34,7 +34,7 @@ public class RenterDAO {
     }
     public List<Renter> getAllRenterWithNotLink(){
         try (Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query query = session.createQuery("from Renter where link_with = :id");
+            Query query = session.createQuery("from Renter where link_with = :id and conO = true");
             query.setParameter("id", "");
             return query.getResultList();
         }
